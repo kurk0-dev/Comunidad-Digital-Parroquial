@@ -69,10 +69,11 @@ bloque `contacto` del final:
 
 | Qué | Dónde | Cómo se consigue |
 |---|---|---|
+| **Escudo de la parroquia** | archivo `assets/img/logo-parroquia.png` | Guarda ahí la imagen del escudo oficial, con ese nombre exacto. Mientras falte, la portada muestra un aviso |
 | Número de WhatsApp | `contacto.whatsapp` | Código de país + número, sin `+` ni espacios. Perú: `51987654321` |
 | Formulario de contacto | `contacto.googleFormContacto` | Crear en [Google Forms](https://forms.google.com) y copiar el enlace de "Enviar" |
 | Formulario de ayuda | `contacto.googleFormAyuda` | Igual que el anterior. **Debe incluir una casilla de "Enviar de forma anónima"** que oculte el campo del nombre |
-| Mapa | `sobreNosotros.mapaEmbedUrl` | Google Maps → Compartir → Insertar un mapa → copiar solo lo que está dentro de `src="..."` |
+| Dirección exacta | `sobreNosotros.direccion` | Calle y número. El mapa ya apunta a la ubicación correcta |
 
 Mientras los formularios no estén configurados, los botones de la página se
 muestran desactivados con el texto "Formulario aún no configurado", en lugar de
@@ -88,17 +89,30 @@ Google Sheets. Así las respuestas se guardan solas y se pueden descargar en Exc
 
 ### Estructura
 
+El sitio tiene **6 pestañas**, cada una en su propio archivo:
+
 ```
-index.html          Página única, con anclas por sección
-content.js          Todo el contenido editable
-styles.css          Estilos (las variables de color están arriba, en :root)
-js/main.js          Navegación, ayudantes y renderizado general
-js/donaciones.js    Barras de avance de las campañas
-js/bot.js           Bot de preguntas frecuentes
-js/qr.js            Códigos QR
-assets/img/         Fotos
-assets/favicon.svg  Ícono de la pestaña
+index.html        Inicio          Escudo, accesos, historia, mapa, equipo
+misas.html        Misas           Horarios, fechas especiales, QR, calendario
+servicios.html    Servicios       Catequesis + sacramentos
+donaciones.html   Donaciones      Campañas con avance, punto de entrega, QR
+comunidad.html    Comunidad       Eventos y testimonios
+contacto.html     Contacto        Google Forms y WhatsApp
+
+content.js        Todo el contenido editable
+styles.css        Estilos (los colores están arriba, en :root)
+js/main.js        Cabecera, pie y renderizado de cada página
+js/donaciones.js  Barras de avance de las campañas
+js/bot.js         Bot de preguntas frecuentes
+js/qr.js          Códigos QR
+assets/patron-azulejo.svg  Fondo de azulejos
+assets/favicon.svg         Ícono de la pestaña
+assets/img/                Escudo de la parroquia y fotos
 ```
+
+El **menú, el pie y el bot no están escritos en los HTML**: los genera
+`js/main.js` y aparecen igual en las 6 páginas. Para cambiar el menú se edita
+solo la lista `PAGINAS`, al inicio de ese archivo.
 
 ### Decisiones técnicas
 
@@ -112,7 +126,8 @@ assets/favicon.svg  Ícono de la pestaña
   un texto con `&`, `<` o comillas escrito por una persona no técnica no rompa
   la página.
 - **Accesibilidad:** contraste AA verificado (el par de texto más bajo en uso es
-  6.95:1), `alt` en las imágenes, objetivos táctiles de 44 px o más, foco
+  5.43:1, el terracota sobre crema; el dorado quedó descartado como color de
+  texto porque solo daba 2.62:1), `alt` en las imágenes, objetivos táctiles de 44 px o más, foco
   visible, navegación por teclado en el bot y respeto a `prefers-reduced-motion`.
 - **Tipografía:** Lora solo para los títulos, vía Google Fonts. El texto usa la
   fuente del sistema para que la página cargue rápido en celulares de gama baja.

@@ -1,12 +1,12 @@
 /* =============================================================================
    qr.js — Códigos QR
    -----------------------------------------------------------------------------
-   Genera dos códigos QR en el navegador (no se guardan como imagen ni se
-   generan en ningún servicio externo):
-     · uno que abre la sección de horarios de misa
-     · uno que abre la sección de donaciones
+   Genera códigos QR en el navegador (no se guardan como imagen ni se generan
+   en ningún servicio externo). Cada QR apunta a una pestaña del sitio:
+     · el de la página de misas abre misas.html
+     · el de la página de donaciones abre donaciones.html
 
-   Usa la librería qrcode.js que se carga por CDN desde index.html.
+   Usa la librería qrcode.js que se carga por CDN desde cada página.
 
    OJO: los QR apuntan a la dirección donde esté publicada la página. Mientras
    la abras desde tu computadora (archivo local), no hay una dirección pública
@@ -14,18 +14,20 @@
    Vercel, los QR funcionan solos, sin tocar nada.
    ============================================================================= */
 
-/** Arma la dirección completa de una sección, por ejemplo ".../#donaciones" */
-function urlDeSeccion(ancla) {
-  return window.location.origin + window.location.pathname + "#" + ancla;
+/** Arma la dirección completa de una pestaña, por ejemplo ".../donaciones.html" */
+function urlDePagina(archivo) {
+  const base = window.location.href.replace(/[^/]*$/, "");
+  return base + archivo;
 }
 
 /**
  * Dibuja un QR dentro de un contenedor.
  * Si la página no está publicada todavía, muestra un aviso en lugar del código.
  */
-function dibujarQR(idContenedor, ancla, textoAviso) {
-  const contenedor = id(idContenedor);
+function dibujarQR(contenedor, archivo) {
   if (!contenedor) return;
+
+  const textoAviso = "El código QR aparece cuando la página esté publicada en internet.";
 
   // Página abierta como archivo local: no hay URL pública que codificar.
   if (window.location.protocol === "file:") {
@@ -50,10 +52,10 @@ function dibujarQR(idContenedor, ancla, textoAviso) {
   contenedor.textContent = "";
 
   new QRCode(contenedor, {
-    text: urlDeSeccion(ancla),
-    width: 128,
-    height: 128,
-    colorDark: "#1F2937",
+    text: urlDePagina(archivo),
+    width: 132,
+    height: 132,
+    colorDark: "#14304D",
     colorLight: "#FFFFFF",
     correctLevel: QRCode.CorrectLevel.M
   });
@@ -70,15 +72,9 @@ function dibujarQR(idContenedor, ancla, textoAviso) {
 
 /** Lo llama main.js al cargar la página. */
 function generarCodigosQR() {
-  dibujarQR(
-    "qrMisas",
-    "misas",
-    "El código QR aparece cuando la página esté publicada en internet."
-  );
-
-  dibujarQR(
-    "qrDonaciones",
-    "donaciones",
-    "El código QR aparece cuando la página esté publicada en internet."
-  );
+  /* Cada contenedor declara a qué pestaña apunta con data-qr="archivo.html",
+     así se pueden añadir más QR sin tocar este archivo. */
+  document.querySelectorAll("[data-qr]").forEach(function (contenedor) {
+    dibujarQR(contenedor, contenedor.getAttribute("data-qr"));
+  });
 }

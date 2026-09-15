@@ -39,31 +39,46 @@ Usuarios finales: feligreses, **la mayoría entra desde celular**.
 ## Estructura de archivos
 
 ```
-index.html          Página única, secciones con anclas de navegación
-content.js          TODO el contenido editable
-styles.css          Estilos globales
-js/main.js          Nav, scroll, animaciones
-js/donaciones.js    Renderiza barras de progreso de campañas
-js/bot.js           Lógica del bot FAQ
-js/qr.js            Genera los códigos QR
-assets/img/         Logo, directiva, galería, testimonios
-assets/favicon.ico
-README.md           Instrucciones de edición para no-programadores
+index.html            Inicio: escudo grande, accesos, sobre nosotros, mapa
+misas.html            Horarios, fechas especiales, QR, Google Calendar
+servicios.html        Catequesis + sacramentos y servicios
+donaciones.html       Campañas con barra de avance, punto de entrega, QR
+comunidad.html        Eventos próximos, galería de pasados, testimonios
+contacto.html         Google Forms, WhatsApp
+
+content.js            TODO el contenido editable
+styles.css            Estilos globales (paleta en :root)
+js/main.js            Cabecera, pie, ayudantes y render de cada página
+js/donaciones.js      Barras de avance de campañas
+js/bot.js             Bot FAQ (crea su propio marcado)
+js/qr.js              Códigos QR
+assets/patron-azulejo.svg   Fondo de azulejos de todas las páginas
+assets/favicon.svg
+assets/img/           Escudo de la parroquia, fotos
+README.md             Instrucciones de edición para no-programadores
 ```
+
+**Cabecera, pie y bot NO se repiten en el HTML.** Los genera JavaScript
+(`renderCabecera`, `renderPie`, `construirMarcadoBot`) y se insertan en las 6
+páginas. Para añadir o quitar una pestaña del menú se edita **solo** la lista
+`PAGINAS` al inicio de `js/main.js`. Nunca dupliques el menú en los HTML: eso
+obligaría a editar 6 archivos para cambiar un enlace.
+
+Cada `<body>` declara en qué página está con `data-pagina="..."`. De ahí sale
+el `aria-current="page"` que resalta la pestaña activa.
 
 ---
 
-## Secciones (en este orden)
+## Las 6 pestañas
 
-1. **Inicio** — logo, misión, enlaces a Instagram/Facebook
-2. **Sobre nosotros** — historia, directiva con fotos, mapa embebido (iframe de Google Maps)
-3. **Misas y horarios** — domingos, Semana Santa/Cuaresma, misas de difuntos + botón "Agregar a Google Calendar"
-4. **Servicios parroquiales** — bautizos, catequesis, confesiones, consejería (requisitos y horarios)
-5. **Solicitud de donaciones** — necesidades vigentes + barra de progreso por campaña (ej. "32/50 kg de arroz") + QR
-6. **Eventos y actividades** — calendario simple, descripción, galería de eventos pasados
-7. **Comunidades en acción** — testimonios (solo con consentimiento)
-8. **Contacto / Solicitud de ayuda** — dos botones que abren en pestaña nueva sus Google Forms respectivos
-9. **Bot FAQ flotante** — botón fijo abajo a la derecha, visible en todas las secciones
+1. **Inicio** (`index.html`) — escudo grande, misión, accesos a las demás pestañas, historia, mapa, equipo pastoral
+2. **Misas** (`misas.html`) — horarios por día, fechas especiales, QR y botón de Google Calendar
+3. **Servicios** (`servicios.html`) — catequesis de iniciación cristiana (inscripciones) + bautizos, confesiones, consejería
+4. **Donaciones** (`donaciones.html`) — campañas con barra de avance, punto de entrega, QR
+5. **Comunidad** (`comunidad.html`) — eventos próximos, galería de pasados, testimonios
+6. **Contacto** (`contacto.html`) — Google Forms (contacto y ayuda anónima) y WhatsApp
+
+El **bot FAQ flotante** aparece en las 6.
 
 ---
 
@@ -125,6 +140,37 @@ apóyate en estas skills instaladas.
 animaciones pesadas — el público incluye adultos mayores y celulares de gama baja. La animación
 debe ser mínima y respetar `prefers-reduced-motion`. Peso de página bajo: sin librerías grandes.
 
+### Paleta (definida por el cliente)
+
+Azul marino litúrgico + dorado + crema, tomada de la referencia visual que dio el equipo.
+Está en `:root` de `styles.css`.
+
+| Variable | Color | Uso |
+|---|---|---|
+| `--azul` | `#14304D` | Cabecera, pie, títulos, chips de hora |
+| `--azul-oscuro` | `#0E2438` | Fondo del pie |
+| `--dorado` | `#B8912F` | Filetes, bordes, **fondo** de botón primario |
+| `--terracota` | `#9C4A2F` | Color de acento **para texto** |
+| `--crema` | `#F7F1E3` | Fondo de página |
+| `--crema-clara` | `#FCF8EF` | Fondo de tarjetas |
+
+> **Nunca uses el dorado como color de texto sobre crema.** Da 2.62:1 y no cumple AA.
+> El dorado va en bordes y como fondo de botón (azul sobre dorado = 4.57:1, sí cumple).
+> El acento de texto es el terracota (5.43:1). Todos los demás pares están por encima de 5:1.
+
+### Fondo
+
+Todas las páginas llevan el patrón de azulejos `assets/patron-azulejo.svg` (3 KB, se repite
+cada 160px). No hay fondos blancos lisos. Para cambiarlo por una foto real, se edita una sola
+`url()` en la regla `body` de `styles.css`.
+
+### Identidad
+
+El escudo oficial de la parroquia va en `assets/img/logo-parroquia.png` y se muestra **grande**
+en la portada. Si el archivo falta, la portada muestra un aviso con el nombre exacto que se
+espera, en vez de una imagen rota. **No redibujes ni sustituyas el escudo**: es la identidad
+oficial de la parroquia.
+
 ---
 
 ## Despliegue
@@ -150,8 +196,15 @@ Todos los cambios se guardan ahí: commit y `git push origin main`.
 ## Pendientes del equipo (no bloquean el desarrollo)
 
 - [x] Inicializar el repositorio Git y subirlo a GitHub.
+- [x] Ubicación real de la parroquia (mapa ya apunta a -12.0365691, -76.928581).
+- [x] Facebook oficial: `facebook.com/parroquiasfjlima`.
+- [x] Datos de catequesis (del afiche oficial; por eso no llevan `esPlaceholder`).
+- [ ] **Guardar el escudo oficial como `assets/img/logo-parroquia.png`** — mientras falte,
+      la portada muestra un aviso en su lugar.
 - [ ] Conectar el repo a Vercel (Add New Project → Import → Framework Preset: Other).
 - [ ] Número de WhatsApp real de la parroquia (por ahora, placeholder).
+- [ ] Dirección exacta (calle y número) e historia de la parroquia.
+- [ ] Instagram, si la parroquia tiene (queda oculto mientras esté vacío).
 - [ ] Crear los 2 Google Forms (contacto general y solicitud de ayuda), cada uno con su
       Sheet de respuestas vinculado, y pegar las URLs en `content.js`.
 - [ ] Corregir la inconsistencia **Google Sites vs. Vercel** en el Business Case: debe decir

@@ -30,7 +30,11 @@ const CONTENT = {
   /* --- Datos generales de la parroquia ------------------------------------ */
   parroquia: {
     nombre: "Parroquia San Francisco Javier",
-    distrito: "Ate Vitarte, Lima",
+    distrito: "Ate, Lima",
+    // Del sello oficial de la parroquia.
+    diocesis: "Diócesis de Chosica · Vicaría II",
+    // Logo oficial. Guarda el archivo con este nombre en assets/img/.
+    logo: "assets/img/logo-parroquia.png",
     // Frase corta que aparece grande en la portada.
     mision: "Una comunidad que se acompaña, se escucha y se sostiene.",
     // Texto de 2 o 3 líneas debajo de la frase.
@@ -38,20 +42,22 @@ const CONTENT = {
     esPlaceholder: true
   },
 
-  /* --- Redes sociales. Deja "" (vacío) en la que no tengan. --------------- */
+  /* --- Redes sociales. Deja "" (vacío) en la que no tengan. ---------------
+     El Facebook es el oficial de la parroquia. Si abren Instagram, pega aquí
+     el enlace y aparecerá solo. */
   redes: {
-    instagram: "https://instagram.com/",
-    facebook: "https://facebook.com/",
-    esPlaceholder: true
+    instagram: "",
+    facebook: "https://www.facebook.com/parroquiasfjlima/"
   },
 
-  /* --- Sobre nosotros ----------------------------------------------------- */
+  /* --- Sobre nosotros -----------------------------------------------------
+     El mapa ya apunta a la ubicación real de la parroquia.
+     La historia y la dirección exacta siguen pendientes de confirmar. */
   sobreNosotros: {
-    historia: "La parroquia acompaña a las familias de Ate Vitarte desde hace décadas. Aquí va la historia real de la parroquia: cuándo se fundó, quiénes la levantaron y qué comunidades la sostienen hoy.",
-    // Pega aquí el enlace de Google Maps:
-    // Google Maps > Compartir > Insertar un mapa > copia SOLO lo que está en src="..."
-    mapaEmbedUrl: "https://www.google.com/maps?q=Ate+Vitarte,+Lima,+Peru&output=embed",
-    direccion: "Av. Ejemplo 123, Ate Vitarte, Lima",
+    historia: "La parroquia acompaña a las familias de Ate desde hace décadas. Aquí va la historia real de la parroquia: cuándo se fundó, quiénes la levantaron y qué comunidades la sostienen hoy.",
+    mapaEmbedUrl: "https://www.google.com/maps?q=-12.0365691,-76.928581&z=17&hl=es&output=embed",
+    mapaEnlace: "https://maps.app.goo.gl/FcQyJrr9KCFt5ATP7",
+    direccion: "Ate, Lima",
     esPlaceholder: true
   },
 
@@ -89,10 +95,9 @@ const CONTENT = {
       esPlaceholder: true
     },
     {
-      nombre: "Catequesis",
-      requisitos: ["Inscripción al inicio del año", "Partida de bautismo"],
-      horario: "Sábados de 9:00 am a 11:00 am.",
-      esPlaceholder: true
+      nombre: "Catequesis de iniciación cristiana",
+      requisitos: ["Inscripción en la oficina parroquial", "Partida de nacimiento"],
+      horario: "Informes e inscripciones de martes a viernes, de 7:00 pm a 9:00 pm. Ver la sección de catequesis para los grupos por edad."
     },
     {
       nombre: "Confesiones",
@@ -107,6 +112,36 @@ const CONTENT = {
       esPlaceholder: true
     }
   ],
+
+  /* --- Catequesis de iniciación cristiana ---------------------------------
+     Estos datos vienen del afiche oficial de la parroquia, así que NO llevan
+     la bandera esPlaceholder. Si cambian las edades, los horarios o se cierran
+     las inscripciones, se edita aquí.
+
+     Para ocultar el aviso de inscripciones abiertas, pon inscripcionesAbiertas
+     en false: el bloque desaparece de la página. */
+  catequesis: {
+    inscripcionesAbiertas: true,
+    titulo: "Catequesis de iniciación cristiana",
+    anuncio: "Iniciamos las inscripciones",
+    informes: {
+      dias: "Martes a viernes",
+      horario: "De 7:00 p.m. a 9:00 p.m.",
+      lugar: "Parroquia San Francisco Javier"
+    },
+    grupos: [
+      {
+        publico: "Para niños",
+        edades: "desde los 8 hasta los 13 años",
+        sacramentos: ["Bautismo", "Eucaristía"]
+      },
+      {
+        publico: "Para jóvenes",
+        edades: "desde los 15 hasta los 19 años",
+        sacramentos: ["Bautismo", "Eucaristía", "Confirmación"]
+      }
+    ]
+  },
 
   /* --- Campañas de donación -----------------------------------------------
      La barra de avance se calcula sola con "actual" y "meta".
@@ -172,9 +207,9 @@ const CONTENT = {
       respuesta: "Puedes llenar el formulario de solicitud de ayuda en la sección Contacto. Tiene opción de enviarlo de forma anónima. Alguien de la parroquia se comunicará contigo."
     },
     {
-      claves: ["catequesis", "primera comunion", "comunion"],
+      claves: ["catequesis", "primera comunion", "comunion", "confirmacion", "inscripcion", "inscripciones"],
       sugerida: "¿Cuándo es la catequesis?",
-      respuesta: "La catequesis es los sábados de 9:00 am a 11:00 am. La inscripción se hace al inicio del año y se pide la partida de bautismo."
+      respuesta: "Las inscripciones para la catequesis de iniciación cristiana están abiertas. Informes de martes a viernes, de 7:00 p.m. a 9:00 p.m., en la parroquia. Hay dos grupos: niños de 8 a 13 años (Bautismo y Eucaristía) y jóvenes de 15 a 19 años (Bautismo, Eucaristía y Confirmación)."
     },
     {
       claves: ["confesion", "confesiones", "confesar"],

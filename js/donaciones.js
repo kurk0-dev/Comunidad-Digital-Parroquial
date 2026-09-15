@@ -93,11 +93,12 @@ function renderCampanas() {
 
     lista.appendChild(li);
 
-    /* Animamos el ancho en el siguiente cuadro para que se vea el crecimiento.
-       Si la persona pidió menos movimiento, el CSS anula la transición. */
-    requestAnimationFrame(function () {
-      relleno.style.width = porcentaje + "%";
-    });
+    /* El ancho se asigna de inmediato, no dentro de requestAnimationFrame:
+       si la página se abre en una pestaña de segundo plano, el navegador no
+       ejecuta requestAnimationFrame y las barras se quedarían en cero.
+       El crecimiento suave lo da la transición del CSS, que además se anula
+       sola si la persona pidió menos movimiento en su sistema. */
+    relleno.style.width = porcentaje + "%";
   });
 
   /* --- Datos del punto de entrega --- */

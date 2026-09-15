@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios y catequesis — Parroquia San Francisco Javier</title>
+  <meta name="description" content="Bautizos, confesiones, consejería y catequesis de iniciación cristiana en la Parroquia San Francisco Javier (Ate, Lima). Requisitos, horarios e inscripciones.">
+  <meta name="theme-color" content="#14304D">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-pagina="servicios">
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div id="cabecera"></div>
+
+  <main id="contenido">
+    <section class="seccion">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Acompañamiento</p>
+        <h1 class="seccion__titulo">Servicios parroquiales</h1>
+        <p class="seccion__intro">
+          Requisitos y horarios de los sacramentos y servicios que ofrece la parroquia.
+        </p>
+
+        <!-- Bloque de catequesis: lo llena js/main.js desde content.js.
+             Si las inscripciones se cierran, el bloque se oculta solo. -->
+        <div class="catequesis" id="catequesis"></div>
+
+        <ul class="servicios" id="servicios-lista"></ul>
+      </div>
+    </section>
+  </main>
+
+  <div id="pie"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="content.js"></script>
+  <script src="js/donaciones.js"></script>
+  <script src="js/bot.js"></script>
+  <script src="js/qr.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

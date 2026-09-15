@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misas y horarios — Parroquia San Francisco Javier</title>
+  <meta name="description" content="Horarios de misa de la Parroquia San Francisco Javier (Ate, Lima): días de semana, sábados, domingos y fechas especiales como Cuaresma y Semana Santa.">
+  <meta name="theme-color" content="#14304D">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-pagina="misas">
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div id="cabecera"></div>
+
+  <main id="contenido">
+    <section class="seccion">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Celebraciones</p>
+        <h1 class="seccion__titulo">Misas y horarios</h1>
+        <p class="seccion__intro">
+          Estos son los horarios habituales de la parroquia. En fechas especiales
+          pueden cambiar: revisa el bloque de más abajo.
+        </p>
+
+        <ul class="horarios" id="horarios"></ul>
+
+        <h2 class="subtitulo">Fechas especiales</h2>
+        <ul class="especiales" id="especiales"></ul>
+
+        <div class="tarjeta-qr">
+          <div class="tarjeta-qr__texto">
+            <h3>Llévate los horarios</h3>
+            <p>
+              Escanea este código para abrir esta página en tu celular, o guarda
+              la misa dominical directamente en tu calendario.
+            </p>
+            <a class="boton boton--primario" id="btnCalendario" href="#" target="_blank" rel="noopener">
+              Agregar a Google Calendar
+            </a>
+          </div>
+          <div class="tarjeta-qr__codigo" data-qr="misas.html" role="img"
+               aria-label="Código QR que abre la página de misas y horarios"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="pie"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="content.js"></script>
+  <script src="js/donaciones.js"></script>
+  <script src="js/bot.js"></script>
+  <script src="js/qr.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
