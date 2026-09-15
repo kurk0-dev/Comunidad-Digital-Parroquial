@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidad Digital y Solidaria — Parroquia San Francisco Javier</title>
+  <meta name="description" content="Horarios de misa, servicios parroquiales, donaciones y solicitudes de ayuda de la Parroquia San Francisco Javier, Ate Vitarte, Lima.">
+  <meta name="theme-color" content="#6D28D9">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&display=swap">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===================== ENCABEZADO Y NAVEGACIÓN ===================== -->
+  <header class="cabecera">
+    <div class="contenedor cabecera__fila">
+      <a class="marca" href="#inicio">
+        <span class="marca__icono" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="M12 3v18M7 8h10"></path>
+          </svg>
+        </span>
+        <span class="marca__texto" data-parroquia-nombre>Parroquia San Francisco Javier</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navPrincipal">
+        <span class="nav-toggle__barras" aria-hidden="true"></span>
+        <span class="sr-only">Abrir menú de navegación</span>
+      </button>
+
+      <nav class="nav" id="navPrincipal" aria-label="Navegación principal">
+        <ul class="nav__lista">
+          <li><a href="#sobre-nosotros">Nosotros</a></li>
+          <li><a href="#misas">Misas</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#donaciones">Donaciones</a></li>
+          <li><a href="#eventos">Eventos</a></li>
+          <li><a href="#comunidades">Testimonios</a></li>
+          <li><a class="nav__cta" href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ========================= 1. INICIO ========================= -->
+    <section class="portada" id="inicio">
+      <div class="contenedor portada__caja">
+        <p class="portada__sobretitulo" data-parroquia-distrito>Ate Vitarte, Lima</p>
+        <h1 class="portada__titulo" data-parroquia-mision></h1>
+        <p class="portada__bajada" data-parroquia-bajada></p>
+        <div class="portada__acciones">
+          <a class="boton boton--primario" href="#misas">Ver horarios de misa</a>
+          <a class="boton boton--secundario" href="#donaciones">Cómo ayudar</a>
+        </div>
+        <ul class="redes" id="redes" aria-label="Redes sociales"></ul>
+      </div>
+    </section>
+
+    <!-- ====================== 2. SOBRE NOSOTROS ====================== -->
+    <section class="seccion" id="sobre-nosotros">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Quiénes somos</p>
+        <h2 class="seccion__titulo">Sobre nosotros</h2>
+
+        <div class="nosotros">
+          <div class="nosotros__texto">
+            <p id="historia"></p>
+            <p class="nosotros__direccion" id="direccion"></p>
+          </div>
+          <div class="nosotros__mapa">
+            <iframe
+              id="mapa"
+              title="Mapa de ubicación de la parroquia"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src=""></iframe>
+          </div>
+        </div>
+
+        <h3 class="subtitulo">Equipo pastoral</h3>
+        <ul class="directiva" id="directiva"></ul>
+      </div>
+    </section>
+
+    <!-- ====================== 3. MISAS Y HORARIOS ====================== -->
+    <section class="seccion seccion--alterna" id="misas">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Celebraciones</p>
+        <h2 class="seccion__titulo">Misas y horarios</h2>
+
+        <ul class="horarios" id="horarios"></ul>
+
+        <h3 class="subtitulo">Fechas especiales</h3>
+        <ul class="especiales" id="especiales"></ul>
+
+        <div class="tarjeta-qr">
+          <div class="tarjeta-qr__texto">
+            <h3>Llévate los horarios</h3>
+            <p>Escanea este código para abrir los horarios de misa en tu celular, o guarda la misa dominical en tu calendario.</p>
+            <a class="boton boton--secundario" id="btnCalendario" href="#" target="_blank" rel="noopener">Agregar a Google Calendar</a>
+          </div>
+          <div class="tarjeta-qr__codigo" id="qrMisas" role="img" aria-label="Código QR que enlaza a la sección de horarios de misa"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== 4. SERVICIOS PARROQUIALES =================== -->
+    <section class="seccion" id="servicios">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Acompañamiento</p>
+        <h2 class="seccion__titulo">Servicios parroquiales</h2>
+        <p class="seccion__intro">Requisitos y horarios de los sacramentos y servicios que ofrece la parroquia.</p>
+        <ul class="servicios" id="servicios-lista"></ul>
+      </div>
+    </section>
+
+    <!-- ====================== 5. DONACIONES ====================== -->
+    <section class="seccion seccion--alterna" id="donaciones">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Solidaridad</p>
+        <h2 class="seccion__titulo">Qué necesitamos ahora</h2>
+        <p class="seccion__intro">
+          Estas son las campañas abiertas y cuánto falta para cada meta.
+          <strong>La parroquia no recibe dinero a través de esta página</strong>: las donaciones
+          se entregan en persona.
+        </p>
+
+        <ul class="campanas" id="campanas"></ul>
+
+        <div class="tarjeta-qr">
+          <div class="tarjeta-qr__texto">
+            <h3>Punto de entrega</h3>
+            <p id="puntoEntrega"></p>
+            <p class="tarjeta-qr__nota" id="contactoDonaciones"></p>
+          </div>
+          <div class="tarjeta-qr__codigo" id="qrDonaciones" role="img" aria-label="Código QR que enlaza a la sección de donaciones"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 6. EVENTOS ====================== -->
+    <section class="seccion" id="eventos">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Agenda</p>
+        <h2 class="seccion__titulo">Eventos y actividades</h2>
+
+        <h3 class="subtitulo">Próximamente</h3>
+        <ul class="eventos" id="eventos-proximos"></ul>
+
+        <h3 class="subtitulo">Eventos anteriores</h3>
+        <ul class="galeria" id="eventos-pasados"></ul>
+      </div>
+    </section>
+
+    <!-- ================= 7. COMUNIDADES EN ACCIÓN ================= -->
+    <section class="seccion seccion--alterna" id="comunidades">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Comunidades en acción</p>
+        <h2 class="seccion__titulo">Lo que cuenta la gente</h2>
+        <p class="seccion__intro">Testimonios publicados con el consentimiento de cada persona.</p>
+        <ul class="testimonios" id="testimonios"></ul>
+      </div>
+    </section>
+
+    <!-- ====================== 8. CONTACTO ====================== -->
+    <section class="seccion" id="contacto">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Escríbenos</p>
+        <h2 class="seccion__titulo">Contacto y solicitud de ayuda</h2>
+
+        <div class="contacto">
+          <article class="contacto__tarjeta">
+            <h3>Contacto general</h3>
+            <p>Dudas sobre horarios, sacramentos, catequesis o cómo participar en la comunidad.</p>
+            <a class="boton boton--primario" id="formContacto" href="#" target="_blank" rel="noopener">
+              Abrir formulario de contacto
+            </a>
+          </article>
+
+          <article class="contacto__tarjeta contacto__tarjeta--ayuda">
+            <h3>Solicitud de ayuda</h3>
+            <p>
+              Si tú o una familia cercana necesitan apoyo, escríbenos.
+              El formulario <strong>permite enviarlo de forma anónima</strong>.
+            </p>
+            <a class="boton boton--primario" id="formAyuda" href="#" target="_blank" rel="noopener">
+              Abrir formulario de ayuda
+            </a>
+          </article>
+
+          <article class="contacto__tarjeta">
+            <h3>WhatsApp</h3>
+            <p>¿Prefieres hablar con una persona? Escríbenos directamente.</p>
+            <a class="boton boton--whatsapp" id="whatsappLink" href="#" target="_blank" rel="noopener">
+              Escribir por WhatsApp
+            </a>
+          </article>
+        </div>
+
+        <p class="contacto__aviso">
+          Los formularios se abren en Google Forms y las respuestas quedan guardadas
+          para el equipo de la parroquia.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================== PIE DE PÁGINA ====================== -->
+  <footer class="pie">
+    <div class="contenedor pie__fila">
+      <p class="pie__nombre" data-parroquia-nombre></p>
+      <p class="pie__meta">
+        Comunidad Digital y Solidaria · Proyecto de estudiantes de la Universidad de Lima
+      </p>
+    </div>
+  </footer>
+
+  <!-- ====================== 9. BOT FAQ FLOTANTE ====================== -->
+  <button class="bot-lanzador" id="botLanzador" aria-expanded="false" aria-controls="botPanel">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+    </svg>
+    <span class="bot-lanzador__texto">Preguntas frecuentes</span>
+  </button>
+
+  <div class="bot-panel" id="botPanel" role="dialog" aria-modal="false" aria-labelledby="botTitulo" hidden>
+    <header class="bot-panel__cabecera">
+      <h2 id="botTitulo">Preguntas frecuentes</h2>
+      <button class="bot-panel__cerrar" id="botCerrar">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Cerrar el chat de preguntas frecuentes</span>
+      </button>
+    </header>
+
+    <div class="bot-panel__mensajes" id="botMensajes" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+    <div class="bot-panel__sugerencias" id="botSugerencias" aria-label="Preguntas sugeridas"></div>
+
+    <form class="bot-panel__form" id="botForm">
+      <label class="sr-only" for="botInput">Escribe tu pregunta</label>
+      <input type="text" id="botInput" name="pregunta" placeholder="Escribe tu pregunta..." autocomplete="off">
+      <button type="submit" class="bot-panel__enviar">
+        <span aria-hidden="true">→</span>
+        <span class="sr-only">Enviar pregunta</span>
+      </button>
+    </form>
+  </div>
+
+  <!-- ====================== SCRIPTS ======================
+       Orden importante: content.js primero (define los datos),
+       los módulos después, y main.js al final (los ejecuta). -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="content.js"></script>
+  <script src="js/donaciones.js"></script>
+  <script src="js/bot.js"></script>
+  <script src="js/qr.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

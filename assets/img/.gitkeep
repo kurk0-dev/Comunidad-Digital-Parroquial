@@ -1,0 +1,9 @@
+Las fotos del sitio van en esta carpeta (logo, equipo pastoral, eventos).
+
+Recomendaciones:
+- Formato .jpg para fotos, .png si necesitas fondo transparente.
+- Máximo 1200 px de ancho: fotos más grandes hacen lenta la página en celular.
+- Nombres sin espacios ni tildes: "padre-juan.jpg", no "Padre Juán.jpg".
+
+Luego escribe el nombre del archivo en content.js, por ejemplo:
+  foto: "assets/img/padre-juan.jpg"
