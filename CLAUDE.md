@@ -140,9 +140,17 @@ El historial de Git además sirve como evidencia de control de versiones para el
 
 ---
 
+## Repositorio
+
+`https://github.com/kurk0-dev/Comunidad-Digital-Parroquial` (privado, rama `main`).
+Todos los cambios se guardan ahí: commit y `git push origin main`.
+
+---
+
 ## Pendientes del equipo (no bloquean el desarrollo)
 
-- [ ] Inicializar el repositorio Git y subirlo a GitHub — **aún no está inicializado**.
+- [x] Inicializar el repositorio Git y subirlo a GitHub.
+- [ ] Conectar el repo a Vercel (Add New Project → Import → Framework Preset: Other).
 - [ ] Número de WhatsApp real de la parroquia (por ahora, placeholder).
 - [ ] Crear los 2 Google Forms (contacto general y solicitud de ayuda), cada uno con su
       Sheet de respuestas vinculado, y pegar las URLs en `content.js`.
