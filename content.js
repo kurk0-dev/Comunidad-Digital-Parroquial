@@ -33,8 +33,8 @@ const CONTENT = {
     distrito: "Ate, Lima",
     // Del sello oficial de la parroquia.
     diocesis: "Diócesis de Chosica · Vicaría II",
-    // Logo oficial. Guarda el archivo con este nombre en assets/img/.
-    logo: "assets/img/logo-parroquia.png",
+    // Escudo oficial. Si cambias el archivo, escribe aquí su nombre exacto.
+    logo: "assets/img/logo.png",
     // Frase corta que aparece grande en la portada.
     mision: "Una comunidad que se acompaña, se escucha y se sostiene.",
     // Texto de 2 o 3 líneas debajo de la frase.

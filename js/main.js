@@ -162,18 +162,51 @@ function renderCabecera() {
   cabecera.appendChild(fila);
   destino.replaceWith(cabecera);
 
-  /* --- Comportamiento del menú en celular --- */
-  boton.addEventListener("click", function () {
-    const abierto = nav.classList.toggle("esta-abierto");
+  /* --- Comportamiento del menú de las tres rayas (solo en celular) --- */
+
+  function ponerMenu(abierto) {
+    nav.classList.toggle("esta-abierto", abierto);
     boton.setAttribute("aria-expanded", abierto ? "true" : "false");
     boton.querySelector(".sr-only").textContent =
       abierto ? "Cerrar menú de navegación" : "Abrir menú de navegación";
+  }
+
+  boton.addEventListener("click", function () {
+    ponerMenu(!nav.classList.contains("esta-abierto"));
   });
 
+  /* IMPORTANTE: al tocar un enlace NO cerramos el menú.
+     Cerrarlo le pone display:none al enlace en mitad del clic, y hay
+     navegadores (sobre todo de celular) que cancelan la navegación cuando el
+     elemento que pulsaste desaparece antes de que termine el evento. Como
+     resultado, el menú se cerraba y la página no cambiaba.
+     No hace falta cerrarlo: la página siguiente ya se carga con el menú
+     cerrado, porque la cabecera se genera de nuevo en cada página. */
   nav.addEventListener("click", function (evento) {
-    if (evento.target.tagName === "A") {
-      nav.classList.remove("esta-abierto");
-      boton.setAttribute("aria-expanded", "false");
+    const enlace = evento.target.closest("a");
+    if (!enlace) return;
+
+    /* Única excepción: el enlace de la página en la que ya estamos. Ahí no
+       hay navegación que esperar, así que lo cerramos nosotros y subimos
+       al inicio. */
+    if (enlace.getAttribute("aria-current") === "page") {
+      evento.preventDefault();
+      ponerMenu(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+
+  /* Cerrar el menú al tocar fuera de él o con la tecla Escape. */
+  document.addEventListener("click", function (evento) {
+    if (!nav.classList.contains("esta-abierto")) return;
+    if (nav.contains(evento.target) || boton.contains(evento.target)) return;
+    ponerMenu(false);
+  });
+
+  document.addEventListener("keydown", function (evento) {
+    if (evento.key === "Escape" && nav.classList.contains("esta-abierto")) {
+      ponerMenu(false);
+      boton.focus();
     }
   });
 }
