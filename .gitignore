@@ -17,3 +17,15 @@ node_modules/
 
 # Configuracion local de Claude Code (no es parte del sitio)
 .claude/
+
+# Secretos: este proyecto no usa ninguno, pero si algun dia se agregan,
+# que no acaben en el repositorio por accidente.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+.npmrc

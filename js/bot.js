@@ -21,7 +21,7 @@ function normalizarTexto(texto) {
   return (texto || "")
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")   // quita tildes
+    .replace(/[\u0300-\u036f]/g, "")   // quita tildes
     .replace(/[¿?¡!.,;:()"']/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -163,7 +163,8 @@ function agregarMensajeConWhatsApp(texto) {
 
   const mensaje = el("div", "bot-msg bot-msg--bot", texto);
 
-  const numero = (CONTENT.contacto && CONTENT.contacto.whatsapp) || "";
+  // Solo dígitos, por la misma razón que en main.js.
+  const numero = String((CONTENT.contacto && CONTENT.contacto.whatsapp) || "").replace(/\D/g, "");
   if (numero) {
     mensaje.appendChild(document.createElement("br"));
     const enlace = el("a", null, "Escribir por WhatsApp");

@@ -64,6 +64,53 @@ function esEnlaceSinConfigurar(url) {
   return url.includes("XXXXXXXXXXXX") || url.includes("YYYYYYYYYYYY");
 }
 
+/**
+ * SEGURIDAD: filtra las direcciones antes de ponerlas en un enlace o imagen.
+ *
+ * Solo deja pasar http:// y https:// y rutas del propio sitio. Cualquier otra
+ * cosa devuelve "" y no se muestra.
+ *
+ * Por qué existe: content.js lo edita gente de la parroquia, y el archivo vive
+ * en un repositorio público. Si alguien escribiera ahí una dirección que empiece
+ * por "javascript:", el navegador ejecutaría ese código en la página al hacer
+ * clic. Esto lo impide de raíz.
+ *
+ * No borres esta función ni la rodees: si una dirección legítima no aparece,
+ * revisa que empiece por https://
+ */
+function urlSegura(url) {
+  if (typeof url !== "string") return "";
+
+  const limpia = url.trim();
+  if (!limpia) return "";
+
+  // Rutas del propio sitio: "misas.html", "assets/img/foto.jpg"
+  if (/^[\w.\-/]+$/.test(limpia) && !limpia.includes(":")) return limpia;
+
+  try {
+    const analizada = new URL(limpia, window.location.href);
+    if (analizada.protocol === "http:" || analizada.protocol === "https:") {
+      return analizada.href;
+    }
+  } catch (e) {
+    return "";                          // dirección mal escrita
+  }
+
+  console.warn("Dirección descartada por seguridad en content.js:", limpia);
+  return "";
+}
+
+/**
+ * Dirección de Google Maps hacia la parroquia, construida desde las
+ * coordenadas de content.js. Se usa en el botón, en la capa sobre el mapa y
+ * en el pie de página, para que las tres lleven exactamente al mismo sitio.
+ */
+function urlGoogleMaps() {
+  const coords = ((CONTENT.sobreNosotros || {}).coordenadas || "").replace(/\s/g, "");
+  if (!coords) return "";
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(coords);
+}
+
 /** Qué página se está viendo: lo declara el atributo data-pagina del <body>. */
 function paginaActual() {
   return document.body.getAttribute("data-pagina") || "inicio";
@@ -77,7 +124,7 @@ function paginaActual() {
 function crearLogo(clase, alto, mostrarAviso) {
   const p = CONTENT.parroquia || {};
   const img = el("img", clase);
-  img.src = p.logo || "";
+  img.src = urlSegura(p.logo);
   img.alt = "Escudo de la " + (p.nombre || "parroquia");
   img.width = alto;
   img.height = alto;
@@ -234,18 +281,18 @@ function renderPie() {
   const enlaces = el("div", "pie__enlaces");
   if (redes.facebook) {
     const fb = el("a", null, "Facebook");
-    fb.href = redes.facebook; fb.target = "_blank"; fb.rel = "noopener";
+    fb.href = urlSegura(redes.facebook); fb.target = "_blank"; fb.rel = "noopener";
     enlaces.appendChild(fb);
   }
   if (redes.instagram) {
     const ig = el("a", null, "Instagram");
-    ig.href = redes.instagram; ig.target = "_blank"; ig.rel = "noopener";
+    ig.href = urlSegura(redes.instagram); ig.target = "_blank"; ig.rel = "noopener";
     enlaces.appendChild(ig);
   }
-  const mapa = (CONTENT.sobreNosotros || {}).mapaEnlace;
+  const mapa = urlGoogleMaps();
   if (mapa) {
     const m = el("a", null, "Cómo llegar");
-    m.href = mapa; m.target = "_blank"; m.rel = "noopener";
+    m.href = urlSegura(mapa); m.target = "_blank"; m.rel = "noopener";
     enlaces.appendChild(m);
   }
   izquierda.appendChild(enlaces);
@@ -259,11 +306,7 @@ function renderPie() {
     navPie.appendChild(a);
   });
   derecha.appendChild(navPie);
-  derecha.appendChild(el(
-    "p",
-    "pie__meta",
-    "Comunidad Digital y Solidaria · Proyecto de estudiantes de la Universidad de Lima"
-  ));
+  derecha.appendChild(el("p", "pie__meta", "Comunidad Digital y Solidaria"));
   fila.appendChild(derecha);
 
   pie.appendChild(fila);
@@ -306,7 +349,7 @@ function renderRedes() {
     if (!red.url) return;               // si está vacío, no se muestra
     const li = el("li");
     const a = el("a", null, red.nombre);
-    a.href = red.url; a.target = "_blank"; a.rel = "noopener";
+    a.href = urlSegura(red.url); a.target = "_blank"; a.rel = "noopener";
     li.appendChild(a);
     lista.appendChild(li);
   });
@@ -350,11 +393,34 @@ function renderSobreNosotros() {
   const direccion = id("direccion");
   if (direccion) direccion.textContent = datos.direccion || "";
 
-  const mapa = id("mapa");
-  if (mapa && datos.mapaEmbedUrl) mapa.src = datos.mapaEmbedUrl;
+  /* --- Mapa y enlaces a Google Maps ---
+     Las dos direcciones se construyen a partir de las MISMAS coordenadas de
+     content.js, así nunca pueden quedar apuntando a sitios distintos.
 
-  const enlaceMapa = id("enlaceMapa");
-  if (enlaceMapa && datos.mapaEnlace) enlaceMapa.href = datos.mapaEnlace;
+     Para el botón usamos la dirección oficial y documentada de Google
+     (maps/search/?api=1), no un enlace corto: los enlaces cortos caducan y
+     además abren la app del celular de forma menos fiable. */
+  const coords = (datos.coordenadas || "").replace(/\s/g, "");
+
+  if (coords) {
+    const etiqueta = datos.etiquetaMapa || (CONTENT.parroquia && CONTENT.parroquia.nombre) || "";
+
+    const urlEmbed = "https://www.google.com/maps?q=" +
+      encodeURIComponent(coords) +
+      (etiqueta ? "(" + encodeURIComponent(etiqueta) + ")" : "") +
+      "&z=17&hl=es&output=embed";
+
+    const urlMaps = urlGoogleMaps();
+
+    const mapa = id("mapa");
+    if (mapa) mapa.src = urlSegura(urlEmbed);
+
+    // Botón de la columna de texto y capa que cubre el mapa: mismo destino.
+    ["enlaceMapa", "capaMapa"].forEach(function (elementoId) {
+      const enlace = id(elementoId);
+      if (enlace) enlace.href = urlSegura(urlMaps);
+    });
+  }
 }
 
 function renderDirectiva() {
@@ -366,7 +432,7 @@ function renderDirectiva() {
 
     if (persona.foto) {
       const img = el("img", "directiva__foto");
-      img.src = persona.foto;
+      img.src = urlSegura(persona.foto);
       img.alt = "Fotografía de " + (persona.nombre || "integrante del equipo pastoral");
       img.loading = "lazy";
       li.appendChild(img);
@@ -578,7 +644,7 @@ function renderEventos() {
 
       if (evento.foto) {
         const img = el("img", "galeria__foto");
-        img.src = evento.foto;
+        img.src = urlSegura(evento.foto);
         img.alt = "Fotografía del evento: " + (evento.titulo || "");
         img.loading = "lazy";
         li.appendChild(img);
@@ -631,7 +697,7 @@ function configurarBotonFormulario(boton, url, textoPendiente) {
     return;
   }
 
-  boton.href = url;
+  boton.href = urlSegura(url);
 }
 
 function renderContacto() {
@@ -641,9 +707,12 @@ function renderContacto() {
   configurarBotonFormulario(id("formAyuda"), c.googleFormAyuda, "Formulario aún no configurado");
 
   const whatsapp = id("whatsappLink");
-  if (whatsapp && c.whatsapp) {
+  // Solo dígitos: evita que un valor mal escrito en content.js altere la
+  // dirección de destino del enlace.
+  const numero = String(c.whatsapp || "").replace(/\D/g, "");
+  if (whatsapp && numero) {
     const mensaje = encodeURIComponent("Hola, escribo desde la página de la parroquia.");
-    whatsapp.href = "https://wa.me/" + c.whatsapp + "?text=" + mensaje;
+    whatsapp.href = "https://wa.me/" + numero + "?text=" + mensaje;
   }
 }
 

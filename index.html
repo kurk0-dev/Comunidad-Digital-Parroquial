@@ -62,13 +62,22 @@
               Abrir en Google Maps
             </a>
           </div>
+          <!-- El mapa entero es un enlace: tocarlo abre Google Maps.
+               El iframe queda decorativo (aria-hidden + pointer-events:none en
+               el CSS) para que no se trague el clic ni confunda a un lector de
+               pantalla; quien navega con teclado recibe el enlace de abajo. -->
           <div class="nosotros__mapa">
             <iframe
               id="mapa"
-              title="Mapa de ubicación de la Parroquia San Francisco Javier"
+              tabindex="-1"
+              aria-hidden="true"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               src=""></iframe>
+            <a class="nosotros__mapa-capa" id="capaMapa" href="#" target="_blank" rel="noopener">
+              <span class="sr-only">Abrir la ubicación de la parroquia en Google Maps</span>
+              <span class="nosotros__mapa-boton" aria-hidden="true">Abrir en Google Maps</span>
+            </a>
           </div>
         </div>
 
@@ -82,7 +91,6 @@
   <!-- El pie lo genera js/main.js -->
   <div id="pie"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="content.js"></script>
   <script src="js/donaciones.js"></script>
   <script src="js/bot.js"></script>

@@ -55,8 +55,18 @@ const CONTENT = {
      La historia y la dirección exacta siguen pendientes de confirmar. */
   sobreNosotros: {
     historia: "La parroquia acompaña a las familias de Ate desde hace décadas. Aquí va la historia real de la parroquia: cuándo se fundó, quiénes la levantaron y qué comunidades la sostienen hoy.",
-    mapaEmbedUrl: "https://www.google.com/maps?q=-12.0365691,-76.928581&z=17&hl=es&output=embed",
-    mapaEnlace: "https://maps.app.goo.gl/FcQyJrr9KCFt5ATP7",
+
+    /* Ubicación. Se escribe UNA sola vez aquí: de estas coordenadas salen
+       tanto el mapa que se ve en la página como el botón "Abrir en Google Maps".
+
+       Para cambiarlas: entra a Google Maps, haz clic derecho justo sobre la
+       parroquia y pulsa las dos cifras que aparecen arriba del menú (eso las
+       copia). Pégalas aquí tal cual, separadas por coma y sin espacios.
+
+       No uses enlaces cortos (maps.app.goo.gl): caducan y dejan el botón roto. */
+    coordenadas: "-12.0365691,-76.928581",
+    etiquetaMapa: "Parroquia San Francisco Javier",
+
     direccion: "Ate, Lima",
     esPlaceholder: true
   },

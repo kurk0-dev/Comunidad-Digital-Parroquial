@@ -30,7 +30,7 @@ Usuarios finales: feligreses, **la mayoría entra desde celular**.
 | Estilos | CSS puro con variables en `:root` (Tailwind por CDN solo si hace falta acelerar) |
 | Contenido | `content.js`, único archivo editable por no-programadores |
 | Bot FAQ | Widget de chat 100% client-side que responde desde `content.js`, con fallback a WhatsApp (`wa.me`) |
-| QR | `qrcode.js` por CDN, generados en el navegador |
+| QR | `qrcode.js` con copia local en `js/vendor/`, generados en el navegador |
 | Hosting | Vercel (plan gratuito) |
 | Formularios | Google Forms + Google Sheets (respuestas caen solas en un Sheet) |
 
@@ -103,6 +103,11 @@ const CONTENT = {
 };
 ```
 
+**Ubicación.** `sobreNosotros.coordenadas` (por ejemplo `"-12.0365691,-76.928581"`) es la
+**única** fuente de la ubicación: de ahí salen el mapa incrustado, el botón, la capa clicable
+sobre el mapa y el enlace del pie. No uses enlaces cortos `maps.app.goo.gl`: caducan y dejan
+el botón roto.
+
 **Bandera `esPlaceholder`.** Cualquier objeto de `content.js` acepta la propiedad opcional
 `esPlaceholder: true`. Cuando está presente, la página debe mostrar junto a ese contenido una
 etiqueta visual discreta **"Ejemplo / Por confirmar"**. Sirve para no presentar información
@@ -166,10 +171,41 @@ cada 160px). No hay fondos blancos lisos. Para cambiarlo por una foto real, se e
 
 ### Identidad
 
-El escudo oficial de la parroquia va en `assets/img/logo-parroquia.png` y se muestra **grande**
+El escudo oficial de la parroquia va en `assets/img/logo.png` y se muestra **grande**
 en la portada. Si el archivo falta, la portada muestra un aviso con el nombre exacto que se
 espera, en vez de una imagen rota. **No redibujes ni sustituyas el escudo**: es la identidad
 oficial de la parroquia.
+
+---
+
+## Seguridad (auditado 2026-09-15 — no revertir sin pensarlo)
+
+El sitio pasó una auditoría de seguridad antes de publicarse. Estas cuatro
+decisiones son deliberadas:
+
+1. **Cero código de terceros en ejecución.** La librería de QR vive en
+   `js/vendor/qrcode.min.js`, no en un CDN, y solo se carga en las 2 páginas que
+   tienen QR. **No vuelvas a poner una etiqueta `<script src="https://...">`**:
+   rompería la CSP y reintroduciría el riesgo de que un CDN comprometido ejecute
+   código en la página.
+2. **`urlSegura()` en `js/main.js`.** Toda dirección que venga de `content.js` y
+   acabe en un `href` o un `src` pasa por ahí: solo admite `http:`, `https:` y
+   rutas internas. Impide que una dirección `javascript:` escrita por error en
+   `content.js` ejecute código. No la quites ni la rodees.
+3. **`vercel.json` define las cabeceras**, incluida una CSP con
+   `script-src 'self'` (sin `unsafe-inline` ni `unsafe-eval`),
+   `frame-ancestors 'none'` y `form-action 'none'`. Si algún día hace falta un
+   recurso externo nuevo, hay que añadirlo explícitamente a la CSP y volver a
+   probar las 6 páginas.
+4. **`textContent`, nunca `innerHTML`**, para pintar contenido de `content.js`.
+
+**Pendiente de privacidad (no es código):** la página promete que la solicitud de
+ayuda puede enviarse de forma anónima. Eso solo es cierto si el Google Form tiene
+**desactivado** «Recopilar direcciones de correo electrónico» y no obliga a
+iniciar sesión. Verificarlo antes de publicar los enlaces.
+
+Informe completo: `cyber-neo-report-Comunidad-Digital-2026-09-15.md` (en el
+Escritorio, fuera del repositorio).
 
 ---
 
@@ -199,8 +235,7 @@ Todos los cambios se guardan ahí: commit y `git push origin main`.
 - [x] Ubicación real de la parroquia (mapa ya apunta a -12.0365691, -76.928581).
 - [x] Facebook oficial: `facebook.com/parroquiasfjlima`.
 - [x] Datos de catequesis (del afiche oficial; por eso no llevan `esPlaceholder`).
-- [ ] **Guardar el escudo oficial como `assets/img/logo-parroquia.png`** — mientras falte,
-      la portada muestra un aviso en su lugar.
+- [x] Escudo oficial guardado en `assets/img/logo.png`.
 - [ ] Conectar el repo a Vercel (Add New Project → Import → Framework Preset: Other).
 - [ ] Número de WhatsApp real de la parroquia (por ahora, placeholder).
 - [ ] Dirección exacta (calle y número) e historia de la parroquia.

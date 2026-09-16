@@ -373,10 +373,34 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nosotros__direccion { font-weight: 600; color: var(--azul); margin-bottom: .75rem; }
 
 .nosotros__mapa {
+  position: relative;
   border-radius: var(--radio); overflow: hidden;
   border: 1px solid var(--borde); box-shadow: var(--sombra);
 }
-.nosotros__mapa iframe { width: 100%; height: 320px; border: 0; display: block; }
+/* El iframe es solo la imagen del mapa: no recibe clics, para que tocar
+   cualquier punto (incluido el pin rojo) abra Google Maps. */
+.nosotros__mapa iframe {
+  width: 100%; height: 320px; border: 0; display: block;
+  pointer-events: none;
+}
+
+/* Capa transparente que cubre el mapa y lo convierte en un enlace. */
+.nosotros__mapa-capa {
+  position: absolute; inset: 0;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 1rem; text-decoration: none;
+}
+.nosotros__mapa-boton {
+  background: var(--dorado); color: var(--azul);
+  border-radius: var(--radio-chico);
+  padding: .6rem 1.2rem; min-height: 44px;
+  display: inline-flex; align-items: center;
+  font-weight: 600; font-size: .95rem;
+  box-shadow: 0 2px 10px rgba(14, 36, 56, .3);
+  transition: background var(--transicion);
+}
+.nosotros__mapa-capa:hover .nosotros__mapa-boton { background: var(--dorado-claro); }
+.nosotros__mapa-capa:focus-visible { outline: 3px solid var(--terracota); outline-offset: -3px; }
 
 .directiva { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .directiva__item { padding: 1.4rem; text-align: center; }
