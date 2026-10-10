@@ -71,41 +71,6 @@ const CONTENT = {
     esPlaceholder: true
   },
 
-  /* --- Seminario de Vida en el Espíritu -----------------------------------
-     Lo confirmado: 7 temas, cada viernes por la noche.
-
-     temas: escribe los 7 títulos en orden. Mientras la lista esté vacía, la
-     página muestra los 7 viernes numerados con la etiqueta "Por confirmar".
-       temas: ["El amor de Dios", "...", ...]
-
-     proximo: fecha de la siguiente edición. Si está vacío, se ofrece avisar
-     por WhatsApp cuando haya una nueva. */
-  seminario: {
-    titulo: "Seminario de Vida en el Espíritu",
-    descripcion: "Siete encuentros de formación, uno cada viernes por la noche, para conocer el amor de Dios y abrir el corazón a la acción del Espíritu Santo. Cada tema se trabaja primero en asamblea y luego en pequeños grupos de compartir.",
-    temas: [],
-    proximo: "",
-    imagen: "assets/img/paloma-llamas.webp"
-  },
-
-  /* --- Fotos ---------------------------------------------------------------
-     Se publican SOLO fotos con permiso de las personas que aparecen.
-     Mientras no haya un criterio del grupo sobre fotos de niños, no se
-     publican fotos donde aparezcan menores de edad.
-
-     "alt" describe la foto para quien no puede verla: escríbelo siempre. */
-  galeria: [
-    { foto: "assets/img/seminario/asamblea-mural.webp", alt: "Asamblea del seminario en la capilla, con el mural del Espíritu Santo detrás del altar", pie: "Asamblea" },
-    { foto: "assets/img/seminario/compartir-2.webp", alt: "Cuatro participantes conversan sentados en círculo durante el compartir", pie: "Grupos de compartir" },
-    { foto: "assets/img/seminario/alabanza.webp", alt: "Participantes de rodillas en oración mientras un servidor toca la guitarra", pie: "Alabanza y oración" },
-    { foto: "assets/img/seminario/compartir-1.webp", alt: "Grupo pequeño conversando con las hojas del tema en la mano", pie: "Grupos de compartir" },
-    { foto: "assets/img/seminario/asamblea-coronas.webp", alt: "Asamblea de participantes con coronas de papel amarillo", pie: "Asamblea" },
-    { foto: "assets/img/seminario/oracion.webp", alt: "Personas arrodilladas en oración frente al altar iluminado con velas", pie: "Oración" },
-    { foto: "assets/img/seminario/compartir-3.webp", alt: "Hombres y mujeres comparten en círculo bajo el cartel del tema del día", pie: "Grupos de compartir" },
-    { foto: "assets/img/seminario/servidoras.webp", alt: "Cuatro servidoras sonríen frente al altar con las bolsas del seminario", pie: "Servidores" },
-    { foto: "assets/img/seminario/asamblea.webp", alt: "Vista amplia de la capilla llena durante el seminario", pie: "Asamblea" }
-  ],
-
   /* --- Servidores ----------------------------------------------------------
      Foto del equipo. Para publicar nombres y cargos, pide permiso a cada uno. */
   servidores: {
@@ -226,11 +191,64 @@ const CONTENT = {
     esPlaceholder: true
   },
 
-  /* --- Eventos próximos ----------------------------------------------------
-     "fecha" se escribe como texto libre: "15 de noviembre, 7:00 pm".
-     Todos los eventos son sin costo, sin cupos y sin inscripción previa. */
+  /* --- Eventos ---------------------------------------------------------------
+     Todos los eventos son sin costo, sin cupos y sin inscripción previa.
+
+     CÓMO SE ESCRIBE UN EVENTO
+       titulo, fecha (texto libre: "15 de noviembre, 7:00 pm"), lugar, descripcion
+       pasado: true    → va a "Eventos pasados". Sin esa línea, es un evento próximo.
+       portada         → foto que se ve en la tarjeta de la portada del sitio.
+       simbolo         → (opcional) dibujo decorativo junto al título.
+       viernes / dias  → (opcional) cada encuentro del evento: al tocarlo se abre
+                         su foto en grande. "tema" puede quedar vacío ("").
+       fotos           → (opcional) el carrusel de fotos del evento.
+
+     FOTOS: se publican SOLO con permiso de quienes aparecen. Mientras no haya
+     un criterio del grupo sobre fotos de niños, ninguna foto con menores.
+     "alt" describe la foto para quien no puede verla: escríbelo siempre. */
   eventos: [
-    { titulo: "Próximo evento del grupo", fecha: "Fecha por confirmar", descripcion: "Aquí aparecerán los retiros, vigilias y encuentros del grupo.", esPlaceholder: true }
+    {
+      titulo: "Próximo evento del grupo",
+      fecha: "Fecha por confirmar",
+      descripcion: "Aquí aparecerán los retiros, vigilias y encuentros del grupo.",
+      esPlaceholder: true
+    },
+    {
+      titulo: "Seminario de Vida en el Espíritu",
+      pasado: true,
+      fecha: "7 viernes por la noche",
+      lugar: "Capilla Divino Niño",
+      descripcion: "Siete viernes para conocer el amor de Dios y abrir el corazón a la acción del Espíritu Santo. Cada tema se vivió primero en asamblea y luego en pequeños grupos de compartir.",
+      portada: { foto: "assets/img/seminario/asamblea-mural.webp", alt: "Asamblea del seminario en la capilla, con el mural del Espíritu Santo detrás del altar" },
+      simbolo: "assets/img/paloma-llamas.webp",
+
+      /* Un encuentro por viernes. Las fotos asignadas a cada viernes son de
+         EJEMPLO: cambia cada una por una foto de ese viernes y escribe su tema.
+         Cuando estén confirmadas, borra la línea viernesEsPlaceholder. */
+      viernesEsPlaceholder: true,
+      viernes: [
+        { tema: "", foto: "assets/img/seminario/asamblea-mural.webp", alt: "Asamblea del seminario en la capilla, con el mural del Espíritu Santo detrás del altar" },
+        { tema: "", foto: "assets/img/seminario/compartir-1.webp", alt: "Grupo pequeño conversando con las hojas del tema en la mano" },
+        { tema: "", foto: "assets/img/seminario/alabanza.webp", alt: "Participantes de rodillas en oración mientras un servidor toca la guitarra" },
+        { tema: "", foto: "assets/img/seminario/compartir-3.webp", alt: "Hombres y mujeres comparten en círculo bajo el cartel del tema El pecado y sus consecuencias" },
+        { tema: "", foto: "assets/img/seminario/asamblea-coronas.webp", alt: "Asamblea de participantes con coronas de papel amarillo" },
+        { tema: "", foto: "assets/img/seminario/oracion.webp", alt: "Personas arrodilladas en oración frente al altar iluminado con velas" },
+        { tema: "", foto: "assets/img/seminario/servidoras.webp", alt: "Cuatro servidoras sonríen frente al altar con las bolsas del seminario" }
+      ],
+
+      fotos: [
+        { foto: "assets/img/seminario/asamblea-mural.webp", alt: "Asamblea del seminario en la capilla, con el mural del Espíritu Santo detrás del altar", pie: "Asamblea" },
+        { foto: "assets/img/seminario/compartir-2.webp", alt: "Cuatro participantes conversan sentados en círculo durante el compartir", pie: "Grupos de compartir" },
+        { foto: "assets/img/seminario/alabanza.webp", alt: "Participantes de rodillas en oración mientras un servidor toca la guitarra", pie: "Alabanza y oración" },
+        { foto: "assets/img/seminario/compartir-1.webp", alt: "Grupo pequeño conversando con las hojas del tema en la mano", pie: "Grupos de compartir" },
+        { foto: "assets/img/seminario/asamblea-coronas.webp", alt: "Asamblea de participantes con coronas de papel amarillo", pie: "Asamblea" },
+        { foto: "assets/img/seminario/oracion.webp", alt: "Personas arrodilladas en oración frente al altar iluminado con velas", pie: "Oración" },
+        { foto: "assets/img/seminario/compartir-3.webp", alt: "Hombres y mujeres comparten en círculo bajo el cartel del tema del día", pie: "Grupos de compartir" },
+        { foto: "assets/img/seminario/servidoras.webp", alt: "Cuatro servidoras sonríen frente al altar con las bolsas del seminario", pie: "Servidores" },
+        { foto: "assets/img/seminario/servidores-2.webp", alt: "Tres servidores posan frente al altar con las bolsas del seminario", pie: "Servidores" },
+        { foto: "assets/img/seminario/asamblea.webp", alt: "Vista amplia de la capilla llena durante el seminario", pie: "Asamblea" }
+      ]
+    }
   ],
 
   /* --- Testimonios ---------------------------------------------------------
@@ -257,9 +275,9 @@ const CONTENT = {
       respuesta: "¡Bienvenido! No necesitas inscribirte ni pagar nada. Solo ven a la reunión: cantamos, escuchamos la Palabra y oramos juntos. Puedes ver más en la pestaña Grupo de oración."
     },
     {
-      claves: ["seminario", "vida en el espiritu", "temas", "formacion"],
-      sugerida: "¿Qué es el seminario?",
-      respuesta: "El Seminario de Vida en el Espíritu son 7 temas de formación, uno cada viernes por la noche. Si quieres que te avisemos cuando empiece el próximo, escríbenos por WhatsApp."
+      claves: ["seminario", "vida en el espiritu", "evento", "eventos", "retiro", "fotos"],
+      sugerida: "¿Qué eventos tienen?",
+      respuesta: "Nuestro último evento fue el Seminario de Vida en el Espíritu: siete viernes de alabanza, enseñanza y compartir. Sus fotos y los próximos eventos están en la pestaña Comunidad. Todos son sin costo y sin inscripción."
     },
     {
       claves: ["misa", "misas", "horario de misa", "eucaristia"],

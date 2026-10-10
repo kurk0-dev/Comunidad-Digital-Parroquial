@@ -88,10 +88,10 @@ Los botones de formularios sin configurar salen apagados con el texto
 ### Estructura
 
 ```
-index.html        Inicio          Escudo, reunión semanal, ¿primera vez?, seminario, Instagram, mapa
-grupo.html        Grupo           RCC, historia, Seminario de Vida en el Espíritu, servidores
+index.html        Inicio          Escudo, datos de la reunión, ¿primera vez?, eventos, Instagram, mapa
+grupo.html        Grupo           RCC, historia, servidores
 capilla.html      Capilla         Misas, fechas especiales, QR, catequesis, servicios
-comunidad.html    Comunidad       Instagram, galería del seminario, eventos, testimonios
+comunidad.html    Comunidad       Instagram, eventos (con visor y carrusel de fotos), testimonios
 solidaridad.html  Solidaridad     Campaña de Navidad con avance, cómo donar, QR, pedir ayuda
 contacto.html     Contacto        WhatsApp, formulario, cómo llegar
 
@@ -100,6 +100,7 @@ styles.css        Estilos (colores en :root)
 js/main.js        Cabecera, pie y renderizado de cada página
 js/donaciones.js  Barras de avance (lee el CSV de Google Sheets si está configurado)
 js/instagram.js   "Lo último que publicamos" (lee data/instagram.json)
+js/eventos.js     Eventos, carrusel de fotos y visor a pantalla completa
 js/bot.js         Bot de preguntas frecuentes
 js/qr.js          Códigos QR (librería local en js/vendor/)
 

@@ -48,10 +48,10 @@ Lo mantiene Joaquín. El contenido lo aprobará el padre cuando el sitio exista.
 ## Estructura de archivos
 
 ```
-index.html        Inicio: escudo grande, tarjeta "Nos reunimos", ¿primera vez?, seminario, Instagram, mapa
-grupo.html        Grupo de oración: RCC, historia, Seminario de Vida en el Espíritu, servidores
+index.html        Inicio: escudo grande, datos rápidos (cuándo/dónde/para todos), ¿primera vez?, eventos, Instagram, mapa
+grupo.html        Grupo de oración: RCC, historia, servidores
 capilla.html      Capilla: misas, fechas especiales, QR, catequesis, servicios
-comunidad.html    Comunidad: Instagram, galería del seminario, eventos, testimonios
+comunidad.html    Comunidad: Instagram, eventos (próximos + pasados con viernes, visor y carrusel), testimonios
 solidaridad.html  Solidaridad: campaña de Navidad con avance, cómo donar, QR, pedir ayuda
 contacto.html     Contacto: WhatsApp, formulario, cómo llegar
 
@@ -60,6 +60,7 @@ styles.css        Estilos (paleta en :root)
 js/main.js        Cabecera, pie, ayudantes (urlSegura, urlWhatsapp, icono…) y render
 js/donaciones.js  Barras de avance; lee el CSV de Sheets si está configurado
 js/instagram.js   "Lo último que publicamos"; valida cada publicación del JSON
+js/eventos.js     Tarjetas de eventos, carrusel de fotos y visor (<dialog>)
 js/bot.js         Bot FAQ (crea su propio marcado)
 js/qr.js          Códigos QR
 data/instagram.json              Generado por la tarea. No editar a mano
@@ -74,12 +75,12 @@ se edita **solo** la lista `PAGINAS` al inicio de `js/main.js`.
 
 Cada `<body>` declara su página con `data-pagina="..."` (de ahí sale `aria-current`).
 Cada página carga solo los scripts que usa: `qrcode.min.js` + `qr.js` solo en capilla y
-solidaridad, `instagram.js` en inicio y comunidad, `donaciones.js` en solidaridad.
+solidaridad, `instagram.js` en inicio y comunidad, `eventos.js` en comunidad, `donaciones.js` en solidaridad.
 `main.js` comprueba con `typeof` antes de llamarlos.
 
 Los botones se conectan por atributos, no por id: `data-form="contacto|ayuda|donacion"`,
-`data-whatsapp="mensaje"`, `data-maps`, `data-privacidad`, `data-qr="pagina.html"`,
-`data-seminario="resumen|completo"`, `data-instagram data-limite="N"`.
+`data-whatsapp="mensaje"` (+ `data-opcional`: si no hay WhatsApp, el botón se oculta en vez de
+salir apagado), `data-maps`, `data-privacidad`, `data-qr="pagina.html"`, `data-instagram data-limite="N"`.
 
 Las URLs antiguas (`misas.html`, `servicios.html`, `donaciones.html`) redirigen en `vercel.json`.
 
@@ -87,11 +88,16 @@ Las URLs antiguas (`misas.html`, `servicios.html`, `donaciones.html`) redirigen 
 
 ## Contrato de `content.js`
 
-Bloques: `grupo`, `portada`, `reunion`, `primeraVez[]`, `quienesSomos`, `seminario`
-(`temas[]` vacío → se muestran "Viernes 1…7"), `galeria[]` (`foto`, `alt`, `pie`),
-`servidores`, `redes`, `capilla`, `horariosMisa[]`, `horariosEspeciales[]`, `servicios[]`,
+Bloques: `grupo`, `portada`, `reunion`, `primeraVez[]`, `quienesSomos`, `servidores`, `redes`, `capilla`, `horariosMisa[]`, `horariosEspeciales[]`, `servicios[]`,
 `catequesis`, `donaciones` (`csvAvance`, `formularioDonacion`, `articulos[]`), `eventos[]`,
 `testimonios[]`, `faqBot[]`, `botFallback`, `contacto`, `privacidad`.
+
+**Eventos.** El Seminario de Vida en el Espíritu es un **evento pasado**, no una sección.
+Cada evento: `titulo`, `fecha`, `lugar`, `descripcion`, `pasado: true` (si ya ocurrió),
+`portada` (foto de la tarjeta en Inicio), `simbolo` (decorativo), `viernes[]` (`tema`, `foto`,
+`alt`: cada viernes es un botón que abre su foto en el visor; con `viernesEsPlaceholder` sale la
+etiqueta "Por confirmar") y `fotos[]` (carrusel). Las fotos asignadas a cada viernes son de
+ejemplo: no se sabe qué foto ni qué tema corresponde a cada viernes.
 
 **Ubicación.** `capilla.coordenadas` (`"-12.0405377,-76.925658"`, Capilla Divino Niño) es la
 **única** fuente: de ahí salen el mapa, los botones `data-maps` y el enlace del pie. No uses

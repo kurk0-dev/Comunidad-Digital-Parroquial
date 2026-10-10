@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comunidad — G.O. Divino Niño Jesús</title>
-  <meta name="description" content="Publicaciones, fotos del Seminario de Vida en el Espíritu, próximos eventos y testimonios del Grupo de Oración Divino Niño Jesús.">
+  <meta name="description" content="Próximos eventos, fotos de los encuentros que ya vivimos, publicaciones y testimonios del Grupo de Oración Divino Niño Jesús.">
   <meta name="theme-color" content="#CF040D">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/lexend.woff2" as="font" type="font/woff2" crossorigin>
@@ -31,23 +31,18 @@
       </div>
     </section>
 
-    <!-- ===================== FOTOS DEL SEMINARIO ===================== -->
-    <section class="seccion" id="fotos">
-      <div class="contenedor">
-        <p class="seccion__eyebrow">Galería</p>
-        <h2 class="seccion__titulo">Seminario de Vida en el Espíritu</h2>
-        <p class="seccion__intro">Siete viernes de alabanza, enseñanza y compartir en la Capilla Divino Niño.</p>
-        <ul class="fotos" id="galeria"></ul>
-      </div>
-    </section>
-
-    <!-- ===================== EVENTOS ===================== -->
-    <section class="seccion">
+    <!-- ===================== EVENTOS (los dibuja js/eventos.js) ===================== -->
+    <section class="seccion" id="eventos">
       <div class="contenedor">
         <p class="seccion__eyebrow">Agenda</p>
-        <h2 class="seccion__titulo">Próximos eventos</h2>
+        <h2 class="seccion__titulo">Eventos</h2>
         <p class="seccion__intro">Todos nuestros eventos son sin costo, sin cupos y sin inscripción previa.</p>
-        <ul class="eventos" id="eventos"></ul>
+
+        <h3 class="subtitulo">Próximos</h3>
+        <ul class="eventos" id="eventosProximos"></ul>
+
+        <h3 class="subtitulo">Lo que ya vivimos</h3>
+        <div id="eventosPasados"></div>
       </div>
     </section>
 
@@ -67,6 +62,7 @@
 
   <script src="content.js"></script>
   <script src="js/instagram.js"></script>
+  <script src="js/eventos.js"></script>
   <script src="js/bot.js"></script>
   <script src="js/main.js"></script>
 </body>

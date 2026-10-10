@@ -161,6 +161,15 @@ function icono(trazos, tam) {
 }
 
 const ICONO_CANDADO = ["M7 11V7a5 5 0 0 1 10 0v4", "M5 11h14v10H5z"];
+const ICONO_CALENDARIO = ["M8 2v4", "M16 2v4", "M3 10h18", "M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"];
+const ICONO_UBICACION = ["M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z", "M15 10a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"];
+const ICONO_CORAZON = ["M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"];
+
+/** "Seminario de Vida en el Espíritu" → "seminario-de-vida-en-el-espiritu" (para los enlaces #) */
+function slug(texto) {
+  return String(texto || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
 
 /** Qué página se está viendo: lo declara el atributo data-pagina del <body>. */
 function paginaActual() {
@@ -386,33 +395,49 @@ function renderPortada() {
   if (bajada) bajada.textContent = p.bajada || "";
 }
 
-/* Tarjeta amarilla con el día, la hora y el lugar de la reunión semanal. */
+/* Ficha de datos rápidos de la portada: cuándo, dónde y para quién.
+   Responde de un vistazo lo que más busca alguien que quiere venir. */
 function renderReunion() {
   const caja = id("reunion");
   if (!caja) return;
 
   const r = CONTENT.reunion || {};
+  const capilla = CONTENT.capilla || {};
 
-  const etiqueta = el("p", "reunion__etiqueta", "Nos reunimos");
-  marcarSiEsPlaceholder(etiqueta, r);
-  caja.appendChild(etiqueta);
+  const datos = [
+    { icono: ICONO_CALENDARIO, etiqueta: "Nos reunimos", valor: [r.dia, r.hora].filter(Boolean).join(" · "), placeholder: r },
+    { icono: ICONO_UBICACION, etiqueta: "Dónde", valor: r.lugar || capilla.nombre || "" },
+    { icono: ICONO_CORAZON, etiqueta: "Para todos", valor: "Sin costo ni inscripción" }
+  ];
 
-  caja.appendChild(el("p", "reunion__cuando", [r.dia, r.hora].filter(Boolean).join(" · ")));
-  caja.appendChild(el("p", "reunion__donde", r.lugar || ""));
+  const lista = el("ul", "datos");
+  datos.forEach(function (dato) {
+    const li = el("li", "dato");
+    const circulo = el("span", "dato__icono");
+    circulo.appendChild(icono(dato.icono, 22));
+    li.appendChild(circulo);
 
-  const acciones = el("div", "reunion__acciones");
+    const texto = el("div");
+    texto.appendChild(el("span", "dato__etiqueta", dato.etiqueta));
+    const valor = el("span", "dato__valor", dato.valor);
+    texto.appendChild(valor);
+    if (dato.placeholder) marcarSiEsPlaceholder(texto, dato.placeholder);
+    li.appendChild(texto);
+    lista.appendChild(li);
+  });
+  caja.appendChild(lista);
 
+  const acciones = el("div", "acciones");
   const mapa = urlGoogleMaps();
   if (mapa) {
-    const llegar = el("a", "boton boton--oscuro", "Cómo llegar");
+    const llegar = el("a", "boton boton--primario", "Cómo llegar");
     llegar.href = urlSegura(mapa); llegar.target = "_blank"; llegar.rel = "noopener";
     acciones.appendChild(llegar);
   }
-
   const wa = el("a", "boton boton--secundario", "Escríbenos");
   wa.setAttribute("data-whatsapp", "Hola, quiero ir a la reunión del grupo de oración.");
+  wa.setAttribute("data-opcional", "");     // si no hay WhatsApp, simplemente no aparece
   acciones.appendChild(wa);
-
   caja.appendChild(acciones);
 }
 
@@ -439,9 +464,9 @@ function renderAccesos() {
   if (!lista) return;
 
   const accesos = [
-    { titulo: "Grupo de oración", texto: "Quiénes somos, cómo es una reunión y el Seminario de Vida en el Espíritu.", archivo: "grupo.html" },
+    { titulo: "Grupo de oración", texto: "Quiénes somos, qué es la Renovación Carismática y quiénes servimos.", archivo: "grupo.html" },
     { titulo: "Capilla Divino Niño", texto: "Horarios de misa, confesiones, catequesis y servicios de la capilla.", archivo: "capilla.html" },
-    { titulo: "Comunidad", texto: "Nuestras publicaciones, fotos de los encuentros, próximos eventos y testimonios.", archivo: "comunidad.html" },
+    { titulo: "Comunidad", texto: "Próximos eventos, fotos de los que ya vivimos, publicaciones y testimonios.", archivo: "comunidad.html" },
     { titulo: "Solidaridad", texto: "La campaña de Navidad, qué falta y cómo pedir ayuda si la necesitas.", archivo: "solidaridad.html" },
     { titulo: "Contacto", texto: "Escríbele al coordinador del grupo o déjanos un mensaje.", archivo: "contacto.html" }
   ];
@@ -457,65 +482,58 @@ function renderAccesos() {
 }
 
 /* -----------------------------------------------------------------------------
-   SEMINARIO DE VIDA EN EL ESPÍRITU
-   data-seminario="resumen"  → portada (sin la lista de temas)
-   data-seminario="completo" → página del grupo
+   EVENTOS EN LA PORTADA (resumen)
+   Muestra el próximo evento y el último que pasó, cada uno enlazado a su
+   tarjeta completa en Comunidad. La página completa la dibuja js/eventos.js.
 ----------------------------------------------------------------------------- */
-function renderSeminario() {
-  const s = CONTENT.seminario || {};
+function enlaceEvento(evento) {
+  return "comunidad.html#" + slug(evento.titulo);
+}
 
-  document.querySelectorAll("[data-seminario]").forEach(function (caja) {
-    const completo = caja.getAttribute("data-seminario") === "completo";
+function renderEventosResumen() {
+  const lista = id("eventosResumen");
+  if (!lista) return;
 
-    if (s.imagen) {
-      const img = el("img", "seminario__imagen");
-      img.src = urlSegura(s.imagen);
-      img.alt = "";                       // decorativa: la paloma del Espíritu Santo
-      img.width = 220; img.height = 293;
+  const eventos = CONTENT.eventos || [];
+  const elegidos = [
+    { evento: eventos.find(function (e) { return !e.pasado; }), etiqueta: "Próximo evento" },
+    { evento: eventos.find(function (e) { return e.pasado; }), etiqueta: "Último evento" }
+  ].filter(function (x) { return x.evento; });
+
+  elegidos.forEach(function (item) {
+    const e = item.evento;
+    const a = el("a", "evento-mini");
+    a.href = enlaceEvento(e);
+
+    const portada = e.portada && urlSegura(e.portada.foto);
+    if (portada) {
+      const img = el("img", "evento-mini__foto");
+      img.src = portada;
+      img.alt = e.portada.alt || "";
+      img.width = 1200; img.height = 900;
       img.loading = "lazy";
-      caja.appendChild(img);
+      a.appendChild(img);
+    } else {
+      // Sin foto (un evento que todavía no ocurre): un panel con calendario
+      // ocupa su lugar, para que las dos tarjetas queden parejas.
+      const panel = el("div", "evento-mini__panel");
+      panel.setAttribute("aria-hidden", "true");
+      panel.appendChild(icono(ICONO_CALENDARIO, 48));
+      a.appendChild(panel);
     }
 
-    const cuerpo = el("div");
-    cuerpo.appendChild(el(completo ? "h2" : "h3", "seminario__titulo", s.titulo));
-    cuerpo.appendChild(el("p", "seminario__texto", s.descripcion));
+    const cuerpo = el("div", "evento-mini__cuerpo");
+    cuerpo.appendChild(el("span", "evento-mini__etiqueta", item.etiqueta));
+    const titulo = el("h3", "evento-mini__titulo", e.titulo);
+    marcarSiEsPlaceholder(titulo, e);
+    cuerpo.appendChild(titulo);
+    cuerpo.appendChild(el("p", "evento-mini__fecha", [e.fecha, e.lugar].filter(Boolean).join(" · ")));
+    cuerpo.appendChild(el("span", "acceso__flecha", e.pasado ? "Ver las fotos →" : "Ver detalles →"));
+    a.appendChild(cuerpo);
 
-    if (completo) {
-      const temas = Array.isArray(s.temas) ? s.temas.filter(Boolean) : [];
-      const lista = el("ol", "temas");
-      const cantidad = temas.length || 7;
-      for (let i = 0; i < cantidad; i++) {
-        const li = el("li", "tema");
-        const numero = el("span", "tema__numero", String(i + 1));
-        numero.setAttribute("aria-hidden", "true");
-        li.appendChild(numero);
-        li.appendChild(el("span", null, temas[i] || ("Viernes " + (i + 1))));
-        lista.appendChild(li);
-      }
-      cuerpo.appendChild(lista);
-
-      if (!temas.length) {
-        const nota = el("p", "temas__nota", "Los nombres de los 7 temas se publicarán aquí.");
-        marcarSiEsPlaceholder(nota, { esPlaceholder: true });
-        cuerpo.appendChild(nota);
-      }
-    }
-
-    const acciones = el("div", "reunion__acciones");
-    if (s.proximo) {
-      cuerpo.appendChild(el("p", "seminario__texto", "Próximo seminario: " + s.proximo));
-    }
-    const aviso = el("a", "boton boton--primario", s.proximo ? "Quiero participar" : "Avísame del próximo seminario");
-    aviso.setAttribute("data-whatsapp", "Hola, quiero participar en el próximo Seminario de Vida en el Espíritu.");
-    acciones.appendChild(aviso);
-
-    if (!completo) {
-      const ver = el("a", "boton boton--secundario", "Ver el seminario");
-      ver.href = "grupo.html#seminario";
-      acciones.appendChild(ver);
-    }
-    cuerpo.appendChild(acciones);
-    caja.appendChild(cuerpo);
+    const li = el("li");
+    li.appendChild(a);
+    lista.appendChild(li);
   });
 }
 
@@ -553,31 +571,6 @@ function renderServidores() {
     texto.textContent = s.texto || "";
     marcarSiEsPlaceholder(texto, s);
   }
-}
-
-/* Galería de fotos. data-limite="6" muestra solo las primeras 6. */
-function renderGaleria() {
-  const lista = id("galeria");
-  if (!lista) return;
-
-  const limite = parseInt(lista.getAttribute("data-limite"), 10) || Infinity;
-
-  (CONTENT.galeria || []).slice(0, limite).forEach(function (item) {
-    const src = urlSegura(item.foto);
-    if (!src) return;
-    const figura = el("figure", "foto");
-    const img = el("img");
-    img.src = src;
-    img.alt = item.alt || "";
-    img.width = 1200; img.height = 900;
-    img.loading = "lazy";
-    img.decoding = "async";
-    figura.appendChild(img);
-    if (item.pie) figura.appendChild(el("figcaption", null, item.pie));
-    const li = el("li");
-    li.appendChild(figura);
-    lista.appendChild(li);
-  });
 }
 
 /* -----------------------------------------------------------------------------
@@ -767,27 +760,8 @@ function renderServicios() {
 }
 
 /* -----------------------------------------------------------------------------
-   PÁGINA: COMUNIDAD
+   PÁGINA: COMUNIDAD (los eventos los dibuja js/eventos.js)
 ----------------------------------------------------------------------------- */
-function renderEventos() {
-  const lista = id("eventos");
-  if (!lista) return;
-
-  const eventos = CONTENT.eventos || [];
-  if (eventos.length === 0) {
-    lista.appendChild(el("li", "evento", "No hay eventos programados por ahora."));
-  }
-  eventos.forEach(function (evento) {
-    const li = el("li", "evento");
-    li.appendChild(el("p", "evento__fecha", evento.fecha));
-    const titulo = el("h3", "evento__titulo", evento.titulo);
-    marcarSiEsPlaceholder(titulo, evento);
-    li.appendChild(titulo);
-    li.appendChild(el("p", "evento__descripcion", evento.descripcion));
-    lista.appendChild(li);
-  });
-}
-
 function renderTestimonios() {
   const lista = id("testimonios");
   if (!lista) return;
@@ -833,7 +807,9 @@ function renderContacto() {
   document.querySelectorAll("[data-whatsapp]").forEach(function (boton) {
     const url = urlWhatsapp(boton.getAttribute("data-whatsapp"));
     if (!url) {
-      apagarBoton(boton, "WhatsApp por confirmar");
+      // data-opcional: botón secundario que no hace falta mostrar apagado.
+      if (boton.hasAttribute("data-opcional")) boton.remove();
+      else apagarBoton(boton, "WhatsApp por confirmar");
       return;
     }
     boton.href = url;
@@ -879,13 +855,12 @@ document.addEventListener("DOMContentLoaded", function () {
   renderPortada();
   renderReunion();
   renderPrimeraVez();
+  renderEventosResumen();
   renderAccesos();
-  renderSeminario();
   renderUbicacion();
 
   renderQuienesSomos();
   renderServidores();
-  renderGaleria();
 
   renderHorarios();
   renderEspeciales();
@@ -893,7 +868,7 @@ document.addEventListener("DOMContentLoaded", function () {
   renderCatequesis();
   renderServicios();
 
-  renderEventos();
+  if (typeof renderEventos === "function") renderEventos();        // js/eventos.js
   renderTestimonios();
 
   // Va después de todo lo anterior: conecta los botones que esas funciones crearon.

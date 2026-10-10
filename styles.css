@@ -295,28 +295,41 @@ ul { margin: 0; padding: 0; list-style: none; }
 .portada__mision { font-size: 1.15rem; font-weight: 500; color: var(--tinta); margin-bottom: .5rem; }
 .portada__bajada { color: var(--tinta-suave); max-width: 56ch; margin-bottom: 1.5rem; }
 
-/* --- Tarjeta amarilla: "Nos reunimos" ---
-   Tinta sobre amarillo: 9.86:1. Es lo más importante de la portada. */
-.reunion {
-  width: 100%; max-width: 520px;
-  background: var(--amarillo); color: var(--tinta);
-  border-radius: var(--radio); padding: 1.25rem 1.35rem 1.35rem;
-  box-shadow: 0 10px 26px rgba(42, 31, 29, .16);
-  text-align: left;
+/* --- Datos rápidos: cuándo, dónde y para quién ---
+   Sin caja pesada: tres filas con su ícono, separadas por filetes.
+   Los íconos usan los colores del escudo (rojo, azul, verde). */
+.datos {
+  display: grid; width: 100%; max-width: 560px;
+  margin: 0 auto 1.4rem; text-align: left;
+  border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde);
 }
-.reunion__etiqueta {
-  display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .5rem;
-  text-transform: uppercase; letter-spacing: .12em; font-size: .74rem; font-weight: 700;
-  margin-bottom: .35rem;
+.dato { display: flex; align-items: center; gap: .9rem; padding: .8rem .25rem; }
+.dato + .dato { border-top: 1px solid var(--borde); }
+
+.dato__icono {
+  flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
 }
-.reunion__etiqueta::before {
-  content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--rojo);
+.dato:nth-child(1) .dato__icono { background: #FBE6E7; color: var(--rojo-oscuro); }
+.dato:nth-child(2) .dato__icono { background: #E3EEF8; color: var(--azul); }
+.dato:nth-child(3) .dato__icono { background: #E5F0E3; color: var(--verde); }
+
+.dato__etiqueta {
+  display: block; text-transform: uppercase; letter-spacing: .1em;
+  font-size: .7rem; font-weight: 700; color: var(--tinta-suave);
 }
-.reunion__etiqueta .placeholder-tag { margin-left: 0; }
-.reunion__cuando { font-size: 1.45rem; font-weight: 700; line-height: 1.2; margin: 0 0 .15rem; }
-.reunion__donde { font-size: 1rem; margin: 0 0 1rem; }
-.reunion__acciones { display: flex; flex-wrap: wrap; gap: .6rem; }
-.reunion__acciones .boton { flex: 1 1 160px; }
+.dato__valor { display: block; font-size: 1.08rem; font-weight: 600; line-height: 1.3; }
+.dato .placeholder-tag { margin: .3rem 0 0; }
+
+@media (min-width: 860px) { .datos { margin-left: 0; } }
+@media (min-width: 1020px) {
+  .datos { grid-template-columns: repeat(3, 1fr); max-width: none; }
+  .dato { flex-direction: column; align-items: flex-start; gap: .55rem; padding: 1rem 1.1rem 1rem 0; }
+  .dato + .dato { border-top: 0; border-left: 1px solid var(--borde); padding-left: 1.1rem; }
+}
+
+.acciones { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; }
+@media (min-width: 860px) { .acciones { justify-content: flex-start; } }
 
 /* =============================================================================
    SECCIONES
@@ -392,39 +405,171 @@ ul { margin: 0; padding: 0; list-style: none; }
 .punto__texto { margin: 0; color: var(--tinta-suave); font-size: .96rem; }
 
 /* =============================================================================
-   SEMINARIO DE VIDA EN EL ESPÍRITU
+   EVENTOS — resumen en la portada
    ============================================================================= */
-.seminario {
-  display: grid; gap: 1.5rem; align-items: center;
-  background: var(--amarillo-suave);
-  border: 1px solid var(--amarillo); border-radius: var(--radio);
-  padding: 1.75rem 1.5rem;
+.eventos-mini { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.evento-mini {
+  display: flex; flex-direction: column; height: 100%;
+  background: var(--tarjeta); border: 1px solid var(--borde); border-radius: var(--radio);
+  overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--sombra);
+  transition: transform var(--transicion);
 }
-@media (min-width: 860px) { .seminario { grid-template-columns: 220px 1fr; gap: 2.5rem; padding: 2.25rem 2.5rem; } }
-
-.seminario__imagen { width: 170px; margin-inline: auto; }
-@media (min-width: 860px) { .seminario__imagen { width: 220px; } }
-.seminario__titulo { font-size: 1.5rem; margin-bottom: .5rem; }
-.seminario__texto { color: var(--tinta-suave); }
-
-/* Los 7 viernes */
-.temas {
-  display: grid; gap: .6rem; margin: 1.25rem 0;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  counter-reset: tema;
+.evento-mini:hover { transform: translateY(-3px); }
+.evento-mini__foto { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.evento-mini__panel {
+  aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center;
+  background: var(--amarillo-suave); color: var(--rojo-oscuro);
+  border-bottom: 4px solid var(--amarillo);
 }
-.tema {
-  display: flex; align-items: center; gap: .7rem;
+.evento-mini__cuerpo { display: flex; flex-direction: column; gap: .2rem; flex: 1; padding: 1.2rem 1.35rem 1.35rem; }
+.evento-mini__etiqueta {
+  text-transform: uppercase; letter-spacing: .1em;
+  font-size: .72rem; font-weight: 700; color: var(--rojo-oscuro);
+}
+.evento-mini__titulo { font-size: 1.2rem; margin: 0; }
+.evento-mini__fecha { color: var(--tinta-suave); font-size: .95rem; margin: 0 0 .7rem; }
+.evento-mini .acceso__flecha { margin-top: auto; }
+
+/* =============================================================================
+   EVENTOS — tarjeta de un evento pasado (Comunidad)
+   ============================================================================= */
+.evento, .pasado { scroll-margin-top: 92px; }   /* que la cabecera fija no tape el título */
+
+.pasado {
   background: var(--tarjeta); border: 1px solid var(--borde);
-  border-radius: var(--radio-chico); padding: .6rem .8rem;
-  font-size: .92rem; font-weight: 500;
+  border-radius: var(--radio); box-shadow: var(--sombra);
+  padding: 1.5rem;
 }
-.tema__numero {
-  flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+@media (min-width: 720px) { .pasado { padding: 2rem 2.25rem; } }
+.pasado + .pasado { margin-top: 1.5rem; }
+
+.pasado__cabecera { display: grid; gap: 1.25rem; align-items: center; }
+@media (min-width: 720px) { .pasado__cabecera { grid-template-columns: 140px 1fr; gap: 2rem; } }
+.pasado__simbolo { width: 110px; margin-inline: auto; }
+@media (min-width: 720px) { .pasado__simbolo { width: 140px; } }
+.pasado__titulo { font-size: 1.5rem; margin: .1rem 0 .5rem; }
+.pasado__texto { color: var(--tinta-suave); margin: 0; }
+
+.pasado__subtitulo {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .4rem;
+  font-size: 1.08rem; margin: 2rem 0 .2rem;
+}
+.pasado__subtitulo .placeholder-tag { margin-left: 0; }
+.pasado__ayuda { font-size: .9rem; color: var(--tinta-suave); margin: 0 0 .85rem; }
+
+/* Los viernes: cada uno es un botón que abre su foto. */
+.viernes {
+  display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  margin: 0; padding: 0; list-style: none;     /* los números ya van en los círculos rojos */
+}
+.viernes__boton {
+  width: 100%; min-height: 56px;
+  display: flex; align-items: center; gap: .7rem; padding: .6rem .8rem;
+  background: var(--crema); color: var(--tinta);
+  border: 1px solid var(--borde); border-radius: var(--radio-chico);
+  font-family: inherit; font-size: .95rem; text-align: left; cursor: pointer;
+  transition: border-color var(--transicion), background var(--transicion), transform var(--transicion);
+}
+.viernes__boton:hover { border-color: var(--rojo); background: var(--amarillo-suave); transform: translateY(-2px); }
+.viernes__numero {
+  flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  background: var(--rojo); color: #fff; font-weight: 700; font-size: .85rem;
+  background: var(--rojo); color: #fff; font-weight: 700; font-size: .88rem;
 }
-.temas__nota { font-size: .9rem; color: var(--tinta-suave); margin: 0 0 1.25rem; }
+.viernes__texto { display: flex; flex-direction: column; line-height: 1.25; }
+.viernes__nombre { font-weight: 600; }
+.viernes__tema { font-size: .8rem; color: var(--tinta-suave); }
+
+/* =============================================================================
+   CARRUSEL DE FOTOS
+   Se desliza con el dedo (desplazamiento nativo con "imán" en cada foto).
+   La foto siguiente asoma por el borde: así se entiende que hay más.
+   ============================================================================= */
+.carrusel__pista {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 85%; column-gap: .75rem;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding: .25rem .1rem .75rem;
+  scrollbar-width: thin; scrollbar-color: var(--borde) transparent;
+}
+@media (min-width: 720px) { .carrusel__pista { grid-auto-columns: calc(50% - .5rem); column-gap: 1rem; } }
+@media (min-width: 1020px) { .carrusel__pista { grid-auto-columns: calc(38% - .6rem); } }
+.carrusel__pista:focus-visible { outline-offset: 4px; }
+.carrusel__item { scroll-snap-align: start; }
+
+.carrusel__foto {
+  position: relative; display: block; width: 100%;
+  padding: 0; border: 0; border-radius: var(--radio); overflow: hidden;
+  background: var(--borde); cursor: zoom-in;
+}
+.carrusel__foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 300ms ease; }
+.carrusel__foto:hover img { transform: scale(1.03); }
+.carrusel__pie {
+  position: absolute; left: .6rem; bottom: .6rem;
+  background: rgba(42, 31, 29, .8); color: #fff;
+  font-size: .8rem; font-weight: 500; padding: .25rem .7rem; border-radius: 999px;
+}
+.carrusel__ampliar {
+  position: absolute; top: .6rem; right: .6rem;
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .92); color: var(--tinta);
+}
+
+.carrusel__controles { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: .4rem; }
+.carrusel__flecha {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--tarjeta); color: var(--tinta);
+  border: 1px solid var(--borde); box-shadow: var(--sombra); cursor: pointer;
+  transition: border-color var(--transicion), color var(--transicion);
+}
+.carrusel__flecha:hover:not(:disabled) { border-color: var(--rojo); color: var(--rojo-oscuro); }
+.carrusel__flecha:disabled { opacity: .4; cursor: default; box-shadow: none; }
+.carrusel__contador {
+  margin: 0; min-width: 5.5em; text-align: center;
+  font-weight: 600; font-variant-numeric: tabular-nums; color: var(--tinta-suave);
+}
+
+/* =============================================================================
+   VISOR DE FOTOS (pantalla completa, con <dialog>)
+   ============================================================================= */
+.visor {
+  width: 100vw; height: 100vh; height: 100dvh; max-width: 100vw; max-height: 100dvh;
+  margin: 0; padding: 4rem 1rem 5rem; border: 0;
+  background: transparent; color: #fff;
+}
+.visor[open] { display: flex; align-items: center; justify-content: center; }
+.visor::backdrop { background: rgba(20, 14, 13, .93); }
+
+.visor__figura { margin: 0; display: flex; flex-direction: column; align-items: center; gap: .8rem; max-width: min(1100px, 100%); }
+.visor__img {
+  max-width: 100%; max-height: calc(100dvh - 10rem);
+  width: auto; height: auto; object-fit: contain;
+  border-radius: var(--radio-chico); box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+}
+.visor__pie { font-size: 1rem; font-weight: 500; text-align: center; }
+.visor__contador { position: absolute; top: 1.15rem; left: 1.1rem; margin: 0; font-variant-numeric: tabular-nums; opacity: .9; }
+
+.visor__boton {
+  position: absolute; width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .15); color: #fff; border: 0; cursor: pointer;
+  transition: background var(--transicion);
+}
+.visor__boton:hover { background: rgba(255, 255, 255, .3); }
+.visor__boton:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 2px; }
+.visor__boton[hidden] { display: none; }
+.visor__cerrar { top: .75rem; right: .75rem; }
+.visor__anterior { left: .75rem; top: 50%; transform: translateY(-50%); }
+.visor__siguiente { right: .75rem; top: 50%; transform: translateY(-50%); }
+
+/* En celular las flechas van abajo, al alcance del pulgar. */
+@media (max-width: 640px) {
+  .visor__anterior, .visor__siguiente { top: auto; bottom: 1rem; transform: none; }
+  .visor__anterior { left: calc(50% - 64px); }
+  .visor__siguiente { right: calc(50% - 64px); }
+}
 
 /* =============================================================================
    ACCESOS DIRECTOS DESDE INICIO
@@ -490,20 +635,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 860px) { .servidores { grid-template-columns: 1.3fr 1fr; gap: 2rem; } }
 .servidores__foto { border-radius: var(--radio); overflow: hidden; box-shadow: var(--sombra); }
 .servidores__foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-
-/* =============================================================================
-   GALERÍA DE FOTOS
-   ============================================================================= */
-.fotos { display: grid; gap: .75rem; grid-template-columns: repeat(2, 1fr); }
-@media (min-width: 720px) { .fotos { grid-template-columns: repeat(3, 1fr); gap: 1rem; } }
-.foto { position: relative; overflow: hidden; margin: 0; border-radius: var(--radio-chico); background: var(--borde); }
-.foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-.foto figcaption {
-  position: absolute; left: .5rem; bottom: .5rem;
-  background: rgba(42, 31, 29, .78); color: #fff;
-  font-size: .76rem; font-weight: 500;
-  padding: .2rem .6rem; border-radius: 999px;
-}
 
 /* =============================================================================
    INSTAGRAM — "Lo último que publicamos" (franja azul)
