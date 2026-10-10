@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comunidad — Parroquia San Francisco Javier</title>
-  <meta name="description" content="Eventos, actividades y testimonios de la comunidad de la Parroquia San Francisco Javier (Ate, Lima).">
-  <meta name="theme-color" content="#14304D">
+  <title>Comunidad — G.O. Divino Niño Jesús</title>
+  <meta name="description" content="Publicaciones, fotos del Seminario de Vida en el Espíritu, próximos eventos y testimonios del Grupo de Oración Divino Niño Jesús.">
+  <meta name="theme-color" content="#CF040D">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&display=swap">
+  <link rel="preload" href="assets/fonts/lexend.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body data-pagina="comunidad">
@@ -19,22 +17,44 @@
 
   <main id="contenido">
 
-    <section class="seccion">
+    <!-- Título de la página siempre presente: la franja de Instagram puede estar oculta. -->
+    <h1 class="sr-only">Comunidad del Grupo de Oración Divino Niño Jesús</h1>
+
+    <!-- ================= INSTAGRAM (se oculta si no hay publicaciones) ================= -->
+    <section class="instagram" data-instagram data-limite="9" hidden aria-labelledby="tituloInstagram">
       <div class="contenedor">
-        <p class="seccion__eyebrow">Agenda</p>
-        <h1 class="seccion__titulo">Eventos y actividades</h1>
-
-        <h2 class="subtitulo">Próximamente</h2>
-        <ul class="eventos" id="eventos-proximos"></ul>
-
-        <h2 class="subtitulo">Eventos anteriores</h2>
-        <ul class="galeria" id="eventos-pasados"></ul>
+        <div class="instagram__cabecera">
+          <h2 class="instagram__titulo" id="tituloInstagram">Lo último que publicamos</h2>
+          <a class="instagram__usuario" href="#">Instagram</a>
+        </div>
+        <ul class="instagram__lista"></ul>
       </div>
     </section>
 
+    <!-- ===================== FOTOS DEL SEMINARIO ===================== -->
+    <section class="seccion" id="fotos">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Galería</p>
+        <h2 class="seccion__titulo">Seminario de Vida en el Espíritu</h2>
+        <p class="seccion__intro">Siete viernes de alabanza, enseñanza y compartir en la Capilla Divino Niño.</p>
+        <ul class="fotos" id="galeria"></ul>
+      </div>
+    </section>
+
+    <!-- ===================== EVENTOS ===================== -->
     <section class="seccion">
       <div class="contenedor">
-        <p class="seccion__eyebrow">Comunidades en acción</p>
+        <p class="seccion__eyebrow">Agenda</p>
+        <h2 class="seccion__titulo">Próximos eventos</h2>
+        <p class="seccion__intro">Todos nuestros eventos son sin costo, sin cupos y sin inscripción previa.</p>
+        <ul class="eventos" id="eventos"></ul>
+      </div>
+    </section>
+
+    <!-- ===================== TESTIMONIOS ===================== -->
+    <section class="seccion">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Testimonios</p>
         <h2 class="seccion__titulo">Lo que cuenta la gente</h2>
         <p class="seccion__intro">Testimonios publicados con el consentimiento de cada persona.</p>
         <ul class="testimonios" id="testimonios"></ul>
@@ -46,9 +66,8 @@
   <div id="pie"></div>
 
   <script src="content.js"></script>
-  <script src="js/donaciones.js"></script>
+  <script src="js/instagram.js"></script>
   <script src="js/bot.js"></script>
-  <script src="js/qr.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

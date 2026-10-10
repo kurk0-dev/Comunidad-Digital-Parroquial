@@ -3,10 +3,11 @@
    -----------------------------------------------------------------------------
    Genera códigos QR en el navegador (no se guardan como imagen ni se generan
    en ningún servicio externo). Cada QR apunta a una pestaña del sitio:
-     · el de la página de misas abre misas.html
-     · el de la página de donaciones abre donaciones.html
+     · el de la página de la capilla abre capilla.html
+     · el de la página de solidaridad abre solidaridad.html
 
-   Usa la librería qrcode.js que se carga por CDN desde cada página.
+   Usa la librería qrcode.js, con copia local en js/vendor/ (nunca por CDN:
+   ver la sección de seguridad de CLAUDE.md).
 
    OJO: los QR apuntan a la dirección donde esté publicada la página. Mientras
    la abras desde tu computadora (archivo local), no hay una dirección pública
@@ -55,7 +56,7 @@ function dibujarQR(contenedor, archivo) {
     text: urlDePagina(archivo),
     width: 132,
     height: 132,
-    colorDark: "#14304D",
+    colorDark: "#2A1F1D",
     colorLight: "#FFFFFF",
     correctLevel: QRCode.CorrectLevel.M
   });

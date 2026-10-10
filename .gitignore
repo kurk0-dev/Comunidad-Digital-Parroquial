@@ -18,6 +18,11 @@ node_modules/
 # Configuracion local de Claude Code (no es parte del sitio)
 .claude/
 
+# Fotos originales sin seleccionar. El repositorio es publico: aqui hay rostros
+# de personas (incluidos menores) que no han autorizado aparecer en GitHub.
+# Al sitio solo pasan copias elegidas y comprimidas, guardadas en assets/img/.
+images/
+
 # Secretos: este proyecto no usa ninguno, pero si algun dia se agregan,
 # que no acaben en el repositorio por accidente.
 .env

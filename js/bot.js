@@ -3,7 +3,7 @@
    -----------------------------------------------------------------------------
    No hay servidor ni inteligencia artificial detrás: el bot compara lo que
    escribe la persona con las palabras de "claves" en CONTENT.faqBot y responde
-   con el texto que ya escribió la parroquia.
+   con el texto que ya escribió el grupo.
 
    Para agregar o cambiar respuestas, edita la lista faqBot en content.js.
    Si el bot no encuentra nada, ofrece escribir por WhatsApp.
@@ -163,13 +163,12 @@ function agregarMensajeConWhatsApp(texto) {
 
   const mensaje = el("div", "bot-msg bot-msg--bot", texto);
 
-  // Solo dígitos, por la misma razón que en main.js.
-  const numero = String((CONTENT.contacto && CONTENT.contacto.whatsapp) || "").replace(/\D/g, "");
-  if (numero) {
+  // urlWhatsapp() (main.js) devuelve "" si el número sigue siendo el de ejemplo.
+  const url = urlWhatsapp("Hola, tengo una consulta sobre el grupo de oración.");
+  if (url) {
     mensaje.appendChild(document.createElement("br"));
     const enlace = el("a", null, "Escribir por WhatsApp");
-    enlace.href = "https://wa.me/" + numero +
-      "?text=" + encodeURIComponent("Hola, tengo una consulta sobre la parroquia.");
+    enlace.href = url;
     enlace.target = "_blank";
     enlace.rel = "noopener";
     mensaje.appendChild(enlace);

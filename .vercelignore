@@ -1,0 +1,8 @@
+# Archivos del repositorio que NO deben publicarse en la web.
+# No contienen secretos, pero no son parte del sitio.
+.github/
+scripts/
+docs/
+images/
+CLAUDE.md
+README.md

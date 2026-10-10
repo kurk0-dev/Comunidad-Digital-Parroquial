@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parroquia San Francisco Javier — Comunidad Digital y Solidaria</title>
-  <meta name="description" content="Parroquia San Francisco Javier, Ate, Lima. Diócesis de Chosica. Horarios de misa, servicios parroquiales, catequesis, donaciones y solicitudes de ayuda.">
-  <meta name="theme-color" content="#14304D">
+  <title>Grupo de Oración Divino Niño Jesús — RCC Diócesis de Chosica</title>
+  <meta name="description" content="Grupo de Oración Divino Niño Jesús de la Renovación Carismática Católica, Diócesis de Chosica, Zona 3. Nos reunimos en la Capilla Divino Niño. Sin costo y sin inscripción.">
+  <meta name="theme-color" content="#CF040D">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&display=swap">
+  <link rel="preload" href="assets/fonts/lexend.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body data-pagina="inicio">
@@ -21,68 +19,88 @@
 
   <main id="contenido">
 
-    <!-- ===================== PORTADA CON EL ESCUDO ===================== -->
+    <!-- ============ PORTADA: escudo grande + cuándo nos reunimos ============ -->
     <section class="portada">
-      <div class="contenedor">
-        <div class="portada__logo-caja" id="logoPortada"></div>
-        <p class="portada__sobretitulo" id="portadaDistrito"></p>
-        <h1 class="portada__titulo" id="portadaMision"></h1>
-        <p class="portada__bajada" id="portadaBajada"></p>
-
-        <div class="portada__acciones">
-          <a class="boton boton--primario" href="misas.html">Ver horarios de misa</a>
-          <a class="boton boton--secundario" href="donaciones.html">Cómo ayudar</a>
+      <div class="contenedor portada__fila">
+        <div class="portada__escudo" id="logoPortada"></div>
+        <div>
+          <p class="portada__sobretitulo" id="portadaSobretitulo"></p>
+          <h1 class="portada__titulo" id="portadaTitulo"></h1>
+          <p class="portada__mision" id="portadaMision"></p>
+          <p class="portada__bajada" id="portadaBajada"></p>
+          <div class="reunion" id="reunion"></div>
         </div>
-
-        <ul class="redes" id="redes" aria-label="Redes sociales"></ul>
       </div>
     </section>
 
-    <!-- ===================== ACCESOS A LAS PESTAÑAS ===================== -->
+    <!-- ===================== ¿ES TU PRIMERA VEZ? ===================== -->
+    <section class="seccion">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Para quien llega</p>
+        <h2 class="seccion__titulo">¿Es tu primera vez?</h2>
+        <div class="primera-vez">
+          <div class="primera-vez__foto">
+            <img src="assets/img/seminario/compartir-2.webp" width="1200" height="900" loading="lazy"
+                 alt="Cuatro participantes conversan sentados en círculo durante el compartir">
+          </div>
+          <ul class="puntos" id="primeraVez"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SEMINARIO (resumen) ================= -->
+    <section class="seccion">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Nuestro último encuentro</p>
+        <div class="seminario" data-seminario="resumen"></div>
+      </div>
+    </section>
+
+    <!-- ================= INSTAGRAM (se oculta si no hay publicaciones) ================= -->
+    <section class="instagram" data-instagram data-limite="3" hidden aria-labelledby="tituloInstagram">
+      <div class="contenedor">
+        <div class="instagram__cabecera">
+          <h2 class="instagram__titulo" id="tituloInstagram">Lo último que publicamos</h2>
+          <a class="instagram__usuario" href="comunidad.html">Ver más</a>
+        </div>
+        <ul class="instagram__lista"></ul>
+      </div>
+    </section>
+
+    <!-- ===================== ACCESOS ===================== -->
     <section class="seccion">
       <div class="contenedor">
         <p class="seccion__eyebrow">Qué encuentras aquí</p>
-        <h2 class="seccion__titulo">La parroquia en línea</h2>
-        <p class="seccion__intro">Cada sección tiene su propia página. Toca la que necesites.</p>
+        <h2 class="seccion__titulo">Conoce más</h2>
         <div class="accesos" id="accesos"></div>
       </div>
     </section>
 
-    <!-- ====================== SOBRE NOSOTROS ====================== -->
+    <!-- ===================== CÓMO LLEGAR ===================== -->
     <section class="seccion">
       <div class="contenedor">
-        <p class="seccion__eyebrow">Quiénes somos</p>
-        <h2 class="seccion__titulo">Sobre nosotros</h2>
+        <p class="seccion__eyebrow">Dónde estamos</p>
+        <h2 class="seccion__titulo">Cómo llegar</h2>
 
         <div class="nosotros">
           <div class="nosotros__texto">
-            <p id="historia"></p>
-            <p class="nosotros__direccion" id="direccion"></p>
-            <a class="boton boton--secundario" id="enlaceMapa" href="#" target="_blank" rel="noopener">
-              Abrir en Google Maps
-            </a>
+            <p class="nosotros__lugar" id="ubicacionLugar"></p>
+            <p class="nosotros__direccion" id="ubicacionDireccion"></p>
+            <a class="boton boton--primario" data-maps href="#">Abrir en Google Maps</a>
           </div>
           <!-- El mapa entero es un enlace: tocarlo abre Google Maps.
-               El iframe queda decorativo (aria-hidden + pointer-events:none en
-               el CSS) para que no se trague el clic ni confunda a un lector de
-               pantalla; quien navega con teclado recibe el enlace de abajo. -->
+               El iframe es decorativo (aria-hidden + pointer-events:none en el
+               CSS) para que no se trague el clic; quien navega con teclado
+               recibe el enlace de la capa. -->
           <div class="nosotros__mapa">
-            <iframe
-              id="mapa"
-              tabindex="-1"
-              aria-hidden="true"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              src=""></iframe>
-            <a class="nosotros__mapa-capa" id="capaMapa" href="#" target="_blank" rel="noopener">
-              <span class="sr-only">Abrir la ubicación de la parroquia en Google Maps</span>
+            <iframe id="mapa" tabindex="-1" aria-hidden="true" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" src=""></iframe>
+            <a class="nosotros__mapa-capa" data-maps href="#">
+              <span class="sr-only">Abrir la ubicación de la capilla en Google Maps</span>
               <span class="nosotros__mapa-boton" aria-hidden="true">Abrir en Google Maps</span>
             </a>
           </div>
         </div>
-
-        <h3 class="subtitulo">Equipo pastoral</h3>
-        <ul class="directiva" id="directiva"></ul>
       </div>
     </section>
 
@@ -92,9 +110,8 @@
   <div id="pie"></div>
 
   <script src="content.js"></script>
-  <script src="js/donaciones.js"></script>
+  <script src="js/instagram.js"></script>
   <script src="js/bot.js"></script>
-  <script src="js/qr.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

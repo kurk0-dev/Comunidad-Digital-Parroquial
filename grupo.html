@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupo de oración — G.O. Divino Niño Jesús</title>
+  <meta name="description" content="Quiénes somos, cómo es una reunión del grupo de oración y el Seminario de Vida en el Espíritu: siete temas, cada viernes por la noche.">
+  <meta name="theme-color" content="#CF040D">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/lexend.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-pagina="grupo">
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div id="cabecera"></div>
+
+  <main id="contenido">
+
+    <!-- ===================== QUIÉNES SOMOS ===================== -->
+    <section class="seccion">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Quiénes somos</p>
+        <h1 class="seccion__titulo">Grupo de oración</h1>
+
+        <div class="banda-foto">
+          <img src="assets/img/seminario/asamblea-mural.webp" width="1200" height="900"
+               alt="Asamblea del seminario en la capilla, con el mural del Espíritu Santo detrás del altar">
+        </div>
+
+        <div class="texto-bloque">
+          <h2 class="subtitulo subtitulo--primero">Renovación Carismática Católica</h2>
+          <p id="textoRcc"></p>
+          <h2 class="subtitulo">Nuestra historia</h2>
+          <p id="textoHistoria"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SEMINARIO (completo) ===================== -->
+    <section class="seccion" id="seminario">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Formación</p>
+        <div class="seminario" data-seminario="completo"></div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVIDORES ===================== -->
+    <section class="seccion">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Quienes servimos</p>
+        <h2 class="seccion__titulo">Nuestros servidores</h2>
+        <div class="servidores">
+          <div class="servidores__foto" id="servidoresFoto"></div>
+          <div class="texto-bloque">
+            <p id="servidoresTexto"></p>
+            <a class="boton boton--secundario" href="comunidad.html#fotos">Ver las fotos del seminario</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="pie"></div>
+
+  <script src="content.js"></script>
+  <script src="js/bot.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

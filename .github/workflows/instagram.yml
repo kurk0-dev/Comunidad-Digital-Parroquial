@@ -1,0 +1,48 @@
+# Trae las últimas publicaciones de Instagram del grupo a la web.
+#
+# El token de Instagram vive como SECRETO de GitHub (IG_TOKEN): cifrado, nunca
+# aparece en el código ni en la web, y GitHub lo tapa con *** en los registros.
+# Cómo crearlo y renovarlo cada 60 días: docs/guia-instagram.md
+#
+# Si el token vence, esta tarea falla y GitHub te avisa por correo. Mientras
+# tanto la web sigue mostrando las últimas publicaciones que sí se guardaron.
+
+name: Actualizar Instagram
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"      # cada 6 horas (hora UTC)
+  workflow_dispatch:            # botón "Run workflow" para probar a mano
+
+# Lo mínimo necesario: solo puede escribir en el repositorio.
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # Fijada a un commit exacto (no a una etiqueta que alguien pueda mover).
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Descargar publicaciones
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python3 scripts/instagram_feed.py
+
+      - name: Guardar cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/instagram.json assets/instagram
+          if git diff --cached --quiet; then
+            echo "Sin cambios que guardar."
+            exit 0
+          fi
+          git commit -m "Actualizar publicaciones de Instagram"
+          git push

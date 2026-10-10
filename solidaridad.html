@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solidaridad — Campaña de Navidad y solicitud de ayuda</title>
+  <meta name="description" content="Campaña de Navidad del Grupo de Oración Divino Niño Jesús: qué falta, dónde entregar y cómo pedir ayuda de forma anónima. Solo donaciones físicas.">
+  <meta name="theme-color" content="#CF040D">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/lexend.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-pagina="solidaridad">
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div id="cabecera"></div>
+
+  <main id="contenido">
+
+    <!-- ===================== CAMPAÑA ===================== -->
+    <section class="seccion">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Solidaridad</p>
+        <h1 class="seccion__titulo" id="campanaTitulo">Campaña de Navidad</h1>
+        <p class="seccion__intro">
+          <span id="campanaDestino"></span>
+          <strong>Solo recibimos donaciones físicas: esta página nunca recibe ni pide dinero.</strong>
+        </p>
+
+        <div class="campana-cabecera">
+          <span class="campana-cabecera__fecha" id="campanaFecha"></span>
+          <span class="campana-cabecera__fuente" id="campanaFuente"></span>
+        </div>
+
+        <ul class="campanas" id="campanas"></ul>
+
+        <h2 class="subtitulo">Cómo donar</h2>
+        <div class="contacto">
+          <article class="contacto__tarjeta">
+            <h3>Dónde entregar</h3>
+            <p id="puntoEntrega"></p>
+            <p id="noRecibimos"></p>
+            <a class="boton boton--secundario" data-maps href="#">Cómo llegar</a>
+          </article>
+
+          <article class="contacto__tarjeta">
+            <h3>Registra tu donación</h3>
+            <p>
+              Cuéntanos qué vas a traer para coordinar la entrega. Te pedimos nombre y
+              teléfono solo para eso.
+            </p>
+            <a class="boton boton--primario" data-form="donacion" href="#">Registrar mi donación</a>
+            <p data-privacidad></p>
+          </article>
+        </div>
+
+        <div class="tarjeta-qr">
+          <div>
+            <h3>Comparte la campaña</h3>
+            <p>Este código abre esta página: imprímelo o muéstralo para que más personas se sumen.</p>
+          </div>
+          <div class="tarjeta-qr__codigo" data-qr="solidaridad.html" role="img"
+               aria-label="Código QR que abre la página de la campaña de Navidad"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SOLICITUD DE AYUDA ===================== -->
+    <section class="seccion" id="ayuda">
+      <div class="contenedor">
+        <p class="seccion__eyebrow">Estamos para acompañarte</p>
+        <h2 class="seccion__titulo">¿Necesitas ayuda?</h2>
+
+        <div class="contacto">
+          <article class="contacto__tarjeta contacto__tarjeta--destacada">
+            <h3>Solicitud de ayuda</h3>
+            <p>
+              Si tú o una familia cercana necesitan apoyo, escríbenos.
+              <strong>Puedes enviarlo de forma anónima</strong>: el nombre no es obligatorio.
+            </p>
+            <a class="boton boton--primario" data-form="ayuda" href="#">Pedir ayuda</a>
+            <p data-privacidad></p>
+          </article>
+
+          <article class="contacto__tarjeta">
+            <h3>Prefiero hablar con alguien</h3>
+            <p>Escríbele directamente al coordinador del grupo.</p>
+            <a class="boton boton--whatsapp" data-whatsapp="Hola, necesito hablar con alguien del grupo." href="#">Escribir por WhatsApp</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="pie"></div>
+
+  <script src="js/vendor/qrcode.min.js"></script>
+  <script src="content.js"></script>
+  <script src="js/donaciones.js"></script>
+  <script src="js/qr.js"></script>
+  <script src="js/bot.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

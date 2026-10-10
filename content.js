@@ -1,25 +1,24 @@
 /* =============================================================================
    content.js — EL ÚNICO ARCHIVO QUE NECESITAS EDITAR
-   Parroquia San Francisco Javier — Comunidad Digital y Solidaria
+   Grupo de Oración Divino Niño Jesús — RCC — Diócesis de Chosica, Zona 3
    =============================================================================
 
    Si vas a cambiar un horario, un texto, una foto, una campaña de donación o una
-   respuesta del bot, se hace AQUÍ. No hace falta tocar index.html ni styles.css.
+   respuesta del bot, se hace AQUÍ. No hace falta tocar los .html ni styles.css.
 
    TRES REGLAS PARA NO ROMPER LA PÁGINA
    ------------------------------------
-   1. Todo texto va entre comillas dobles:   nombre: "Padre Juan"
+   1. Todo texto va entre comillas dobles:   nombre: "Hna. María"
    2. Cada línea termina en coma, menos la última de cada bloque.
    3. Si un texto lleva comillas dobles por dentro, usa comillas simples por fuera.
 
    LA ETIQUETA "Ejemplo / Por confirmar"
    -------------------------------------
-   Los datos de este archivo son de EJEMPLO. Cualquier bloque que lleve
-   esPlaceholder: true  muestra en la web una etiqueta amarilla que avisa que ese
-   dato todavía no está confirmado por la parroquia.
+   Cualquier bloque que lleve  esPlaceholder: true  muestra en la web una
+   etiqueta amarilla que avisa que ese dato todavía no está confirmado.
 
-   Cuando confirmes un dato con el párroco: corrige el texto y BORRA la línea
-   esPlaceholder: true  de ese bloque. La etiqueta desaparece sola.
+   Cuando confirmes un dato con el coordinador o con el padre: corrige el texto
+   y BORRA la línea  esPlaceholder: true  de ese bloque. La etiqueta desaparece.
 
    ¿Rompiste algo? Abre la página, presiona F12 y mira la pestaña "Console":
    ahí aparece en rojo la línea con el error.
@@ -27,229 +26,283 @@
 
 const CONTENT = {
 
-  /* --- Datos generales de la parroquia ------------------------------------ */
-  parroquia: {
-    nombre: "Parroquia San Francisco Javier",
-    distrito: "Ate, Lima",
-    // Del sello oficial de la parroquia.
-    diocesis: "Diócesis de Chosica · Vicaría II",
+  /* --- Datos del grupo (salen del escudo oficial) -------------------------- */
+  grupo: {
+    nombre: "Grupo de Oración Divino Niño Jesús",
+    nombreCorto: "G.O. Divino Niño Jesús",
+    movimiento: "Renovación Carismática Católica",
+    diocesis: "Diócesis de Chosica · Zona 3",
     // Escudo oficial. Si cambias el archivo, escribe aquí su nombre exacto.
-    logo: "assets/img/logo.png",
-    // Frase corta que aparece grande en la portada.
-    mision: "Una comunidad que se acompaña, se escucha y se sostiene.",
-    // Texto de 2 o 3 líneas debajo de la frase.
-    bajada: "Somos una parroquia de puertas abiertas en Ate Vitarte. Aquí encuentras nuestros horarios de misa, los servicios parroquiales y las formas concretas de ayudar o de pedir ayuda.",
+    logo: "assets/img/escudo.webp"
+  },
+
+  /* --- Frase de la portada ------------------------------------------------
+     Redacción provisional: necesita la aprobación del padre o del coordinador. */
+  portada: {
+    mision: "Un lugar para encontrarte con Dios y con una comunidad que ora contigo.",
+    bajada: "Somos un grupo de oración de la Renovación Carismática Católica. Nos reunimos en la Capilla Divino Niño para alabar, escuchar la Palabra y orar unos por otros.",
     esPlaceholder: true
   },
 
-  /* --- Redes sociales. Deja "" (vacío) en la que no tengan. ---------------
-     El Facebook es el oficial de la parroquia. Si abren Instagram, pega aquí
-     el enlace y aparecerá solo. */
-  redes: {
-    instagram: "",
-    facebook: "https://www.facebook.com/parroquiasfjlima/"
-  },
-
-  /* --- Sobre nosotros -----------------------------------------------------
-     El mapa ya apunta a la ubicación real de la parroquia.
-     La historia y la dirección exacta siguen pendientes de confirmar. */
-  sobreNosotros: {
-    historia: "La parroquia acompaña a las familias de Ate desde hace décadas. Aquí va la historia real de la parroquia: cuándo se fundó, quiénes la levantaron y qué comunidades la sostienen hoy.",
-
-    /* Ubicación. Se escribe UNA sola vez aquí: de estas coordenadas salen
-       tanto el mapa que se ve en la página como el botón "Abrir en Google Maps".
-
-       Para cambiarlas: entra a Google Maps, haz clic derecho justo sobre la
-       parroquia y pulsa las dos cifras que aparecen arriba del menú (eso las
-       copia). Pégalas aquí tal cual, separadas por coma y sin espacios.
-
-       No uses enlaces cortos (maps.app.goo.gl): caducan y dejan el botón roto. */
-    coordenadas: "-12.0365691,-76.928581",
-    etiquetaMapa: "Parroquia San Francisco Javier",
-
-    direccion: "Ate, Lima",
+  /* --- La reunión semanal del grupo ---------------------------------------
+     Es lo primero que se ve en la portada, porque es lo que más busca alguien
+     que quiere venir. Confirma el día y la hora con el coordinador. */
+  reunion: {
+    dia: "Viernes",
+    hora: "7:30 p.m.",
+    lugar: "Capilla Divino Niño",
     esPlaceholder: true
   },
 
-  /* --- Directiva / equipo pastoral ----------------------------------------
-     Las fotos van en la carpeta assets/img/ y se nombran aquí tal cual.
-     Si aún no tienes la foto, deja foto: "" y se muestra un círculo con la inicial. */
-  directiva: [
-    { nombre: "P. Nombre Apellido", cargo: "Párroco", foto: "", esPlaceholder: true },
-    { nombre: "Nombre Apellido", cargo: "Coordinadora de Pastoral", foto: "", esPlaceholder: true },
-    { nombre: "Nombre Apellido", cargo: "Catequesis", foto: "", esPlaceholder: true }
+  /* --- "¿Es tu primera vez?" ----------------------------------------------
+     Puntos cortos para quien nunca vino. Los dos primeros están confirmados
+     (entrevista: sin costo, sin cupos, sin inscripción). */
+  primeraVez: [
+    { titulo: "Sin costo", texto: "No se paga nada para participar, ni en las reuniones ni en los eventos." },
+    { titulo: "Sin inscripción", texto: "No hace falta avisar antes ni reservar cupo. Solo ven." },
+    { titulo: "Alabanza, Palabra y oración", texto: "Cantamos, escuchamos una enseñanza de la Biblia y oramos juntos por las intenciones de cada uno.", esPlaceholder: true },
+    { titulo: "Ven como estás", texto: "No necesitas saber cantar ni conocer a nadie. Te recibimos en la puerta.", esPlaceholder: true }
   ],
 
-  /* --- Horarios de misa ---------------------------------------------------
+  /* --- Quiénes somos (página "Grupo de oración") -------------------------- */
+  quienesSomos: {
+    rcc: "La Renovación Carismática Católica es un movimiento de la Iglesia que invita a vivir una relación personal con Jesús y a abrirse a la acción del Espíritu Santo, en comunión con la parroquia y la diócesis.",
+    historia: "Aquí va la historia del grupo: cuándo empezó, quiénes lo iniciaron y cómo ha crecido. Pendiente de recopilar con los servidores del grupo.",
+    esPlaceholder: true
+  },
+
+  /* --- Seminario de Vida en el Espíritu -----------------------------------
+     Lo confirmado: 7 temas, cada viernes por la noche.
+
+     temas: escribe los 7 títulos en orden. Mientras la lista esté vacía, la
+     página muestra los 7 viernes numerados con la etiqueta "Por confirmar".
+       temas: ["El amor de Dios", "...", ...]
+
+     proximo: fecha de la siguiente edición. Si está vacío, se ofrece avisar
+     por WhatsApp cuando haya una nueva. */
+  seminario: {
+    titulo: "Seminario de Vida en el Espíritu",
+    descripcion: "Siete encuentros de formación, uno cada viernes por la noche, para conocer el amor de Dios y abrir el corazón a la acción del Espíritu Santo. Cada tema se trabaja primero en asamblea y luego en pequeños grupos de compartir.",
+    temas: [],
+    proximo: "",
+    imagen: "assets/img/paloma-llamas.webp"
+  },
+
+  /* --- Fotos ---------------------------------------------------------------
+     Se publican SOLO fotos con permiso de las personas que aparecen.
+     Mientras no haya un criterio del grupo sobre fotos de niños, no se
+     publican fotos donde aparezcan menores de edad.
+
+     "alt" describe la foto para quien no puede verla: escríbelo siempre. */
+  galeria: [
+    { foto: "assets/img/seminario/asamblea-mural.webp", alt: "Asamblea del seminario en la capilla, con el mural del Espíritu Santo detrás del altar", pie: "Asamblea" },
+    { foto: "assets/img/seminario/compartir-2.webp", alt: "Cuatro participantes conversan sentados en círculo durante el compartir", pie: "Grupos de compartir" },
+    { foto: "assets/img/seminario/alabanza.webp", alt: "Participantes de rodillas en oración mientras un servidor toca la guitarra", pie: "Alabanza y oración" },
+    { foto: "assets/img/seminario/compartir-1.webp", alt: "Grupo pequeño conversando con las hojas del tema en la mano", pie: "Grupos de compartir" },
+    { foto: "assets/img/seminario/asamblea-coronas.webp", alt: "Asamblea de participantes con coronas de papel amarillo", pie: "Asamblea" },
+    { foto: "assets/img/seminario/oracion.webp", alt: "Personas arrodilladas en oración frente al altar iluminado con velas", pie: "Oración" },
+    { foto: "assets/img/seminario/compartir-3.webp", alt: "Hombres y mujeres comparten en círculo bajo el cartel del tema del día", pie: "Grupos de compartir" },
+    { foto: "assets/img/seminario/servidoras.webp", alt: "Cuatro servidoras sonríen frente al altar con las bolsas del seminario", pie: "Servidores" },
+    { foto: "assets/img/seminario/asamblea.webp", alt: "Vista amplia de la capilla llena durante el seminario", pie: "Asamblea" }
+  ],
+
+  /* --- Servidores ----------------------------------------------------------
+     Foto del equipo. Para publicar nombres y cargos, pide permiso a cada uno. */
+  servidores: {
+    foto: "assets/img/seminario/servidores.webp",
+    alt: "Equipo de cinco servidores del grupo de pie frente al altar de la capilla",
+    texto: "Los servidores acompañan cada reunión: animan la alabanza, preparan los temas y guían los grupos de compartir. Nombres y cargos por confirmar.",
+    esPlaceholder: true
+  },
+
+  /* --- Instagram -----------------------------------------------------------
+     Las publicaciones NO se escriben aquí: las trae solas una tarea automática
+     de GitHub (ver docs/guia-instagram.md) y se guardan en data/instagram.json.
+     Aquí solo va el nombre de usuario, para el enlace "Ver en Instagram".
+     Déjalo vacío ("") mientras no exista la cuenta. */
+  redes: {
+    instagram: "",
+    facebook: ""
+  },
+
+  /* --- La capilla ----------------------------------------------------------
+     Ubicación. Se escribe UNA sola vez aquí: de estas coordenadas salen el mapa,
+     el botón "Abrir en Google Maps" y el enlace "Cómo llegar".
+
+     Para cambiarlas: en Google Maps, clic derecho justo sobre la capilla y
+     pulsa las dos cifras que aparecen arriba del menú (eso las copia).
+     No uses enlaces cortos (maps.app.goo.gl): caducan y dejan el botón roto. */
+  capilla: {
+    nombre: "Capilla Divino Niño",
+    direccion: "Irlanda, Lima 15494 · Plus Code X35F+QPP",
+    coordenadas: "-12.0405377,-76.925658",
+    etiquetaMapa: "Capilla Divino Niño"
+  },
+
+  /* --- Horarios de misa de la capilla --------------------------------------
      "horas" admite todas las que necesites: ["7:00 am", "10:00 am", "6:00 pm"]
      "nota" es opcional (por ejemplo: "Solo durante Cuaresma"). */
   horariosMisa: [
-    { dia: "Lunes a viernes", horas: ["7:00 am", "7:00 pm"], nota: "", esPlaceholder: true },
+    { dia: "Domingo", horas: ["8:00 am", "6:00 pm"], nota: "", esPlaceholder: true },
     { dia: "Sábado", horas: ["7:00 pm"], nota: "Misa de vigilia", esPlaceholder: true },
-    { dia: "Domingo", horas: ["7:00 am", "10:00 am", "12:00 m.", "6:00 pm"], nota: "", esPlaceholder: true }
+    { dia: "Entre semana", horas: ["7:00 pm"], nota: "", esPlaceholder: true }
   ],
 
   /* --- Horarios especiales (Semana Santa, Cuaresma, difuntos) ------------- */
   horariosEspeciales: [
-    { titulo: "Cuaresma", detalle: "Vía Crucis todos los viernes, 6:00 pm.", esPlaceholder: true },
+    { titulo: "Cuaresma", detalle: "Vía Crucis los viernes. Horario por confirmar.", esPlaceholder: true },
     { titulo: "Semana Santa", detalle: "Programación completa publicada dos semanas antes.", esPlaceholder: true },
-    { titulo: "Misa de difuntos", detalle: "Primer lunes de cada mes, 7:00 pm.", esPlaceholder: true }
+    { titulo: "Misa de difuntos", detalle: "Día, hora y cómo solicitarla: por confirmar.", esPlaceholder: true }
   ],
 
-  /* --- Servicios parroquiales --------------------------------------------- */
+  /* --- Servicios de la capilla --------------------------------------------- */
   servicios: [
     {
       nombre: "Bautizo",
-      requisitos: ["Partida de nacimiento del niño", "Copia del DNI de los padres", "Padrinos confirmados", "Charla prebautismal"],
-      horario: "Ceremonias: sábados 4:00 pm. Inscripciones: lunes a viernes por la mañana.",
+      requisitos: ["Partida de nacimiento", "Copia del DNI de los padres", "Padrinos confirmados", "Charla prebautismal"],
+      horario: "Requisitos, costo y fechas por confirmar.",
       esPlaceholder: true
-    },
-    {
-      nombre: "Catequesis de iniciación cristiana",
-      requisitos: ["Inscripción en la oficina parroquial", "Partida de nacimiento"],
-      horario: "Informes e inscripciones de martes a viernes, de 7:00 pm a 9:00 pm. Ver la sección de catequesis para los grupos por edad."
     },
     {
       nombre: "Confesiones",
       requisitos: [],
-      horario: "Media hora antes de cada misa, y sábados de 5:00 pm a 6:30 pm.",
+      horario: "Días y horarios por confirmar.",
       esPlaceholder: true
     },
     {
       nombre: "Consejería y acompañamiento",
       requisitos: ["Cita previa"],
-      horario: "Jueves de 4:00 pm a 7:00 pm.",
+      horario: "Quién la brinda y cómo pedir cita: por confirmar.",
       esPlaceholder: true
     }
   ],
 
-  /* --- Catequesis de iniciación cristiana ---------------------------------
-     Estos datos vienen del afiche oficial de la parroquia, así que NO llevan
-     la bandera esPlaceholder. Si cambian las edades, los horarios o se cierran
-     las inscripciones, se edita aquí.
-
-     Para ocultar el aviso de inscripciones abiertas, pon inscripcionesAbiertas
-     en false: el bloque desaparece de la página. */
+  /* --- Catequesis ----------------------------------------------------------
+     Estos datos vienen del afiche de la Parroquia San Francisco Javier.
+     Falta confirmar si también se dicta en la Capilla Divino Niño: mientras
+     tanto lleva la etiqueta "Por confirmar".
+     Para ocultar el bloque, pon inscripcionesAbiertas en false. */
   catequesis: {
     inscripcionesAbiertas: true,
     titulo: "Catequesis de iniciación cristiana",
-    anuncio: "Iniciamos las inscripciones",
+    anuncio: "Inscripciones abiertas",
     informes: {
       dias: "Martes a viernes",
       horario: "De 7:00 p.m. a 9:00 p.m.",
       lugar: "Parroquia San Francisco Javier"
     },
     grupos: [
-      {
-        publico: "Para niños",
-        edades: "desde los 8 hasta los 13 años",
-        sacramentos: ["Bautismo", "Eucaristía"]
-      },
-      {
-        publico: "Para jóvenes",
-        edades: "desde los 15 hasta los 19 años",
-        sacramentos: ["Bautismo", "Eucaristía", "Confirmación"]
-      }
-    ]
-  },
-
-  /* --- Campañas de donación -----------------------------------------------
-     La barra de avance se calcula sola con "actual" y "meta".
-     IMPORTANTE: meta y actual van SIN comillas (son números).
-     La parroquia NO recibe dinero por la web: esto solo informa qué se necesita. */
-  campanasDonacion: [
-    { item: "Arroz", meta: 50, actual: 32, unidad: "kg", nota: "Para las canastas de fin de mes", esPlaceholder: true },
-    { item: "Aceite", meta: 30, actual: 11, unidad: "litros", nota: "", esPlaceholder: true },
-    { item: "Útiles escolares", meta: 100, actual: 64, unidad: "paquetes", nota: "Campaña de marzo", esPlaceholder: true },
-    { item: "Frazadas", meta: 40, actual: 40, unidad: "unidades", nota: "Meta cumplida, gracias.", esPlaceholder: true }
-  ],
-
-  /* --- Dónde se entregan las donaciones ----------------------------------- */
-  donacionesInfo: {
-    puntoEntrega: "Oficina parroquial, de lunes a sábado de 9:00 am a 1:00 pm.",
-    contactoNombre: "Coordinación de Cáritas parroquial",
+      { publico: "Para niños", edades: "desde los 8 hasta los 13 años", sacramentos: ["Bautismo", "Eucaristía"] },
+      { publico: "Para jóvenes", edades: "desde los 15 hasta los 19 años", sacramentos: ["Bautismo", "Eucaristía", "Confirmación"] }
+    ],
     esPlaceholder: true
   },
 
-  /* --- Eventos y actividades ----------------------------------------------
-     "fecha" se escribe como texto libre: "15 de septiembre, 6:00 pm".
-     "pasado: true" lo manda a la galería de eventos anteriores. */
+  /* --- Campaña de donaciones -----------------------------------------------
+     Solo donaciones físicas: la web NUNCA recibe ni mueve dinero.
+
+     csvAvance: el enlace del CSV publicado desde Google Sheets
+     (paso a paso en docs/guia-donaciones-sheets.md). Si está vacío o falla,
+     se muestran los números de "articulos" de aquí abajo.
+
+     formularioDonacion: el Google Form para registrar una donación. Este NO es
+     anónimo: se pide nombre y teléfono para coordinar la entrega.
+
+     En "articulos", meta y actual van SIN comillas (son números). */
+  donaciones: {
+    titulo: "Campaña de Navidad",
+    fechaLimite: "Recibimos donaciones hasta poco antes de Navidad.",
+    destino: "Todo lo recolectado se entrega, de forma voluntaria, a familias de bajos recursos.",
+    csvAvance: "",
+    formularioDonacion: "",
+    articulos: [
+      { item: "Arroz", meta: 50, actual: 0, unidad: "kg", esPlaceholder: true },
+      { item: "Leche", meta: 60, actual: 0, unidad: "tarros", esPlaceholder: true },
+      { item: "Panetón", meta: 40, actual: 0, unidad: "unidades", esPlaceholder: true },
+      { item: "Juguetes", meta: 50, actual: 0, unidad: "unidades", esPlaceholder: true }
+    ],
+    puntoEntrega: "Capilla Divino Niño. Días y horarios de recepción por confirmar.",
+    noRecibimos: "Qué productos no se reciben: por confirmar.",
+    esPlaceholder: true
+  },
+
+  /* --- Eventos próximos ----------------------------------------------------
+     "fecha" se escribe como texto libre: "15 de noviembre, 7:00 pm".
+     Todos los eventos son sin costo, sin cupos y sin inscripción previa. */
   eventos: [
-    { titulo: "Almuerzo solidario", fecha: "Primer domingo de cada mes, 1:00 pm", descripcion: "Almuerzo comunitario abierto a todas las familias del barrio.", foto: "", pasado: false, esPlaceholder: true },
-    { titulo: "Jornada de salud", fecha: "20 de octubre, 9:00 am", descripcion: "Chequeo médico gratuito con voluntarios de la comunidad.", foto: "", pasado: false, esPlaceholder: true },
-    { titulo: "Fiesta patronal 2025", fecha: "3 de diciembre de 2025", descripcion: "Procesión, misa central y compartir en el atrio.", foto: "", pasado: true, esPlaceholder: true }
+    { titulo: "Próximo evento del grupo", fecha: "Fecha por confirmar", descripcion: "Aquí aparecerán los retiros, vigilias y encuentros del grupo.", esPlaceholder: true }
   ],
 
-  /* --- Testimonios --------------------------------------------------------
+  /* --- Testimonios ---------------------------------------------------------
      PUBLICAR SOLO CON CONSENTIMIENTO DE LA PERSONA.
-     Si prefiere no dar su nombre, escribe autor: "Miembro de la comunidad". */
+     Si prefiere no dar su nombre, escribe autor: "Participante del seminario". */
   testimonios: [
-    { texto: "Cuando mi esposo se quedó sin trabajo, la parroquia nos acompañó. No fue solo la ayuda: fue saber que no estábamos solos.", autor: "Miembro de la comunidad", esPlaceholder: true },
-    { texto: "Empecé como voluntaria por tres meses y llevo cuatro años. Aquí uno recibe más de lo que da.", autor: "Voluntaria de Cáritas parroquial", esPlaceholder: true }
+    { texto: "Llegué al seminario sin conocer a nadie y salí con una comunidad que ora por mí cada semana.", autor: "Participante del seminario", esPlaceholder: true },
+    { texto: "Los viernes se volvieron el momento de la semana en que dejo todo en manos de Dios.", autor: "Miembro del grupo", esPlaceholder: true }
   ],
 
   /* --- Preguntas frecuentes del bot ---------------------------------------
-     Cómo funciona: el bot compara lo que escribe la persona con las palabras de
-     "claves". Si encuentra una, responde. Por eso conviene poner varias formas
-     de decir lo mismo, y en minúsculas y sin tildes.
-
-     "sugerida" es el texto del botón de acceso rápido dentro del chat.
-     Si no quieres que aparezca como botón, deja sugerida: "". */
+     El bot compara lo que escribe la persona con las palabras de "claves".
+     Pon varias formas de decir lo mismo, en minúsculas y sin tildes.
+     "sugerida" es el botón de acceso rápido dentro del chat ("" = sin botón). */
   faqBot: [
     {
-      claves: ["horario", "horarios", "misa", "misas", "a que hora", "cuando hay misa"],
-      sugerida: "¿A qué hora son las misas?",
-      respuesta: "Los domingos hay misa a las 7:00 am, 10:00 am, 12:00 m. y 6:00 pm. De lunes a viernes, 7:00 am y 7:00 pm. Puedes ver el detalle completo en la sección Misas y horarios."
+      claves: ["reunion", "reuniones", "cuando se reunen", "a que hora", "horario del grupo", "grupo de oracion"],
+      sugerida: "¿Cuándo se reúnen?",
+      respuesta: "Nos reunimos los viernes a las 7:30 p.m. en la Capilla Divino Niño (horario por confirmar). Es abierto a todos, sin costo y sin inscripción."
     },
     {
-      claves: ["bautizo", "bautismo", "bautizar"],
-      sugerida: "¿Qué necesito para un bautizo?",
-      respuesta: "Necesitas la partida de nacimiento del niño, copia del DNI de los padres, los padrinos confirmados y haber asistido a la charla prebautismal. Las inscripciones son de lunes a viernes por la mañana en la oficina parroquial."
+      claves: ["primera vez", "nuevo", "nueva", "puedo ir", "como participar", "unirme"],
+      sugerida: "Es mi primera vez",
+      respuesta: "¡Bienvenido! No necesitas inscribirte ni pagar nada. Solo ven a la reunión: cantamos, escuchamos la Palabra y oramos juntos. Puedes ver más en la pestaña Grupo de oración."
     },
     {
-      claves: ["donar", "donacion", "donaciones", "ayudar", "colaborar", "que necesitan"],
+      claves: ["seminario", "vida en el espiritu", "temas", "formacion"],
+      sugerida: "¿Qué es el seminario?",
+      respuesta: "El Seminario de Vida en el Espíritu son 7 temas de formación, uno cada viernes por la noche. Si quieres que te avisemos cuando empiece el próximo, escríbenos por WhatsApp."
+    },
+    {
+      claves: ["misa", "misas", "horario de misa", "eucaristia"],
+      sugerida: "¿A qué hora es la misa?",
+      respuesta: "Los horarios de misa de la Capilla Divino Niño están en la pestaña Capilla. Algunos todavía están por confirmar."
+    },
+    {
+      claves: ["donar", "donacion", "donaciones", "colaborar", "que necesitan", "navidad"],
       sugerida: "¿Cómo puedo donar?",
-      respuesta: "Puedes ver en la sección Donaciones qué se necesita ahora mismo y cuánto falta para cada meta. Las entregas se reciben en la oficina parroquial de lunes a sábado, de 9:00 am a 1:00 pm. No recibimos dinero por la página web."
+      respuesta: "Tenemos una campaña de Navidad. Solo recibimos donaciones físicas (alimentos, juguetes), nunca dinero. En la pestaña Solidaridad ves qué falta y cómo registrar tu donación."
     },
     {
       claves: ["ayuda", "necesito ayuda", "apoyo", "pedir ayuda"],
       sugerida: "Necesito pedir ayuda",
-      respuesta: "Puedes llenar el formulario de solicitud de ayuda en la sección Contacto. Tiene opción de enviarlo de forma anónima. Alguien de la parroquia se comunicará contigo."
+      respuesta: "En la pestaña Solidaridad hay un formulario para pedir apoyo. Puedes enviarlo de forma anónima. Alguien del grupo lo revisará."
     },
     {
-      claves: ["catequesis", "primera comunion", "comunion", "confirmacion", "inscripcion", "inscripciones"],
-      sugerida: "¿Cuándo es la catequesis?",
-      respuesta: "Las inscripciones para la catequesis de iniciación cristiana están abiertas. Informes de martes a viernes, de 7:00 p.m. a 9:00 p.m., en la parroquia. Hay dos grupos: niños de 8 a 13 años (Bautismo y Eucaristía) y jóvenes de 15 a 19 años (Bautismo, Eucaristía y Confirmación)."
-    },
-    {
-      claves: ["confesion", "confesiones", "confesar"],
-      sugerida: "",
-      respuesta: "Hay confesiones media hora antes de cada misa, y los sábados de 5:00 pm a 6:30 pm."
-    },
-    {
-      claves: ["donde", "direccion", "ubicacion", "como llego"],
+      claves: ["donde", "direccion", "ubicacion", "como llego", "capilla"],
       sugerida: "¿Dónde quedan?",
-      respuesta: "Estamos en Ate Vitarte, Lima. En la sección Sobre nosotros hay un mapa para llegar."
+      respuesta: "Nos reunimos en la Capilla Divino Niño. En la portada hay un mapa y un botón para abrir la ruta en Google Maps."
     },
     {
-      claves: ["matrimonio", "casarse", "boda"],
+      claves: ["catequesis", "primera comunion", "comunion", "confirmacion"],
       sugerida: "",
-      respuesta: "Para matrimonios se coordina una cita con el párroco con anticipación. Escríbenos por WhatsApp y te damos las fechas disponibles."
+      respuesta: "Los datos de catequesis están en la pestaña Capilla. Informes de martes a viernes, de 7:00 p.m. a 9:00 p.m."
     }
   ],
 
   /* --- Texto que usa el bot cuando NO entiende la pregunta ---------------- */
-  botFallback: "No estoy seguro de cómo responder eso. Si quieres, escríbenos directamente por WhatsApp y te atiende una persona de la parroquia.",
+  botFallback: "No estoy seguro de cómo responder eso. Si quieres, escríbele directamente al coordinador del grupo por WhatsApp.",
 
-  /* --- Contacto -----------------------------------------------------------
+  /* --- Contacto --------------------------------------------------------------
      whatsapp: código de país + número, sin +, sin espacios. Perú = 51.
      Los formularios se crean en Google Forms y se pega el enlace completo. */
   contacto: {
     whatsapp: "51900000000",
+    responsable: "Coordinador del grupo",
+    horarioAtencion: "Horario de atención por confirmar.",
     googleFormContacto: "https://forms.gle/XXXXXXXXXXXX",
     googleFormAyuda: "https://forms.gle/YYYYYYYYYYYY",
-    correo: "",
-    telefono: "",
     esPlaceholder: true
-  }
+  },
+
+  /* --- Aviso de privacidad (se muestra en letra pequeña bajo los formularios) */
+  privacidad: "Tus datos solo los ve el equipo del grupo, se usan únicamente para responderte y no se comparten con nadie (Ley N.° 29733)."
 };

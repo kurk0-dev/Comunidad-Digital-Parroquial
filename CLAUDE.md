@@ -1,24 +1,31 @@
 # Comunidad Digital y Solidaria
 
-Sitio web informativo + bot FAQ para la **Parroquia San Francisco Javier** (Ate Vitarte, Lima).
-Proyecto del curso de Gestión de Proyectos, Universidad de Lima. Cliente real: la parroquia.
-Usuarios finales: feligreses, **la mayoría entra desde celular**.
+Sitio web informativo + bot FAQ para el **Grupo de Oración Divino Niño Jesús** — Renovación
+Carismática Católica (RCC), **Diócesis de Chosica, Zona 3**. El grupo se reúne en la
+**Capilla Divino Niño** (Lima). Proyecto del curso de Gestión de Proyectos, Universidad de Lima.
+
+**Foco del sitio:** el grupo de oración es el protagonista. La capilla (misas, servicios,
+catequesis) es secundaria. Usuarios finales: miembros del grupo y vecinos,
+**la mayoría entra desde celular**; muchos son adultos mayores.
+
+Lo mantiene Joaquín. El contenido lo aprobará el padre cuando el sitio exista.
 
 ---
 
 ## Reglas duras (no negociables)
 
 1. **Sin backend, sin base de datos, sin login, sin procesamiento de pagos.**
-   Las donaciones son solo informativas: se muestran necesidades y avance, nunca se cobra.
+   Las donaciones son solo físicas e informativas: la web nunca recibe ni mueve dinero.
 2. **Sin framework y sin build step.** HTML + CSS + JavaScript vanilla.
    Debe desplegarse en Vercel sin ningún paso de build.
 3. **Gratuito de operar.** Nada que requiera plan de pago o servicio externo facturable.
-4. **Mantenible sin conocimientos técnicos.** Este es el requisito que justifica toda la
-   arquitectura: **todo** el contenido editable vive aislado en `content.js`. Si algo que la
-   parroquia podría querer cambiar (un horario, un texto, una foto, una respuesta del bot)
-   queda escrito en el HTML o el CSS, está mal hecho.
-5. **No inventar datos de la parroquia como si fueran oficiales.** Los datos de ejemplo se
-   marcan con `esPlaceholder: true` (ver abajo).
+4. **Mantenible sin conocimientos técnicos.** **Todo** el contenido editable vive en
+   `content.js`. Si algo que el grupo podría querer cambiar queda escrito en el HTML o el CSS,
+   está mal hecho. Excepciones automáticas: Instagram (`data/instagram.json`, lo escribe una
+   tarea) y el avance de donaciones (CSV de Google Sheets).
+5. **No inventar datos como si fueran oficiales.** Lo no confirmado lleva `esPlaceholder: true`.
+6. **Ningún secreto en el código.** El repositorio es **público**. Tokens y claves van como
+   secretos de GitHub, nunca en archivos.
 
 ---
 
@@ -27,222 +34,183 @@ Usuarios finales: feligreses, **la mayoría entra desde celular**.
 | Capa | Elección |
 |---|---|
 | Frontend | HTML + CSS + JS vanilla |
-| Estilos | CSS puro con variables en `:root` (Tailwind por CDN solo si hace falta acelerar) |
+| Estilos | CSS puro con variables en `:root` |
+| Tipografía | Lexend variable, alojada en `assets/fonts/` (sin Google Fonts) |
 | Contenido | `content.js`, único archivo editable por no-programadores |
-| Bot FAQ | Widget de chat 100% client-side que responde desde `content.js`, con fallback a WhatsApp (`wa.me`) |
-| QR | `qrcode.js` con copia local en `js/vendor/`, generados en el navegador |
+| Bot FAQ | Widget 100% client-side que responde desde `content.js`, con fallback a WhatsApp |
+| QR | `qrcode.js` con copia local en `js/vendor/` |
+| Instagram | GitHub Actions cada 6 h → `data/instagram.json` + fotos en `assets/instagram/` |
+| Donaciones | Google Form → Sheet → pestaña "Avance" publicada como CSV → `js/donaciones.js` |
 | Hosting | Vercel (plan gratuito) |
-| Formularios | Google Forms + Google Sheets (respuestas caen solas en un Sheet) |
 
 ---
 
 ## Estructura de archivos
 
 ```
-index.html            Inicio: escudo grande, accesos, sobre nosotros, mapa
-misas.html            Horarios, fechas especiales, QR, Google Calendar
-servicios.html        Catequesis + sacramentos y servicios
-donaciones.html       Campañas con barra de avance, punto de entrega, QR
-comunidad.html        Eventos próximos, galería de pasados, testimonios
-contacto.html         Google Forms, WhatsApp
+index.html        Inicio: escudo grande, tarjeta "Nos reunimos", ¿primera vez?, seminario, Instagram, mapa
+grupo.html        Grupo de oración: RCC, historia, Seminario de Vida en el Espíritu, servidores
+capilla.html      Capilla: misas, fechas especiales, QR, catequesis, servicios
+comunidad.html    Comunidad: Instagram, galería del seminario, eventos, testimonios
+solidaridad.html  Solidaridad: campaña de Navidad con avance, cómo donar, QR, pedir ayuda
+contacto.html     Contacto: WhatsApp, formulario, cómo llegar
 
-content.js            TODO el contenido editable
-styles.css            Estilos globales (paleta en :root)
-js/main.js            Cabecera, pie, ayudantes y render de cada página
-js/donaciones.js      Barras de avance de campañas
-js/bot.js             Bot FAQ (crea su propio marcado)
-js/qr.js              Códigos QR
-assets/patron-azulejo.svg   Fondo de azulejos de todas las páginas
-assets/favicon.svg
-assets/img/           Escudo de la parroquia, fotos
-README.md             Instrucciones de edición para no-programadores
+content.js        TODO el contenido editable
+styles.css        Estilos (paleta en :root)
+js/main.js        Cabecera, pie, ayudantes (urlSegura, urlWhatsapp, icono…) y render
+js/donaciones.js  Barras de avance; lee el CSV de Sheets si está configurado
+js/instagram.js   "Lo último que publicamos"; valida cada publicación del JSON
+js/bot.js         Bot FAQ (crea su propio marcado)
+js/qr.js          Códigos QR
+data/instagram.json              Generado por la tarea. No editar a mano
+scripts/instagram_feed.py        Script de la tarea (solo stdlib)
+.github/workflows/instagram.yml  Tarea programada
+docs/             Guías de Instagram y de Google Sheets
+images/           Fotos originales sin seleccionar — IGNORADO por Git (rostros, menores)
 ```
 
-**Cabecera, pie y bot NO se repiten en el HTML.** Los genera JavaScript
-(`renderCabecera`, `renderPie`, `construirMarcadoBot`) y se insertan en las 6
-páginas. Para añadir o quitar una pestaña del menú se edita **solo** la lista
-`PAGINAS` al inicio de `js/main.js`. Nunca dupliques el menú en los HTML: eso
-obligaría a editar 6 archivos para cambiar un enlace.
+**Cabecera, pie y bot NO se repiten en el HTML.** Los genera JavaScript. Para cambiar el menú
+se edita **solo** la lista `PAGINAS` al inicio de `js/main.js`.
 
-Cada `<body>` declara en qué página está con `data-pagina="..."`. De ahí sale
-el `aria-current="page"` que resalta la pestaña activa.
+Cada `<body>` declara su página con `data-pagina="..."` (de ahí sale `aria-current`).
+Cada página carga solo los scripts que usa: `qrcode.min.js` + `qr.js` solo en capilla y
+solidaridad, `instagram.js` en inicio y comunidad, `donaciones.js` en solidaridad.
+`main.js` comprueba con `typeof` antes de llamarlos.
 
----
+Los botones se conectan por atributos, no por id: `data-form="contacto|ayuda|donacion"`,
+`data-whatsapp="mensaje"`, `data-maps`, `data-privacidad`, `data-qr="pagina.html"`,
+`data-seminario="resumen|completo"`, `data-instagram data-limite="N"`.
 
-## Las 6 pestañas
-
-1. **Inicio** (`index.html`) — escudo grande, misión, accesos a las demás pestañas, historia, mapa, equipo pastoral
-2. **Misas** (`misas.html`) — horarios por día, fechas especiales, QR y botón de Google Calendar
-3. **Servicios** (`servicios.html`) — catequesis de iniciación cristiana (inscripciones) + bautizos, confesiones, consejería
-4. **Donaciones** (`donaciones.html`) — campañas con barra de avance, punto de entrega, QR
-5. **Comunidad** (`comunidad.html`) — eventos próximos, galería de pasados, testimonios
-6. **Contacto** (`contacto.html`) — Google Forms (contacto y ayuda anónima) y WhatsApp
-
-El **bot FAQ flotante** aparece en las 6.
+Las URLs antiguas (`misas.html`, `servicios.html`, `donaciones.html`) redirigen en `vercel.json`.
 
 ---
 
 ## Contrato de `content.js`
 
-```js
-const CONTENT = {
-  mision: "...",
-  redes: { instagram: "...", facebook: "..." },
-  directiva:        [{ nombre, cargo, foto }],
-  horariosMisa:     [{ dia, horas: [] }],
-  servicios:        [{ nombre, requisitos: [], horario }],
-  campanasDonacion: [{ item, meta, actual, unidad }],
-  eventos:          [{ titulo, fecha, descripcion, foto }],
-  testimonios:      [{ texto, autor }],
-  faqBot:           [{ pregunta, respuesta }],
-  contacto: {
-    whatsapp: "51900000000",
-    googleFormContacto: "https://forms.gle/...",
-    googleFormAyuda:    "https://forms.gle/..."
-  }
-};
-```
+Bloques: `grupo`, `portada`, `reunion`, `primeraVez[]`, `quienesSomos`, `seminario`
+(`temas[]` vacío → se muestran "Viernes 1…7"), `galeria[]` (`foto`, `alt`, `pie`),
+`servidores`, `redes`, `capilla`, `horariosMisa[]`, `horariosEspeciales[]`, `servicios[]`,
+`catequesis`, `donaciones` (`csvAvance`, `formularioDonacion`, `articulos[]`), `eventos[]`,
+`testimonios[]`, `faqBot[]`, `botFallback`, `contacto`, `privacidad`.
 
-**Ubicación.** `sobreNosotros.coordenadas` (por ejemplo `"-12.0365691,-76.928581"`) es la
-**única** fuente de la ubicación: de ahí salen el mapa incrustado, el botón, la capa clicable
-sobre el mapa y el enlace del pie. No uses enlaces cortos `maps.app.goo.gl`: caducan y dejan
-el botón roto.
+**Ubicación.** `capilla.coordenadas` (`"-12.0405377,-76.925658"`, Capilla Divino Niño) es la
+**única** fuente: de ahí salen el mapa, los botones `data-maps` y el enlace del pie. No uses
+enlaces cortos `maps.app.goo.gl`: caducan.
 
-**Bandera `esPlaceholder`.** Cualquier objeto de `content.js` acepta la propiedad opcional
-`esPlaceholder: true`. Cuando está presente, la página debe mostrar junto a ese contenido una
-etiqueta visual discreta **"Ejemplo / Por confirmar"**. Sirve para no presentar información
-inventada como si fuera oficial mientras se recopilan los datos reales con el párroco.
-Todo dato que no haya sido confirmado por la parroquia va con esta bandera.
+**WhatsApp.** `51900000000` es el número de ejemplo y tiene formato de celular peruano válido:
+`urlWhatsapp()` lo trata como "sin configurar" y apaga los botones. No quites esa protección.
+
+**`esPlaceholder: true`** muestra la etiqueta "Ejemplo / Por confirmar".
 
 ---
 
 ## Requisitos no funcionales
 
-- **Mobile-first**, 100% responsive. El celular es el caso principal, no el secundario.
-- **Accesible**: contraste adecuado, `alt` en todas las imágenes, navegación por teclado,
-  targets táctiles cómodos.
-- Contenido neutral, claro e inclusivo.
-- El formulario de solicitud de ayuda debe ofrecer **anonimato** (checkbox que oculta el campo nombre).
-- Sin dependencias que requieran npm o compilación.
+- **Mobile-first**, 100% responsive.
+- **Accesible**: contraste AA medido, `alt` en todas las imágenes, un `<h1>` por página,
+  navegación por teclado, objetivos táctiles ≥ 44 px, `prefers-reduced-motion`.
+- El formulario de ayuda ofrece **anonimato**; el de donaciones **no** (se necesita contacto).
+- Aviso de privacidad en **letra pequeña** (`data-privacidad`), presente pero sin estorbar.
+- **Fotos:** solo con permiso. Mientras no haya criterio sobre niños, **ninguna foto con
+  menores**. Se publican copias WebP ≤ 1200 px **sin EXIF** en `assets/img/`.
 
 ---
 
 ## Diseño — skills a usar por defecto
 
-Para no repetirlo cada sesión: al crear o revisar cualquier cosa visual en este proyecto,
-apóyate en estas skills instaladas.
-
 | Cuándo | Skill |
 |---|---|
-| Paleta, tipografía, guías UX (usar `--stack html-tailwind` o `web`) | `ui-ux-pro-max` |
-| Que la landing no quede con pinta de plantilla genérica | `design-taste-frontend` |
-| Dirección visual sobria y editorial (encaja con una parroquia) | `minimalist-ui` |
-| Revisar el HTML/CSS ya escrito contra buenas prácticas | `web-design-guidelines` |
-| Verificar accesibilidad (es un NFR explícito, no un extra) | `accesslint-scan`, `accesslint-audit` |
+| Paleta, tipografía, guías UX | `ui-ux-pro-max` |
+| Que no quede con pinta de plantilla genérica | `design-taste-frontend` |
+| Dirección visual sobria y editorial | `minimalist-ui` |
+| Revisar HTML/CSS contra buenas prácticas | `web-design-guidelines` |
+| Accesibilidad (es un NFR explícito) | `accesslint-scan`, `accesslint-audit` |
 | Desplegar a Vercel | `all-deploy` |
 
-**Criterio estético**: cálido, sobrio y confiable. Nada de estética brutalista, dark-tech ni
-animaciones pesadas — el público incluye adultos mayores y celulares de gama baja. La animación
-debe ser mínima y respetar `prefers-reduced-motion`. Peso de página bajo: sin librerías grandes.
+**Criterio estético**: cálido, alegre y confiable, sin estridencias. Público con adultos
+mayores y celulares de gama baja: animación mínima, peso bajo, nada de `background-attachment: fixed`.
 
-### Paleta (definida por el cliente)
-
-Azul marino litúrgico + dorado + crema, tomada de la referencia visual que dio el equipo.
-Está en `:root` de `styles.css`.
+### Paleta (sacada del escudo del grupo, contraste medido)
 
 | Variable | Color | Uso |
 |---|---|---|
-| `--azul` | `#14304D` | Cabecera, pie, títulos, chips de hora |
-| `--azul-oscuro` | `#0E2438` | Fondo del pie |
-| `--dorado` | `#B8912F` | Filetes, bordes, **fondo** de botón primario |
-| `--terracota` | `#9C4A2F` | Color de acento **para texto** |
-| `--crema` | `#F7F1E3` | Fondo de página |
-| `--crema-clara` | `#FCF8EF` | Fondo de tarjetas |
+| `--rojo` | `#CF040D` | Cabecera, botones primarios (blanco encima 5.71:1), texto sobre crema (5.35:1) |
+| `--rojo-oscuro` | `#A3020B` | Pie, acentos de texto, hover |
+| `--azul` | `#1B4F7A` | Enlaces, franja de Instagram (blanco 8.59:1, amarillo 5.29:1) |
+| `--azul-marca` | `#2078C0` | **Solo decorativo**: líneas, filetes (como texto 3.67:1, no pasa) |
+| `--verde` | `#2F6229` | "Meta cumplida" y estados |
+| `--verde-marca` | `#418239` | **Solo decorativo** (como texto 4.39:1, no pasa) |
+| `--amarillo` | `#F6C526` | Tarjeta "Nos reunimos" con tinta encima (9.86:1). **Nunca texto sobre claro** (1.5:1) |
+| `--crema` / `--tarjeta` | `#FBF7F0` / `#FFFDF9` | Fondo de página / tarjetas |
+| `--tinta` / `--tinta-suave` | `#2A1F1D` / `#5C4F4B` | Texto |
 
-> **Nunca uses el dorado como color de texto sobre crema.** Da 2.62:1 y no cumple AA.
-> El dorado va en bordes y como fondo de botón (azul sobre dorado = 4.57:1, sí cumple).
-> El acento de texto es el terracota (5.43:1). Todos los demás pares están por encima de 5:1.
-
-### Fondo
-
-Todas las páginas llevan el patrón de azulejos `assets/patron-azulejo.svg` (3 KB, se repite
-cada 160px). No hay fondos blancos lisos. Para cambiarlo por una foto real, se edita una sola
-`url()` en la regla `body` de `styles.css`.
+> **Nunca distingas algo solo por rojo frente a verde** (daltonismo): acompaña con texto.
 
 ### Identidad
 
-El escudo oficial de la parroquia va en `assets/img/logo.png` y se muestra **grande**
-en la portada. Si el archivo falta, la portada muestra un aviso con el nombre exacto que se
-espera, en vez de una imagen rota. **No redibujes ni sustituyas el escudo**: es la identidad
-oficial de la parroquia.
+Escudo oficial del grupo: `assets/img/escudo.webp` (rojo, cruz verde, líneas azules, paloma
+blanca con halo amarillo). Imagen del seminario: `assets/img/paloma-llamas.webp`.
+**No redibujes ni sustituyas el escudo.** El de la Parroquia San Francisco Javier se retiró:
+falta confirmar su relación con la capilla.
 
 ---
 
-## Seguridad (auditado 2026-09-15 — no revertir sin pensarlo)
+## Seguridad (auditado 2026-09-15 y 2026-10-10 — no revertir sin pensarlo)
 
-El sitio pasó una auditoría de seguridad antes de publicarse. Estas cuatro
-decisiones son deliberadas:
+1. **Cero código de terceros en ejecución.** Nada de `<script src="https://...">`.
+2. **`urlSegura()`** filtra toda URL de `content.js` antes de un `href`/`src`.
+3. **`vercel.json`**: CSP con `script-src 'self'`, `font-src 'self'`,
+   `connect-src 'self' https://docs.google.com https://*.googleusercontent.com` (solo el CSV
+   de Sheets), `frame-src https://www.google.com` (mapa), `frame-ancestors 'none'`,
+   `form-action 'none'`. Recurso externo nuevo = añadirlo a la CSP y volver a probar las 6 páginas.
+4. **`textContent`, nunca `innerHTML`.**
+5. **Instagram sin exponer el token.** El token vive en el secreto de GitHub `IG_TOKEN`.
+   `scripts/instagram_feed.py` nunca lo imprime (errores sin URL, `from None`), valida que el
+   id sea numérico (nombre de archivo), que la imagen venga del CDN de Instagram y que el
+   archivo sea una imagen real por su firma. `js/instagram.js` vuelve a validar en el
+   navegador (rutas `assets/instagram/<dígitos>.ext`, enlaces solo a instagram.com).
+   El workflow tiene `permissions: contents: write` y `actions/checkout` fijado por SHA.
+   **Nunca** pidas, muestres ni escribas el token en un archivo o en el chat.
+6. **CSV de donaciones**: solo se acepta `https://docs.google.com/spreadsheets/...`. Se
+   publica **solo la pestaña "Avance"**: la de respuestas tiene nombres y teléfonos.
+7. **`.gitignore`** excluye `images/` (fotos originales con rostros y menores) y secretos.
+   **`.vercelignore`** evita publicar `scripts/`, `.github/`, `docs/`, `images/` y los `.md`.
 
-1. **Cero código de terceros en ejecución.** La librería de QR vive en
-   `js/vendor/qrcode.min.js`, no en un CDN, y solo se carga en las 2 páginas que
-   tienen QR. **No vuelvas a poner una etiqueta `<script src="https://...">`**:
-   rompería la CSP y reintroduciría el riesgo de que un CDN comprometido ejecute
-   código en la página.
-2. **`urlSegura()` en `js/main.js`.** Toda dirección que venga de `content.js` y
-   acabe en un `href` o un `src` pasa por ahí: solo admite `http:`, `https:` y
-   rutas internas. Impide que una dirección `javascript:` escrita por error en
-   `content.js` ejecute código. No la quites ni la rodees.
-3. **`vercel.json` define las cabeceras**, incluida una CSP con
-   `script-src 'self'` (sin `unsafe-inline` ni `unsafe-eval`),
-   `frame-ancestors 'none'` y `form-action 'none'`. Si algún día hace falta un
-   recurso externo nuevo, hay que añadirlo explícitamente a la CSP y volver a
-   probar las 6 páginas.
-4. **`textContent`, nunca `innerHTML`**, para pintar contenido de `content.js`.
-
-**Pendiente de privacidad (no es código):** la página promete que la solicitud de
-ayuda puede enviarse de forma anónima. Eso solo es cierto si el Google Form tiene
-**desactivado** «Recopilar direcciones de correo electrónico» y no obliga a
-iniciar sesión. Verificarlo antes de publicar los enlaces.
-
-Informe completo: `cyber-neo-report-Comunidad-Digital-2026-09-15.md` (en el
-Escritorio, fuera del repositorio).
+**Pendiente de privacidad:** el formulario de ayuda debe tener desactivado «Recopilar
+direcciones de correo electrónico» y el nombre como opcional; si no, la promesa de anonimato
+es falsa.
 
 ---
 
 ## Despliegue
 
-Claude **no** despliega directo a Vercel. El flujo es:
-
-1. Claude Code genera/actualiza los archivos localmente.
-2. El equipo sube el proyecto a un repo de GitHub (uno lo crea, los demás hacen `git push`).
-3. En Vercel: *Add New Project* → importar ese repo → deploy automático.
-4. Desde ahí, cada `git push` a la rama principal despliega solo.
-
-El historial de Git además sirve como evidencia de control de versiones para el curso.
+Claude **no** despliega directo a Vercel. Commit y `git push origin main`; Vercel publica solo
+cuando el repo esté conectado (Add New Project → Import → Framework Preset: Other).
 
 ---
 
 ## Repositorio
 
-`https://github.com/kurk0-dev/Comunidad-Digital-Parroquial` (privado, rama `main`).
-Todos los cambios se guardan ahí: commit y `git push origin main`.
+`https://github.com/kurk0-dev/Comunidad-Digital-Parroquial` (**público**, rama `main`).
 
 ---
 
-## Pendientes del equipo (no bloquean el desarrollo)
+## Pendientes del equipo
 
-- [x] Inicializar el repositorio Git y subirlo a GitHub.
-- [x] Ubicación real de la parroquia (mapa ya apunta a -12.0365691, -76.928581).
-- [x] Facebook oficial: `facebook.com/parroquiasfjlima`.
-- [x] Datos de catequesis (del afiche oficial; por eso no llevan `esPlaceholder`).
-- [x] Escudo oficial guardado en `assets/img/logo.png`.
-- [ ] Conectar el repo a Vercel (Add New Project → Import → Framework Preset: Other).
-- [ ] Número de WhatsApp real de la parroquia (por ahora, placeholder).
-- [ ] Dirección exacta (calle y número) e historia de la parroquia.
-- [ ] Instagram, si la parroquia tiene (queda oculto mientras esté vacío).
-- [ ] Crear los 2 Google Forms (contacto general y solicitud de ayuda), cada uno con su
-      Sheet de respuestas vinculado, y pegar las URLs en `content.js`.
-- [ ] Corregir la inconsistencia **Google Sites vs. Vercel** en el Business Case: debe decir
-      Vercel en ambas secciones.
-- [ ] Recopilar contenido real con el párroco (fotos, horarios confirmados, textos) y quitar
-      progresivamente las banderas `esPlaceholder`.
+- [x] Repositorio en GitHub.
+- [x] Escudo del grupo y fotos del Seminario de Vida en el Espíritu.
+- [x] Ubicación: Capilla Divino Niño (-12.0405377, -76.925658).
+- [ ] Conectar el repo a Vercel.
+- [ ] Crear el Gmail del grupo (dueño de Forms, Sheets e Instagram).
+- [ ] Instagram del grupo + secreto `IG_TOKEN` (`docs/guia-instagram.md`).
+- [ ] Formulario y hoja de donaciones (`docs/guia-donaciones-sheets.md`).
+- [ ] Formularios de contacto y de ayuda (anónimo).
+- [ ] WhatsApp del coordinador y su horario de atención.
+- [ ] Día y hora de la reunión semanal.
+- [ ] Los 7 temas del seminario (uno se ve en las fotos: "El pecado y sus consecuencias") y fecha del próximo.
+- [ ] Relación Capilla Divino Niño ↔ Parroquia San Francisco Javier; ¿la catequesis aplica?
+- [ ] Horarios de misa, confesiones y servicios de la capilla.
+- [ ] Lista real de la campaña de Navidad (productos, metas, lo que no se recibe, horarios de entrega).
+- [ ] Historia del grupo, misión oficial (la actual es provisional) y servidores con permiso.
+- [ ] Criterio sobre fotos de niños.
+- [ ] Corregir "Google Sites vs. Vercel" en el Business Case.
