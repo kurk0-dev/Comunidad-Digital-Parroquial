@@ -65,7 +65,7 @@ $cds_url = static function ( $slug ) {
 <h2 class="wp-block-heading is-style-con-filete">La parroquia en línea</h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"layout":{"type":"grid","minimumColumnWidth":"15rem"}} -->
+<!-- wp:group {"layout":{"type":"grid","minimumColumnWidth":"12.5rem"}} -->
 <div class="wp-block-group"><!-- wp:group {"className":"is-style-tarjeta"} -->
 <div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'misas' ); ?>">Misas y horarios</a></h3>
@@ -136,11 +136,7 @@ $cds_url = static function ( $slug ) {
 
 <!-- wp:paragraph -->
 <p><strong>Ate, Lima</strong></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:shortcode -->
-[cds_como_llegar texto="Abrir en Google Maps"]
-<!-- /wp:shortcode --></div>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 

@@ -19,7 +19,10 @@
         correctLevel: window.QRCode.CorrectLevel.M
       });
       // El contenedor ya tiene role="img" y aria-label: el lector no debe leerlo dos veces.
-      caja.querySelectorAll("img, canvas").forEach(function (n) { n.setAttribute("aria-hidden", "true"); });
+      caja.querySelectorAll("img, canvas").forEach(function (n) {
+        n.setAttribute("aria-hidden", "true");
+        if (n.tagName === "IMG") n.setAttribute("alt", "");
+      });
     });
   }
 

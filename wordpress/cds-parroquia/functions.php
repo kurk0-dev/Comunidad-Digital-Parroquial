@@ -34,7 +34,8 @@ add_action(
 add_action(
 	'wp_enqueue_scripts',
 	static function () {
-		wp_enqueue_style( 'cds', get_stylesheet_uri(), array(), CDS_VERSION );
+		// La versión es la fecha del archivo: al cambiar el CSS, los celulares no se quedan con el viejo.
+		wp_enqueue_style( 'cds', get_stylesheet_uri(), array(), (string) filemtime( get_theme_file_path( 'style.css' ) ) );
 	}
 );
 

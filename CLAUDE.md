@@ -14,6 +14,11 @@
 >    (`inc/shortcodes.php`) y botón Herramientas → Contenido inicial (`inc/contenido-inicial.php`).
 >    El sitio estático de la raíz queda como versión anterior; `wordpress/` está en `.vercelignore`.
 >    Las reglas de seguridad (validar URLs, escapar todo, sin código de terceros) siguen vigentes.
+>
+>    **Prueba local:** XAMPP (`C:\xampp`) con WordPress en `http://localhost/parroquia/`. El tema
+>    está enlazado con una unión de carpetas: los cambios en `wordpress/cds-parroquia/` se ven al
+>    recargar. Usuario de prueba en `wordpress/LOCAL-DEV.txt` (ignorado por Git). Para celular,
+>    revisar en el panel a 375 px: Edge sin ventana maqueta a más de 600 px.
 
 Sitio web informativo + bot FAQ para el **Grupo de Oración Divino Niño Jesús** — Renovación
 Carismática Católica (RCC), **Diócesis de Chosica, Zona 3**. El grupo se reúne en la

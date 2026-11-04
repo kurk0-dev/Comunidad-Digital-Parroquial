@@ -8,7 +8,7 @@ Requiere: WordPress 6.6 o superior, PHP 8.0 o superior. Sin plugins obligatorios
    cds-parroquia.zip → Instalar ahora → Activar.
 2. Herramientas → Contenido inicial → "Crear contenido inicial".
    Crea las 6 páginas, sube las fotos, pone el escudo como logo,
-   carga las preguntas del bot y deja "Inicio" como portada.
+   arma el menú, carga las preguntas del bot y deja "Inicio" como portada.
 3. Ajustes → Datos de la parroquia: llenar WhatsApp, formularios de
    Google y, si se usa, la hoja de avance de donaciones.
 
@@ -26,6 +26,7 @@ Requiere: WordPress 6.6 o superior, PHP 8.0 o superior. Sin plugins obligatorios
 * Fotos de un evento: agregar un bloque "Galería" y, en el panel
   derecho → Estilos, elegir "Carrusel" (se desliza) o
   "Viernes (miniaturas)". Al tocar una foto se abre en grande.
+* Menú: Apariencia → Editor → Navegación → "Menú principal".
 * Colores: Apariencia → Editor → Estilos. Hay una variante
   "Grupo de Oración RCC (rojo)".
 

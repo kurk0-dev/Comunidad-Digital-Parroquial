@@ -33,7 +33,7 @@ function cds_paginas_iniciales() {
 function cds_preguntas_iniciales() {
 	return array(
 		array( '¿A qué hora son las misas?', 'Puedes ver todos los horarios de misa, incluidas las fechas especiales, en la página Misas. Desde ahí también puedes agregar la misa dominical a tu Google Calendar.', array( 'horario', 'horarios', 'misa', 'misas', 'a que hora', 'cuando hay misa' ) ),
-		array( '¿Qué necesito para un bautizo?', 'Los requisitos de bautizo están en la página Servicios: partida de nacimiento, copia del DNI de los padres, padrinos confirmados y charla prebautismal. Confirma fechas en la secretaría.', array( 'bautizo', 'bautismo', 'bautizar', 'requisitos' ) ),
+		array( '¿Qué necesito para un bautizo?', 'Los requisitos de bautizo están en la página Servicios. Antes de reunir documentos, confirma requisitos y fechas en la secretaría parroquial.', array( 'bautizo', 'bautismo', 'bautizar', 'requisitos' ) ),
 		array( '¿Cómo puedo donar?', 'En la página Donaciones verás qué se necesita y cuánto falta para cada meta. Solo recibimos donaciones en especie (víveres y ropa), nunca dinero.', array( 'donar', 'donacion', 'donaciones', 'campana', 'ayudar', 'colaborar', 'viveres', 'ropa' ) ),
 		array( '¿Cuándo es la catequesis?', 'Inscripciones abiertas para la catequesis de iniciación cristiana. Informes de martes a viernes, de 7:00 p.m. a 9:00 p.m. Niños de 8 a 13 años (Bautismo y Eucaristía) y jóvenes de 15 a 19 años (Bautismo, Eucaristía y Confirmación).', array( 'catequesis', 'primera comunion', 'comunion', 'confirmacion', 'inscripcion' ) ),
 		array( 'Necesito pedir ayuda', 'En la página Contacto hay un formulario de solicitud de ayuda que puedes enviar de forma anónima. Alguien de la parroquia lo revisará.', array( 'ayuda', 'necesito ayuda', 'apoyo', 'pedir ayuda' ) ),
@@ -108,11 +108,16 @@ function cds_contenido_de_patron( $nombre ) {
 function cds_crear_contenido_inicial() {
 	$hechos = array();
 
-	// Los botones enlazan a /misas/, /donaciones/…: hacen falta enlaces permanentes.
-	if ( '' === (string) get_option( 'permalink_structure' ) ) {
+	// Los botones enlazan a /misas/, /donaciones/…: hacen falta enlaces permanentes
+	// "limpios". Si están desactivados o usan /index.php/ (pasa cuando WordPress no
+	// detectó mod_rewrite al instalarse) y el servidor sí reescribe URLs, se activan.
+	$estructura = (string) get_option( 'permalink_structure' );
+	if ( ( '' === $estructura || false !== strpos( $estructura, 'index.php' ) ) && got_url_rewrite() ) {
 		update_option( 'permalink_structure', '/%postname%/' );
-		flush_rewrite_rules();
+		flush_rewrite_rules( true );
 		$hechos[] = 'Enlaces permanentes activados (/nombre-de-la-pagina/)';
+	} elseif ( '' === $estructura || false !== strpos( $estructura, 'index.php' ) ) {
+		$hechos[] = 'AVISO: el servidor no reescribe URLs. Ajustes → Enlaces permanentes → "Nombre de la entrada".';
 	}
 
 	foreach ( cds_paginas_iniciales() as $slug => list( $titulo, $patron, $orden ) ) {
@@ -138,6 +143,49 @@ function cds_crear_contenido_inicial() {
 		if ( 'inicio' === $slug && ! is_wp_error( $id ) ) {
 			update_option( 'show_on_front', 'page' );
 			update_option( 'page_on_front', (int) $id );
+		}
+	}
+
+	// La "Página de ejemplo" que trae WordPress aparecería en el menú: pasa a
+	// borrador solo si nadie la ha tocado (no se borra nada).
+	foreach ( array( 'pagina-ejemplo', 'sample-page' ) as $ejemplo ) {
+		$pagina = get_page_by_path( $ejemplo );
+		if ( $pagina && 'publish' === $pagina->post_status && $pagina->post_modified_gmt === $pagina->post_date_gmt ) {
+			wp_update_post( array( 'ID' => $pagina->ID, 'post_status' => 'draft' ) );
+			$hechos[] = 'Página de ejemplo de WordPress pasada a borrador';
+		}
+	}
+
+	// Menú con las 6 páginas en orden. La cabecera y el pie usan el menú publicado
+	// más reciente, así que basta con crearlo. Se edita en Apariencia → Editor → Navegación.
+	if ( ! get_page_by_path( 'menu-principal', OBJECT, 'wp_navigation' ) ) {
+		$enlaces = '';
+		foreach ( cds_paginas_iniciales() as $slug => list( $titulo ) ) {
+			$pagina = get_page_by_path( $slug );
+			if ( $pagina ) {
+				$enlaces .= '<!-- wp:navigation-link ' . wp_json_encode(
+					array(
+						'label' => $titulo,
+						'type'  => 'page',
+						'id'    => $pagina->ID,
+						'url'   => get_permalink( $pagina ),
+						'kind'  => 'post-type',
+					),
+					JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+				) . ' /-->';
+			}
+		}
+		if ( $enlaces ) {
+			wp_insert_post(
+				array(
+					'post_type'    => 'wp_navigation',
+					'post_status'  => 'publish',
+					'post_title'   => 'Menú principal',
+					'post_name'    => 'menu-principal',
+					'post_content' => $enlaces,
+				)
+			);
+			$hechos[] = 'Menú principal creado con las 6 páginas';
 		}
 	}
 

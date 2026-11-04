@@ -125,6 +125,8 @@ body {
 }
 .is-style-tarjeta > :first-child { margin-top: 0; }
 .is-style-tarjeta > :last-child { margin-bottom: 0; }
+/* En tarjetas con imagen al lado, la imagen no se encoge cuando el texto es largo */
+.is-style-tarjeta.is-layout-flex > .wp-block-image { flex-shrink: 0; margin: 0; }
 
 /* --- Estilo de bloque "Por confirmar" ----------------------------------------
    Se aplica desde el panel lateral del editor (Estilos → Por confirmar).
@@ -277,9 +279,10 @@ body {
 	overflow-x: auto;
 	overscroll-behavior-x: contain;
 	scroll-snap-type: x mandatory;
-	padding-bottom: .75rem;
-	scrollbar-width: thin;
+	padding-bottom: .25rem;
+	scrollbar-width: none; /* hay flechas y contador; la barra gris solo estorbaba */
 }
+.wp-block-gallery.is-style-carrusel.has-nested-images::-webkit-scrollbar { display: none; }
 @media (min-width: 720px) { .wp-block-gallery.is-style-carrusel.has-nested-images { grid-auto-columns: calc(50% - .5rem); gap: 1rem; } }
 @media (min-width: 1020px) { .wp-block-gallery.is-style-carrusel.has-nested-images { grid-auto-columns: calc(38% - .6rem); } }
 .wp-block-gallery.is-style-carrusel.has-nested-images figure.wp-block-image {
@@ -304,7 +307,18 @@ body {
 .cds-carrusel__flecha:disabled { opacity: .4; cursor: default; }
 .cds-carrusel__contador { margin: 0; min-width: 5.5em; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--wp--preset--color--texto-suave); }
 
-/* Galería "Viernes": miniaturas con su viernes debajo; tocar abre la foto */
+/* Galería "Viernes": miniaturas con su viernes debajo; tocar abre la foto.
+   En cuadrícula para que la última foto (si son impares) no se estire a todo el ancho. */
+.wp-block-gallery.is-style-viernes.has-nested-images {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	gap: 1rem;
+}
+.wp-block-gallery.is-style-viernes.has-nested-images figure.wp-block-image {
+	width: auto !important;
+	margin: 0 !important;
+	flex-direction: column;
+}
 .wp-block-gallery.is-style-viernes.has-nested-images figure.wp-block-image img {
 	aspect-ratio: 1;
 	object-fit: cover;
@@ -323,7 +337,7 @@ body {
 }
 
 /* --- Pie --------------------------------------------------------------------- */
-.cds-pie { border-top: 3px solid var(--wp--preset--color--linea); }
+.cds-pie { border-top: 3px solid var(--wp--preset--color--linea); padding-bottom: 88px !important; } /* espacio para el botón del bot */
 .cds-pie a { color: var(--wp--preset--color--blanco); }
 .cds-pie a:hover { color: var(--wp--preset--color--boton); }
 .cds-redes { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; list-style: none; padding: 0; margin: 0; }

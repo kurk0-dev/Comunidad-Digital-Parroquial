@@ -34,3 +34,6 @@ images/
 credentials.json
 service-account*.json
 .npmrc
+
+# WordPress local de prueba (XAMPP): usuario y clave de desarrollo
+wordpress/LOCAL-DEV.txt
