@@ -1,0 +1,392 @@
+/*
+Theme Name: Comunidad Digital y Solidaria
+Theme URI: https://github.com/kurk0-dev/Comunidad-Digital-Parroquial
+Author: Grupo 3 — Universidad de Lima
+Description: Tema de bloques para la Parroquia San Francisco Javier (Ate, Lima). Pensado para que la secretaría actualice la web sola: todo se edita desde el editor de WordPress. Incluye bot de preguntas frecuentes, contador de donaciones conectado a Google Sheets, mapa, códigos QR y galerías en carrusel. Sin plugins obligatorios.
+Version: 1.0.0
+Requires at least: 6.6
+Tested up to: 6.9
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: cds
+Tags: block-patterns, full-site-editing, accessibility-ready, custom-colors, editor-style
+*/
+
+/* =============================================================================
+   Los colores y la tipografía viven en theme.json (Apariencia → Editor → Estilos).
+   Aquí solo van los componentes que theme.json no puede describir.
+   ============================================================================= */
+
+/* --- Fondo de azulejos en todas las páginas ---------------------------------- */
+body {
+	background-image: url("assets/img/patron-azulejo.svg");
+	background-repeat: repeat;
+	background-size: 160px 160px;
+	-webkit-text-size-adjust: 100%;
+}
+
+:where(.wp-site-blocks) :focus-visible {
+	outline: 3px solid var(--wp--preset--color--acento-texto);
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+	*, *::before, *::after {
+		animation-duration: .001ms !important;
+		transition-duration: .001ms !important;
+	}
+}
+
+/* --- Cabecera fija ------------------------------------------------------------
+   El "sticky" va en la parte de plantilla (<header>), no en el grupo interior:
+   un elemento fijo solo se queda pegado dentro de su contenedor, y el <header>
+   mide exactamente lo mismo que el grupo. */
+.wp-site-blocks > header.wp-block-template-part {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+}
+.admin-bar .wp-site-blocks > header.wp-block-template-part { top: 32px; }
+@media (max-width: 782px) { .admin-bar .wp-site-blocks > header.wp-block-template-part { top: 46px; } }
+.cds-cabecera {
+	border-bottom: 3px solid var(--wp--preset--color--linea);
+	box-shadow: 0 2px 12px rgba(14, 36, 56, .18);
+}
+
+/* Separación entre secciones de una página */
+.cds-seccion { margin-block-start: clamp(2.5rem, 6vw, 4rem); }
+
+.cds-cabecera .wp-block-site-logo img {
+	background: #fff;
+	border-radius: 50%;
+	border: 2px solid var(--wp--preset--color--linea);
+}
+.cds-cabecera .wp-block-site-tagline { opacity: .85; margin: 0; }
+.cds-cabecera .wp-block-site-title { margin: 0; }
+.cds-cabecera .wp-block-navigation a:hover { text-decoration: underline; }
+.cds-cabecera .wp-block-navigation .current-menu-item > a,
+.cds-cabecera .wp-block-navigation a[aria-current="page"] {
+	font-weight: 700;
+	text-decoration: underline;
+	text-decoration-color: var(--wp--preset--color--linea);
+	text-decoration-thickness: 3px;
+	text-underline-offset: 6px;
+}
+/* Menú de celular: botones grandes, fáciles de tocar */
+.cds-cabecera .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content {
+	padding: .7rem 0;
+	font-size: 1.15rem;
+}
+.cds-cabecera .wp-block-navigation__responsive-container-open,
+.cds-cabecera .wp-block-navigation__responsive-container-close {
+	min-width: 44px;
+	min-height: 44px;
+	justify-content: center;
+}
+
+/* --- Escudo grande de la portada ---------------------------------------------- */
+.cds-escudo img {
+	background: #fff;
+	border-radius: 50%;
+	padding: 10px;
+	box-shadow: 0 0 0 5px var(--wp--preset--color--linea), 0 14px 34px rgba(20, 48, 77, .2);
+}
+
+/* --- Títulos de sección con filete corto encima ------------------------------ */
+.is-style-con-filete::before {
+	content: "";
+	display: block;
+	width: 48px;
+	height: 4px;
+	border-radius: 2px;
+	background: var(--wp--preset--color--linea);
+	margin-bottom: .9rem;
+}
+.is-style-con-filete.has-text-align-center::before { margin-inline: auto; }
+
+.cds-sobretitulo {
+	text-transform: uppercase;
+	letter-spacing: .12em;
+	font-size: .76rem;
+	font-weight: 700;
+	color: var(--wp--preset--color--acento-texto);
+	margin-bottom: .2rem;
+}
+
+/* --- Estilo de bloque "Tarjeta" ---------------------------------------------- */
+.is-style-tarjeta {
+	background: var(--wp--preset--color--tarjeta);
+	border: 1px solid var(--wp--preset--color--borde);
+	border-radius: 12px;
+	box-shadow: 0 1px 2px rgba(20, 48, 77, .07), 0 10px 28px rgba(20, 48, 77, .09);
+	padding: 1.5rem;
+}
+.is-style-tarjeta > :first-child { margin-top: 0; }
+.is-style-tarjeta > :last-child { margin-bottom: 0; }
+
+/* --- Estilo de bloque "Por confirmar" ----------------------------------------
+   Se aplica desde el panel lateral del editor (Estilos → Por confirmar).
+   Cuando el dato se confirma, se vuelve al estilo "Predeterminado". */
+.is-style-por-confirmar::after {
+	content: "Ejemplo / Por confirmar";
+	display: inline-block;
+	margin-left: .5em;
+	padding: .1em .7em;
+	border-radius: 999px;
+	background: #FBEFD2;
+	color: #7A4A06;
+	border: 1px solid #E3C889;
+	font-size: .7rem;
+	font-weight: 600;
+	letter-spacing: .02em;
+	text-transform: none;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+.wp-block-group.is-style-por-confirmar,
+.wp-block-columns.is-style-por-confirmar { position: relative; }
+.wp-block-group.is-style-por-confirmar::after,
+.wp-block-columns.is-style-por-confirmar::after {
+	position: absolute;
+	top: .75rem;
+	right: .75rem;
+	margin: 0;
+}
+
+/* --- Tarjetas de acceso (portada) -------------------------------------------- */
+.cds-accesos .wp-block-column.is-style-tarjeta,
+.cds-accesos .is-style-tarjeta {
+	border-top: 4px solid var(--wp--preset--color--linea);
+	transition: transform 180ms ease;
+}
+.cds-accesos .is-style-tarjeta:hover { transform: translateY(-3px); }
+
+/* --- Mapa clicable ------------------------------------------------------------ */
+.cds-mapa {
+	position: relative;
+	border-radius: 12px;
+	overflow: hidden;
+	border: 1px solid var(--wp--preset--color--borde);
+	box-shadow: 0 10px 28px rgba(20, 48, 77, .09);
+}
+.cds-mapa iframe { display: block; width: 100%; height: 320px; border: 0; pointer-events: none; }
+.cds-mapa__capa {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	padding: 1rem;
+	text-decoration: none;
+}
+.cds-mapa__boton {
+	background: var(--wp--preset--color--boton);
+	color: var(--wp--preset--color--boton-texto);
+	border-radius: 8px;
+	padding: .6rem 1.2rem;
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	font-weight: 600;
+	box-shadow: 0 2px 10px rgba(14, 36, 56, .3);
+}
+
+/* --- Botones generados por los atajos (WhatsApp, formularios) ---------------- */
+.cds-boton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 48px;
+	padding: .75rem 1.5rem;
+	border-radius: 8px;
+	font-weight: 600;
+	text-decoration: none;
+	background: var(--wp--preset--color--boton);
+	color: var(--wp--preset--color--boton-texto);
+}
+.cds-boton:hover { background: var(--wp--preset--color--primario); color: #fff; }
+.cds-boton--whatsapp { background: #15803D; color: #fff; }
+.cds-boton--whatsapp:hover { background: #126B33; color: #fff; }
+.cds-boton--apagado {
+	background: var(--wp--preset--color--tarjeta);
+	color: var(--wp--preset--color--texto-suave);
+	border: 1px solid var(--wp--preset--color--borde);
+	cursor: default;
+}
+
+/* --- Aviso de privacidad (letra pequeña) ------------------------------------- */
+.cds-privacidad {
+	display: flex;
+	gap: .45rem;
+	align-items: flex-start;
+	font-size: .78rem;
+	line-height: 1.5;
+	color: var(--wp--preset--color--texto-suave);
+	max-width: 70ch;
+}
+.cds-privacidad svg { flex-shrink: 0; margin-top: .15em; }
+
+/* --- Contador de donaciones -------------------------------------------------- */
+.cds-campanas {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.cds-campana {
+	background: var(--wp--preset--color--tarjeta);
+	border: 1px solid var(--wp--preset--color--borde);
+	border-radius: 12px;
+	padding: 1.4rem;
+}
+.cds-campana__cabecera { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; flex-wrap: wrap; margin-bottom: .8rem; }
+.cds-campana__item { font-weight: 700; font-size: 1.1rem; margin: 0; color: var(--wp--preset--color--primario); }
+.cds-campana__cifra { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--wp--preset--color--acento-texto); white-space: nowrap; }
+.cds-campana__barra { height: 14px; border-radius: 999px; background: var(--wp--preset--color--fondo); border: 1px solid var(--wp--preset--color--borde); overflow: hidden; }
+.cds-campana__relleno { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--wp--preset--color--primario), var(--wp--preset--color--boton)); }
+.cds-campana--completa .cds-campana__relleno { background: #2F6229; }
+.cds-campana__pie { display: flex; justify-content: space-between; gap: .75rem; margin-top: .6rem; font-size: .88rem; color: var(--wp--preset--color--texto-suave); }
+.cds-campana__completa { display: inline-block; margin-top: .5rem; color: #2F6229; font-weight: 700; font-size: .9rem; }
+.cds-campanas__fuente { font-size: .8rem; color: var(--wp--preset--color--texto-suave); margin-top: .75rem; }
+
+/* --- Código QR --------------------------------------------------------------- */
+.cds-qr {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: .8rem;
+	background: #fff;
+	border: 2px solid var(--wp--preset--color--linea);
+	border-radius: 8px;
+	min-width: 156px;
+	min-height: 156px;
+}
+
+/* --- Galería en carrusel (estilo de bloque "Carrusel" de la Galería) ---------
+   Se desliza con el dedo; las flechas las agrega assets/js/carrusel.js.
+   Al tocar una foto se abre el visor nativo de WordPress (lightbox). */
+.wp-block-gallery.is-style-carrusel.has-nested-images {
+	display: grid !important;
+	grid-auto-flow: column;
+	grid-auto-columns: 85%;
+	gap: .75rem;
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-snap-type: x mandatory;
+	padding-bottom: .75rem;
+	scrollbar-width: thin;
+}
+@media (min-width: 720px) { .wp-block-gallery.is-style-carrusel.has-nested-images { grid-auto-columns: calc(50% - .5rem); gap: 1rem; } }
+@media (min-width: 1020px) { .wp-block-gallery.is-style-carrusel.has-nested-images { grid-auto-columns: calc(38% - .6rem); } }
+.wp-block-gallery.is-style-carrusel.has-nested-images figure.wp-block-image {
+	width: auto !important;
+	margin: 0 !important;
+	scroll-snap-align: start;
+}
+.wp-block-gallery.is-style-carrusel.has-nested-images figure.wp-block-image img {
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	border-radius: 12px;
+}
+.cds-carrusel__controles { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: .4rem; }
+.cds-carrusel__flecha {
+	width: 48px; height: 48px; border-radius: 50%;
+	display: inline-flex; align-items: center; justify-content: center;
+	background: var(--wp--preset--color--tarjeta);
+	color: var(--wp--preset--color--texto);
+	border: 1px solid var(--wp--preset--color--borde);
+	cursor: pointer;
+}
+.cds-carrusel__flecha:disabled { opacity: .4; cursor: default; }
+.cds-carrusel__contador { margin: 0; min-width: 5.5em; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--wp--preset--color--texto-suave); }
+
+/* Galería "Viernes": miniaturas con su viernes debajo; tocar abre la foto */
+.wp-block-gallery.is-style-viernes.has-nested-images figure.wp-block-image img {
+	aspect-ratio: 1;
+	object-fit: cover;
+	border-radius: 10px;
+}
+.wp-block-gallery.is-style-viernes.has-nested-images figure.wp-block-image figcaption {
+	position: static;
+	background: none;
+	color: var(--wp--preset--color--primario);
+	font-weight: 600;
+	font-size: .9rem;
+	text-align: center;
+	padding: .35rem 0 0;
+	max-height: none;
+	text-shadow: none;
+}
+
+/* --- Pie --------------------------------------------------------------------- */
+.cds-pie { border-top: 3px solid var(--wp--preset--color--linea); }
+.cds-pie a { color: var(--wp--preset--color--blanco); }
+.cds-pie a:hover { color: var(--wp--preset--color--boton); }
+.cds-redes { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; list-style: none; padding: 0; margin: 0; }
+
+/* --- Bot de preguntas frecuentes --------------------------------------------- */
+.cds-bot-lanzador {
+	position: fixed; right: 16px; bottom: 16px; z-index: 80;
+	display: inline-flex; align-items: center; gap: .5rem;
+	min-height: 52px; padding: 0 1.2rem;
+	background: var(--wp--preset--color--primario); color: #fff;
+	border: 2px solid var(--wp--preset--color--linea); border-radius: 999px;
+	font: inherit; font-weight: 600; cursor: pointer;
+	box-shadow: 0 6px 20px rgba(14, 36, 56, .35);
+}
+.cds-bot-lanzador__texto { display: none; }
+@media (min-width: 560px) { .cds-bot-lanzador__texto { display: inline; } }
+.cds-bot-panel {
+	position: fixed; z-index: 90; right: 12px; left: 12px; bottom: 12px;
+	max-height: min(78vh, 560px);
+	display: flex; flex-direction: column;
+	background: var(--wp--preset--color--tarjeta);
+	border: 1px solid var(--wp--preset--color--borde); border-radius: 12px;
+	box-shadow: 0 12px 40px rgba(14, 36, 56, .3);
+	overflow: hidden;
+}
+.cds-bot-panel[hidden] { display: none; }
+@media (min-width: 560px) { .cds-bot-panel { left: auto; width: 385px; bottom: 16px; right: 16px; } }
+.cds-bot-panel__cabecera {
+	display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+	padding: .9rem 1rem; background: var(--wp--preset--color--primario); color: #fff;
+	border-bottom: 3px solid var(--wp--preset--color--linea);
+}
+.cds-bot-panel__cabecera h2 { font-size: 1rem; margin: 0; color: #fff; }
+.cds-bot-panel__cerrar {
+	width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
+	background: rgba(255, 255, 255, .18); color: #fff; border: 0; border-radius: 6px; cursor: pointer; font-size: 1.4rem;
+}
+.cds-bot-panel__mensajes {
+	flex: 1; overflow-y: auto; padding: 1rem;
+	display: flex; flex-direction: column; gap: .7rem;
+	background: var(--wp--preset--color--fondo);
+}
+.cds-bot-msg { max-width: 85%; padding: .65rem .9rem; border-radius: 12px; font-size: .95rem; }
+.cds-bot-msg--bot { background: var(--wp--preset--color--tarjeta); border: 1px solid var(--wp--preset--color--borde); align-self: flex-start; }
+.cds-bot-msg--usuario { background: var(--wp--preset--color--primario); color: #fff; align-self: flex-end; }
+.cds-bot-msg a { color: inherit; }
+.cds-bot-panel__sugerencias { display: flex; flex-wrap: wrap; gap: .4rem; padding: .7rem 1rem; border-top: 1px solid var(--wp--preset--color--borde); }
+.cds-bot-sugerencia {
+	background: var(--wp--preset--color--fondo); color: var(--wp--preset--color--primario);
+	border: 1px solid var(--wp--preset--color--borde); border-radius: 999px;
+	padding: .4rem .85rem; min-height: 36px; font: inherit; font-size: .84rem; cursor: pointer;
+}
+.cds-bot-panel__form { display: flex; gap: .5rem; padding: .75rem 1rem 1rem; border-top: 1px solid var(--wp--preset--color--borde); }
+.cds-bot-panel__form input {
+	flex: 1; min-width: 0; min-height: 44px; padding: .5rem .85rem;
+	border: 1px solid var(--wp--preset--color--borde); border-radius: 8px; font: inherit;
+	background: var(--wp--preset--color--fondo); color: var(--wp--preset--color--texto);
+}
+.cds-bot-panel__enviar {
+	width: 44px; height: 44px; border: 0; border-radius: 8px; cursor: pointer;
+	background: var(--wp--preset--color--primario); color: #fff; font-size: 1.15rem;
+}
+.cds-sr {
+	position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+	clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}

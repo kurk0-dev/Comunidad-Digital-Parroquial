@@ -1,5 +1,20 @@
 # Comunidad Digital y Solidaria
 
+> **ACTUALIZACIÓN 03/11/2026 — dos decisiones que mandan sobre el resto de este archivo:**
+>
+> 1. **La fuente de verdad son los documentos del curso** (zip "Proyecto Parroquia _Comunidad
+>    Digital y Solidaria_ - Grupo 3": Backlog, Roadmap, Riesgos, Business Case, Presentación).
+>    Su cliente es la **Parroquia San Francisco Javier** (Diócesis de Chosica · Vicaría II). Todo
+>    cambio en la web debe reflejarse también en esos documentos, y viceversa. El Grupo de Oración
+>    RCC aparece como grupo de la parroquia (Comunidad), no como protagonista.
+> 2. **La web se migra a WordPress** (RSK-001 materializado). El tema vive en
+>    `wordpress/cds-parroquia/` (tema de bloques, sin plugins obligatorios): páginas desde
+>    patrones (`patterns/`), datos repetidos en Ajustes → Datos de la parroquia (`inc/ajustes.php`),
+>    bot como tipo de entrada "Preguntas del bot" (`inc/bot.php`), atajos `[cds_*]`
+>    (`inc/shortcodes.php`) y botón Herramientas → Contenido inicial (`inc/contenido-inicial.php`).
+>    El sitio estático de la raíz queda como versión anterior; `wordpress/` está en `.vercelignore`.
+>    Las reglas de seguridad (validar URLs, escapar todo, sin código de terceros) siguen vigentes.
+
 Sitio web informativo + bot FAQ para el **Grupo de Oración Divino Niño Jesús** — Renovación
 Carismática Católica (RCC), **Diócesis de Chosica, Zona 3**. El grupo se reúne en la
 **Capilla Divino Niño** (Lima). Proyecto del curso de Gestión de Proyectos, Universidad de Lima.
