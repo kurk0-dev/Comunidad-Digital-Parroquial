@@ -28,7 +28,7 @@ function cds_url_segura( $url ) {
 /**
  * Solo dígitos: evita que un valor mal escrito altere el destino de wa.me.
  *
- * @param string $numero Número tal como lo escribió la secretaría.
+ * @param string $numero Número tal como lo escribió quien edita el sitio.
  * @return string
  */
 function cds_solo_digitos( $numero ) {

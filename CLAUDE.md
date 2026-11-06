@@ -1,5 +1,13 @@
 # Comunidad Digital y Solidaria
 
+> **ACTUALIZACIÓN 06/11/2026 — identidad de la web (manda sobre el punto 1 de abajo):**
+> la web vuelve a ser la del **Grupo de Oración Divino Niño Jesús**: rojo, con el escudo del
+> grupo (`assets/img/escudo.webp`, paloma con halo amarillo). **El nombre y el escudo de la
+> Parroquia San Francisco Javier ya no van en la web** (pedido de Joaquín). La paleta roja de
+> este archivo es la de `theme.json`; la ubicación es la Capilla Divino Niño. Los documentos
+> del curso todavía nombran a la parroquia como cliente: está pendiente que el equipo decida
+> si se actualizan (Business Case, Backlog, Presentación).
+
 > **ACTUALIZACIÓN 03/11/2026 — dos decisiones que mandan sobre el resto de este archivo:**
 >
 > 1. **La fuente de verdad son los documentos del curso** (zip "Proyecto Parroquia _Comunidad
@@ -9,7 +17,7 @@
 >    RCC aparece como grupo de la parroquia (Comunidad), no como protagonista.
 > 2. **La web se migra a WordPress** (RSK-001 materializado). El tema vive en
 >    `wordpress/cds-parroquia/` (tema de bloques, sin plugins obligatorios): páginas desde
->    patrones (`patterns/`), datos repetidos en Ajustes → Datos de la parroquia (`inc/ajustes.php`),
+>    patrones (`patterns/`), datos repetidos en Ajustes → Datos del sitio (`inc/ajustes.php`),
 >    bot como tipo de entrada "Preguntas del bot" (`inc/bot.php`), atajos `[cds_*]`
 >    (`inc/shortcodes.php`) y botón Herramientas → Contenido inicial (`inc/contenido-inicial.php`).
 >    El sitio estático de la raíz queda como versión anterior; `wordpress/` está en `.vercelignore`.

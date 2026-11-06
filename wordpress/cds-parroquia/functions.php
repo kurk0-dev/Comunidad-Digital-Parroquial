@@ -1,10 +1,10 @@
 <?php
 /**
- * Comunidad Digital y Solidaria — tema de bloques de la Parroquia San Francisco Javier.
+ * Comunidad Digital y Solidaria — tema de bloques del Grupo de Oración Divino Niño Jesús (RCC).
  *
  * Todo el contenido se edita desde WordPress:
  *   - Páginas ............ Páginas (editor de bloques)
- *   - Datos repetidos .... Ajustes → Datos de la parroquia
+ *   - Datos repetidos .... Ajustes → Datos del sitio
  *   - Bot ................ Preguntas del bot
  *   - Colores ............ Apariencia → Editor → Estilos (incluye la variante RCC)
  *   - Primer arranque .... Herramientas → Contenido inicial
@@ -53,7 +53,7 @@ add_action(
 		register_block_style( 'core/gallery', array( 'name' => 'carrusel', 'label' => 'Carrusel' ) );
 		register_block_style( 'core/gallery', array( 'name' => 'viernes', 'label' => 'Viernes (miniaturas)' ) );
 
-		register_block_pattern_category( 'cds-paginas', array( 'label' => 'Páginas de la parroquia' ) );
+		register_block_pattern_category( 'cds-paginas', array( 'label' => 'Páginas del sitio' ) );
 	}
 );
 

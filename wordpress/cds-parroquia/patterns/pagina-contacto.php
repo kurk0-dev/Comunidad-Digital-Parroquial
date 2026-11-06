@@ -29,7 +29,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Dudas sobre horarios, sacramentos, catequesis o cómo participar en la comunidad.</p>
+<p>Dudas sobre la reunión, los horarios de la capilla o cómo participar en el grupo.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:shortcode -->

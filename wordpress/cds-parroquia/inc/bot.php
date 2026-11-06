@@ -90,7 +90,7 @@ add_action(
 		$datos  = array(
 			'preguntas' => cds_preguntas_bot(),
 			'fallback'  => cds_ajuste( 'bot_fallback' ),
-			'whatsapp'  => $numero ? 'https://wa.me/' . $numero . '?text=' . rawurlencode( 'Hola, tengo una consulta sobre la parroquia.' ) : '',
+			'whatsapp'  => $numero ? 'https://wa.me/' . $numero . '?text=' . rawurlencode( 'Hola, tengo una consulta sobre el grupo de oración.' ) : '',
 			'saludo'    => 'Hola. Puedo ayudarte con horarios de misa, sacramentos, catequesis, donaciones y solicitudes de ayuda. Escribe tu pregunta o toca una de las opciones.',
 		);
 		wp_enqueue_script( 'cds-bot', get_theme_file_uri( 'assets/js/bot.js' ), array(), CDS_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );

@@ -15,11 +15,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1,"className":"is-style-con-filete"} -->
-<h1 class="wp-block-heading is-style-con-filete">Misas y horarios</h1>
+<h1 class="wp-block-heading is-style-con-filete">Misas en la capilla</h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Estos son los horarios habituales de la parroquia. En fechas especiales pueden cambiar: revisa el bloque de más abajo.</p>
+<p>Estos son los horarios habituales de la Capilla Divino Niño. En fechas especiales pueden cambiar: revisa el bloque de más abajo.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"layout":{"type":"grid","minimumColumnWidth":"15rem"}} -->

@@ -3,7 +3,7 @@
  * Atajos ([shortcodes]) para las partes dinámicas de las páginas.
  *
  * Se insertan con el bloque "Código corto". Sus datos salen de
- * Ajustes → Datos de la parroquia, así un cambio se ve en todo el sitio.
+ * Ajustes → Datos del sitio, así un cambio se ve en todo el sitio.
  *
  *   [cds_mapa]                                   Mapa clicable del templo
  *   [cds_como_llegar texto="Cómo llegar"]        Botón a Google Maps
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/** URL de Google Maps hacia el templo, construida desde las coordenadas. */
+/** URL de Google Maps hacia la capilla, construida desde las coordenadas. */
 function cds_url_maps() {
 	$coords = cds_ajuste( 'coordenadas' );
 	return $coords ? 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( $coords ) : '';
@@ -51,7 +51,7 @@ add_shortcode(
 		return '<div class="cds-mapa">'
 			. '<iframe src="' . esc_url( $embed ) . '" loading="lazy" tabindex="-1" aria-hidden="true" referrerpolicy="no-referrer-when-downgrade"></iframe>'
 			. '<a class="cds-mapa__capa" href="' . esc_url( cds_url_maps() ) . '" target="_blank" rel="noopener">'
-			. '<span class="cds-sr">Abrir la ubicación de la parroquia en Google Maps</span>'
+			. '<span class="cds-sr">Abrir la ubicación de la capilla en Google Maps</span>'
 			. '<span class="cds-mapa__boton" aria-hidden="true">Abrir en Google Maps</span></a></div>';
 	}
 );
@@ -71,7 +71,7 @@ add_shortcode(
 		$a = shortcode_atts(
 			array(
 				'texto'    => 'Escribir por WhatsApp',
-				'mensaje'  => 'Hola, escribo desde la página de la parroquia.',
+				'mensaje'  => 'Hola, escribo desde la página del Grupo de Oración Divino Niño Jesús.',
 				'opcional' => 'no',
 			),
 			$atts
@@ -118,11 +118,13 @@ add_shortcode(
 
 add_shortcode(
 	'cds_redes',
-	static function () {
+	static function ( $atts = array() ) {
+		// [cds_redes mapa="no"] quita "Cómo llegar" donde ya hay un botón que lleva al mapa.
+		$a       = shortcode_atts( array( 'mapa' => 'si' ), $atts );
 		$enlaces = array(
 			'Facebook'    => cds_url_segura( cds_ajuste( 'facebook' ) ),
 			'Instagram'   => cds_url_segura( cds_ajuste( 'instagram' ) ),
-			'Cómo llegar' => cds_url_maps(),
+			'Cómo llegar' => 'no' === $a['mapa'] ? '' : cds_url_maps(),
 		);
 		$html = '';
 		foreach ( $enlaces as $nombre => $url ) {
@@ -185,7 +187,7 @@ add_shortcode(
    CONTADOR DE DONACIONES
    Lee la pestaña "Avance" publicada como CSV desde el servidor (sin problemas
    de CORS ni de CSP) y la guarda 15 minutos. Si no hay hoja o falla, usa la
-   lista de Ajustes → Datos de la parroquia.
+   lista de Ajustes → Datos del sitio.
 ----------------------------------------------------------------------------- */
 
 /**
@@ -325,7 +327,7 @@ add_shortcode(
 		$html .= '</ul>';
 
 		if ( $de_hoja ) {
-			$html .= '<p class="cds-campanas__fuente">Avance actualizado desde la hoja de la parroquia.</p>';
+			$html .= '<p class="cds-campanas__fuente">Avance actualizado desde la hoja de la campaña.</p>';
 		} elseif ( '1' !== cds_ajuste( 'necesidades_confirmadas' ) ) {
 			$html .= '<p class="cds-campanas__fuente is-style-por-confirmar">Lista de ejemplo: la confirma pastoral social.</p>';
 		}

@@ -3,7 +3,7 @@
  * Title: Página de Inicio
  * Slug: cds/pagina-inicio
  * Categories: cds-paginas
- * Description: Escudo grande, misión, accesos a las demás páginas, sobre nosotros con mapa, equipo pastoral y grupos.
+ * Description: Escudo grande del grupo, cuándo y dónde nos reunimos, ¿primera vez?, accesos a las demás páginas y sobre nosotros con servidores y mapa.
  * Inserter: yes
  *
  * @package cds
@@ -19,42 +19,112 @@ $cds_url = static function ( $slug ) {
 <!-- wp:columns {"verticalAlignment":"center","className":"cds-portada"} -->
 <div class="wp-block-columns are-vertically-aligned-center cds-portada"><!-- wp:column {"verticalAlignment":"center","width":"36%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:36%"><!-- wp:image {"width":"290px","sizeSlug":"full","linkDestination":"none","align":"center","className":"cds-escudo","lightbox":{"enabled":false}} -->
-<figure class="wp-block-image aligncenter size-full is-resized cds-escudo"><img src="<?php echo $cds_img( 'escudo-parroquia.webp' ); ?>" alt="Escudo de la Parroquia San Francisco Javier" style="width:290px"/></figure>
+<figure class="wp-block-image aligncenter size-full is-resized cds-escudo"><img src="<?php echo $cds_img( 'escudo.webp' ); ?>" alt="Escudo del Grupo de Oración Divino Niño Jesús: paloma blanca con halo amarillo sobre fondo rojo, con una cruz verde" style="width:290px"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
-<p class="cds-sobretitulo">Diócesis de Chosica · Vicaría II · Ate, Lima</p>
+<p class="cds-sobretitulo">Renovación Carismática Católica · Diócesis de Chosica, Zona 3</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1} -->
-<h1 class="wp-block-heading">Parroquia San Francisco Javier</h1>
+<h1 class="wp-block-heading">Grupo de Oración Divino Niño Jesús</h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-por-confirmar","fontSize":"mediana"} -->
-<p class="is-style-por-confirmar has-mediana-font-size">Una comunidad que se acompaña, se escucha y se sostiene.</p>
+<p class="is-style-por-confirmar has-mediana-font-size">Un lugar para encontrarte con Dios y con una comunidad que ora contigo.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Somos una parroquia de puertas abiertas en Ate Vitarte. Aquí encuentras nuestros horarios de misa, los servicios parroquiales y las formas concretas de ayudar o de pedir ayuda.</p>
+<p>Somos un grupo de oración de la Renovación Carismática Católica. Nos reunimos en la Capilla Divino Niño para alabar, escuchar la Palabra y orar unos por otros.</p>
 <!-- /wp:paragraph -->
+
+<!-- wp:group {"className":"cds-datos","layout":{"type":"grid","minimumColumnWidth":"11rem"}} -->
+<div class="wp-block-group cds-datos"><!-- wp:group {"className":"cds-dato cds-dato--cuando"} -->
+<div class="wp-block-group cds-dato cds-dato--cuando"><!-- wp:paragraph {"className":"cds-dato__etiqueta"} -->
+<p class="cds-dato__etiqueta">Nos reunimos</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"cds-dato__valor is-style-por-confirmar"} -->
+<p class="cds-dato__valor is-style-por-confirmar">Viernes · 7:30 p. m.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"cds-dato cds-dato--donde"} -->
+<div class="wp-block-group cds-dato cds-dato--donde"><!-- wp:paragraph {"className":"cds-dato__etiqueta"} -->
+<p class="cds-dato__etiqueta">Dónde</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"cds-dato__valor"} -->
+<p class="cds-dato__valor">Capilla Divino Niño</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"cds-dato cds-dato--todos"} -->
+<div class="wp-block-group cds-dato cds-dato--todos"><!-- wp:paragraph {"className":"cds-dato__etiqueta"} -->
+<p class="cds-dato__etiqueta">Para todos</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"cds-dato__valor"} -->
+<p class="cds-dato__valor">Sin costo ni inscripción</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo $cds_url( 'misas' ); ?>">Ver horarios de misa</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#como-llegar">Cómo llegar</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo $cds_url( 'donaciones' ); ?>">Cómo ayudar</a></div>
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo $cds_url( 'comunidad' ); ?>">Ver eventos</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
 <!-- wp:shortcode -->
-[cds_redes]
+[cds_redes mapa="no"]
 <!-- /wp:shortcode --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
+
+<!-- wp:group {"className":"cds-seccion"} -->
+<div class="wp-block-group cds-seccion"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
+<p class="cds-sobretitulo">Para quien llega</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"is-style-con-filete"} -->
+<h2 class="wp-block-heading is-style-con-filete">¿Es tu primera vez?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"45%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:45%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"cds-foto-redonda","lightbox":{"enabled":false}} -->
+<figure class="wp-block-image size-large cds-foto-redonda"><img src="<?php echo $cds_img( 'seminario/compartir-2.webp' ); ?>" alt="Cuatro participantes conversan sentados en círculo durante el compartir"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:list {"className":"cds-puntos"} -->
+<ul class="wp-block-list cds-puntos"><!-- wp:list-item -->
+<li><strong>Sin costo.</strong> No se paga nada para participar, ni en las reuniones ni en los eventos.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Sin inscripción.</strong> No hace falta avisar antes ni reservar cupo. Solo ven.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Alabanza, Palabra y oración.</strong> Cantamos, escuchamos una enseñanza de la Biblia y oramos juntos por las intenciones de cada uno.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Ven como estás.</strong> No necesitas saber cantar ni conocer a nadie. Te recibimos en la puerta.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
 
 <!-- wp:group {"className":"cds-seccion cds-accesos"} -->
 <div class="wp-block-group cds-seccion cds-accesos"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
@@ -62,27 +132,17 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"className":"is-style-con-filete"} -->
-<h2 class="wp-block-heading is-style-con-filete">La parroquia en línea</h2>
+<h2 class="wp-block-heading is-style-con-filete">Conoce más</h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"grid","minimumColumnWidth":"12.5rem"}} -->
 <div class="wp-block-group"><!-- wp:group {"className":"is-style-tarjeta"} -->
 <div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'misas' ); ?>">Misas y horarios</a></h3>
+<h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'comunidad' ); ?>">Comunidad</a></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Horarios de cada día, fechas especiales y cómo guardar la misa dominical en tu calendario.</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
-
-<!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'servicios' ); ?>">Servicios y catequesis</a></h3>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>Bautizos, confesiones, consejería y las inscripciones abiertas de catequesis.</p>
+<p>Eventos del grupo, fotos del Seminario de Vida en el Espíritu y testimonios.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -92,17 +152,27 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Qué necesita la parroquia ahora mismo y cuánto falta para cada meta. Solo en especie.</p>
+<p>La campaña de Navidad: qué se necesita y cuánto falta para cada meta. Solo en especie.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"is-style-tarjeta"} -->
 <div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'comunidad' ); ?>">Comunidad</a></h3>
+<h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'misas' ); ?>">Misas en la capilla</a></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Eventos, fotos de lo que ya vivimos y testimonios de quienes forman la parroquia.</p>
+<p>Horarios de cada día, fechas especiales y cómo guardar la misa en tu calendario.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"is-style-tarjeta"} -->
+<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'servicios' ); ?>">Servicios y catequesis</a></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Bautizos, confesiones, consejería y las inscripciones de catequesis.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -130,58 +200,64 @@ $cds_url = static function ( $slug ) {
 <!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:paragraph {"className":"is-style-por-confirmar"} -->
-<p class="is-style-por-confirmar">La parroquia acompaña a las familias de Ate desde hace décadas. Aquí va la historia real de la parroquia: cuándo se fundó, quiénes la levantaron y qué comunidades la sostienen hoy.</p>
-<!-- /wp:paragraph -->
+<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">La Renovación Carismática</h3>
+<!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p><strong>Ate, Lima</strong></p>
+<p>La Renovación Carismática Católica es un movimiento de la Iglesia que invita a vivir una relación personal con Jesús y a abrirse a la acción del Espíritu Santo, en comunión con la parroquia y la diócesis.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
+<h3 class="wp-block-heading is-style-por-confirmar">Nuestra historia</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Aquí va la historia del grupo: cuándo empezó, quiénes lo iniciaron y cómo ha crecido. Pendiente de recopilar con los servidores del grupo.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:shortcode -->
+<div class="wp-block-column"><!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"cds-foto-redonda"} -->
+<figure class="wp-block-image size-large cds-foto-redonda"><img src="<?php echo $cds_img( 'seminario/servidores.webp' ); ?>" alt="Equipo de cinco servidores del grupo de pie frente al altar de la capilla"/><figcaption class="wp-element-caption">Nuestros servidores</figcaption></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"className":"is-style-por-confirmar"} -->
+<p class="is-style-por-confirmar">Los servidores acompañan cada reunión: animan la alabanza, preparan los temas y guían los grupos de compartir. Nombres y cargos por confirmar.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"anchor":"como-llegar","className":"cds-seccion"} -->
+<div id="como-llegar" class="wp-block-group cds-seccion"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
+<p class="cds-sobretitulo">Dónde estamos</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"is-style-con-filete"} -->
+<h2 class="wp-block-heading is-style-con-filete">Cómo llegar</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"38%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:38%"><!-- wp:paragraph {"fontSize":"mediana"} -->
+<p class="has-mediana-font-size"><strong>Capilla Divino Niño</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Irlanda, Lima 15494 · Plus Code X35F+QPP</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:shortcode -->
+[cds_como_llegar]
+<!-- /wp:shortcode --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:shortcode -->
 [cds_mapa]
 <!-- /wp:shortcode --></div>
 <!-- /wp:column --></div>
-<!-- /wp:columns -->
-
-<!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
-<h3 class="wp-block-heading is-style-por-confirmar">Equipo pastoral</h3>
-<!-- /wp:heading -->
-
-<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column {"className":"is-style-tarjeta"} -->
-<div class="wp-block-column is-style-tarjeta"><!-- wp:paragraph -->
-<p><strong>P. Nombre Apellido</strong><br>Párroco</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:column -->
-
-<!-- wp:column {"className":"is-style-tarjeta"} -->
-<div class="wp-block-column is-style-tarjeta"><!-- wp:paragraph -->
-<p><strong>Nombre Apellido</strong><br>Coordinación de pastoral</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:column -->
-
-<!-- wp:column {"className":"is-style-tarjeta"} -->
-<div class="wp-block-column is-style-tarjeta"><!-- wp:paragraph -->
-<p><strong>Nombre Apellido</strong><br>Secretaría parroquial</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->
-
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Grupos y comunidades</h3>
-<!-- /wp:heading -->
-
-<!-- wp:group {"className":"is-style-tarjeta","layout":{"type":"flex","flexWrap":"nowrap"}} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:image {"width":"84px","sizeSlug":"full","linkDestination":"none","lightbox":{"enabled":false}} -->
-<figure class="wp-block-image size-full is-resized"><img src="<?php echo $cds_img( 'escudo-rcc.webp' ); ?>" alt="Escudo del Grupo de Oración Divino Niño Jesús" style="width:84px"/></figure>
-<!-- /wp:image -->
-
-<!-- wp:paragraph -->
-<p><strong>Grupo de Oración Divino Niño Jesús</strong> — Renovación Carismática Católica, Diócesis de Chosica, Zona 3. Se reúne en la Capilla Divino Niño. <a href="<?php echo $cds_url( 'comunidad' ); ?>">Mira su último evento</a>.</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:group -->

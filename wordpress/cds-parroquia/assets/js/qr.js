@@ -14,7 +14,7 @@
         text: url,
         width: 132,
         height: 132,
-        colorDark: "#14304D",
+        colorDark: "#2A1F1D",
         colorLight: "#FFFFFF",
         correctLevel: window.QRCode.CorrectLevel.M
       });

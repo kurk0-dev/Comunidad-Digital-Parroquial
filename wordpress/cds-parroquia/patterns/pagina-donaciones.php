@@ -37,7 +37,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Oficina parroquial, después de las misas dominicales. La jornada principal se realizará a más tardar el 15 de noviembre.</p>
+<p>Capilla Divino Niño. Días y horario de entrega por confirmar. La jornada principal se realizará a más tardar el 15 de noviembre.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:shortcode -->

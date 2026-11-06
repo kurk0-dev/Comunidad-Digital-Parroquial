@@ -3,7 +3,7 @@
    -----------------------------------------------------------------------------
    Las preguntas vienen de WordPress (menú "Preguntas del bot") en window.CDS_BOT.
    El bot compara lo que escribe la persona con las palabras clave de cada
-   pregunta. Si no encuentra nada, ofrece escribir a la secretaría por WhatsApp.
+   pregunta. Si no encuentra nada, ofrece escribir al grupo por WhatsApp.
    Todo el texto se pinta con textContent: nunca con innerHTML.
    ============================================================================= */
 (function () {

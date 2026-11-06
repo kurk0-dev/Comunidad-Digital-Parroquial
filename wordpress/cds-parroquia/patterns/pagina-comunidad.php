@@ -60,11 +60,11 @@ $cds_fotos = array(
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
-<h3 class="wp-block-heading is-style-por-confirmar">Próximo evento de la parroquia</h3>
+<h3 class="wp-block-heading is-style-por-confirmar">Próximo evento del grupo</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Aquí aparecerán los retiros, vigilias, almuerzos solidarios y encuentros de la comunidad. Para agregar uno, duplica esta tarjeta y cambia el texto.</p>
+<p>Aquí aparecerán los retiros, vigilias, seminarios y encuentros del grupo. Para agregar uno, duplica esta tarjeta y cambia el texto.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -82,7 +82,7 @@ $cds_fotos = array(
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
-<p class="cds-sobretitulo">7 viernes por la noche · Grupo de Oración Divino Niño Jesús (RCC)</p>
+<p class="cds-sobretitulo">7 viernes por la noche · Capilla Divino Niño</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->
@@ -136,7 +136,7 @@ $cds_fotos = array(
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:quote {"className":"is-style-por-confirmar"} -->
 <blockquote class="wp-block-quote is-style-por-confirmar"><!-- wp:paragraph -->
-<p>Cuando mi esposo se quedó sin trabajo, la parroquia nos acompañó. No fue solo la ayuda: fue saber que no estábamos solos.</p>
+<p>Cuando mi esposo se quedó sin trabajo, el grupo nos acompañó. No fue solo la ayuda: fue saber que no estábamos solos.</p>
 <!-- /wp:paragraph --><cite>Miembro de la comunidad</cite></blockquote>
 <!-- /wp:quote --></div>
 <!-- /wp:column -->
@@ -153,7 +153,7 @@ $cds_fotos = array(
 <div class="wp-block-column"><!-- wp:quote {"className":"is-style-por-confirmar"} -->
 <blockquote class="wp-block-quote is-style-por-confirmar"><!-- wp:paragraph -->
 <p>Empecé como voluntaria por tres meses y llevo cuatro años. Aquí uno recibe más de lo que da.</p>
-<!-- /wp:paragraph --><cite>Voluntaria de la parroquia</cite></blockquote>
+<!-- /wp:paragraph --><cite>Servidora del grupo</cite></blockquote>
 <!-- /wp:quote --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->

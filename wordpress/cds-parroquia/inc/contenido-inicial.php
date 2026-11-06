@@ -33,11 +33,12 @@ function cds_paginas_iniciales() {
 function cds_preguntas_iniciales() {
 	return array(
 		array( '¿A qué hora son las misas?', 'Puedes ver todos los horarios de misa, incluidas las fechas especiales, en la página Misas. Desde ahí también puedes agregar la misa dominical a tu Google Calendar.', array( 'horario', 'horarios', 'misa', 'misas', 'a que hora', 'cuando hay misa' ) ),
-		array( '¿Qué necesito para un bautizo?', 'Los requisitos de bautizo están en la página Servicios. Antes de reunir documentos, confirma requisitos y fechas en la secretaría parroquial.', array( 'bautizo', 'bautismo', 'bautizar', 'requisitos' ) ),
+		array( '¿Qué necesito para un bautizo?', 'Para el bautizo se pide: 1) partida de nacimiento del niño, 2) copia del DNI de los padres, 3) padrinos confirmados y 4) la charla prebautismal. Esta lista aún está por confirmar con la capilla: antes de reunir documentos, confirma requisitos y fechas. Más detalles en la página Servicios.', array( 'bautizo', 'bautismo', 'bautizar', 'bautice', 'bautizen', 'requisitos', 'requisitos de bautizo', 'requisitos para bautizar', 'para bautizar' ) ),
 		array( '¿Cómo puedo donar?', 'En la página Donaciones verás qué se necesita y cuánto falta para cada meta. Solo recibimos donaciones en especie (víveres y ropa), nunca dinero.', array( 'donar', 'donacion', 'donaciones', 'campana', 'ayudar', 'colaborar', 'viveres', 'ropa' ) ),
 		array( '¿Cuándo es la catequesis?', 'Inscripciones abiertas para la catequesis de iniciación cristiana. Informes de martes a viernes, de 7:00 p.m. a 9:00 p.m. Niños de 8 a 13 años (Bautismo y Eucaristía) y jóvenes de 15 a 19 años (Bautismo, Eucaristía y Confirmación).', array( 'catequesis', 'primera comunion', 'comunion', 'confirmacion', 'inscripcion' ) ),
-		array( 'Necesito pedir ayuda', 'En la página Contacto hay un formulario de solicitud de ayuda que puedes enviar de forma anónima. Alguien de la parroquia lo revisará.', array( 'ayuda', 'necesito ayuda', 'apoyo', 'pedir ayuda' ) ),
-		array( '¿Dónde quedan?', 'Estamos en Ate, Lima. En la página Inicio hay un mapa: tócalo para abrir la ruta en Google Maps.', array( 'donde', 'direccion', 'ubicacion', 'como llego', 'mapa' ) ),
+		array( 'Necesito pedir ayuda', 'En la página Contacto hay un formulario de solicitud de ayuda que puedes enviar de forma anónima. Alguien del equipo lo revisará.', array( 'ayuda', 'necesito ayuda', 'apoyo', 'pedir ayuda' ) ),
+		array( '¿Cuándo se reúne el grupo?', 'El Grupo de Oración Divino Niño Jesús se reúne los viernes a las 7:30 p.m. en la Capilla Divino Niño (horario por confirmar). No se paga nada y no hace falta inscribirse: solo ven.', array( 'reunion', 'reunen', 'reune', 'se reunen', 'a que hora se reunen', 'a que hora es la reunion', 'cuando se reunen', 'hora de la reunion', 'grupo de oracion', 'oracion', 'viernes', 'participar', 'primera vez' ) ),
+		array( '¿Dónde quedan?', 'Nos reunimos en la Capilla Divino Niño (Irlanda, Lima). En la página Inicio hay un mapa: tócalo para abrir la ruta en Google Maps.', array( 'donde', 'direccion', 'ubicacion', 'como llego', 'mapa', 'capilla' ) ),
 	);
 }
 
@@ -208,18 +209,18 @@ function cds_crear_contenido_inicial() {
 		$hechos[] = 'Preguntas del bot creadas: ' . count( cds_preguntas_iniciales() );
 	}
 
-	$escudo = cds_importar_imagen( 'escudo-parroquia.webp' );
+	$escudo = cds_importar_imagen( 'escudo.webp' );
 	if ( $escudo && ! get_theme_mod( 'custom_logo' ) ) {
 		set_theme_mod( 'custom_logo', $escudo['id'] );
 		update_option( 'site_logo', $escudo['id'] );
-		$hechos[] = 'Escudo de la parroquia puesto como logo';
+		$hechos[] = 'Escudo del grupo puesto como logo';
 	}
 
 	// Nombre del sitio solo si sigue el de fábrica.
 	$nombre = get_option( 'blogname' );
 	if ( '' === $nombre || in_array( $nombre, array( 'Mi blog', 'My Blog', 'Mi sitio', 'My WordPress Website', 'WordPress' ), true ) ) {
-		update_option( 'blogname', 'Parroquia San Francisco Javier' );
-		update_option( 'blogdescription', 'Diócesis de Chosica · Vicaría II · Ate, Lima' );
+		update_option( 'blogname', 'Grupo de Oración Divino Niño Jesús' );
+		update_option( 'blogdescription', 'Renovación Carismática Católica · Capilla Divino Niño' );
 		$hechos[] = 'Nombre y descripción del sitio';
 	}
 
@@ -238,7 +239,7 @@ function cds_pagina_contenido() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
-	echo '<div class="wrap"><h1>Contenido inicial de la parroquia</h1>';
+	echo '<div class="wrap"><h1>Contenido inicial del sitio</h1>';
 	$resumen = get_transient( 'cds_resumen_contenido' );
 	if ( $resumen ) {
 		delete_transient( 'cds_resumen_contenido' );

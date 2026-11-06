@@ -3,7 +3,7 @@
  * Title: Página de Servicios y catequesis
  * Slug: cds/pagina-servicios
  * Categories: cds-paginas
- * Description: Catequesis de iniciación cristiana (datos del afiche oficial) y servicios parroquiales con requisitos.
+ * Description: Catequesis de iniciación cristiana (datos del afiche oficial) y servicios de la capilla con requisitos.
  * Inserter: yes
  *
  * @package cds
@@ -15,11 +15,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1,"className":"is-style-con-filete"} -->
-<h1 class="wp-block-heading is-style-con-filete">Servicios parroquiales</h1>
+<h1 class="wp-block-heading is-style-con-filete">Servicios y catequesis</h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Requisitos y horarios de los sacramentos y servicios que ofrece la parroquia.</p>
+<p>Requisitos y horarios de los sacramentos y servicios que se ofrecen en la Capilla Divino Niño.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"className":"is-style-tarjeta"} -->
@@ -27,8 +27,8 @@
 <p class="cds-sobretitulo">¡Iniciamos las inscripciones!</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Catequesis de iniciación cristiana</h2>
+<!-- wp:heading {"className":"is-style-por-confirmar"} -->
+<h2 class="wp-block-heading is-style-por-confirmar">Catequesis de iniciación cristiana</h2>
 <!-- /wp:heading -->
 
 <!-- wp:columns -->
@@ -54,7 +54,7 @@
 <!-- /wp:columns -->
 
 <!-- wp:paragraph -->
-<p><strong>Informes e inscripciones:</strong> martes a viernes, de 7:00 p. m. a 9:00 p. m., en la Parroquia San Francisco Javier.</p>
+<p><strong>Informes e inscripciones:</strong> martes a viernes, de 7:00 p. m. a 9:00 p. m. Lugar de inscripción por confirmar.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 

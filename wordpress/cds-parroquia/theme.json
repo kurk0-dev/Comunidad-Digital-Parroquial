@@ -13,17 +13,20 @@
 			"defaultGradients": false,
 			"defaultDuotone": false,
 			"palette": [
-				{ "slug": "primario", "name": "Primario (cabecera, títulos)", "color": "#14304D" },
-				{ "slug": "primario-oscuro", "name": "Primario oscuro (pie)", "color": "#0E2438" },
-				{ "slug": "boton", "name": "Fondo de botón", "color": "#B8912F" },
-				{ "slug": "boton-texto", "name": "Texto de botón", "color": "#14304D" },
-				{ "slug": "acento-texto", "name": "Acento para texto", "color": "#9C4A2F" },
-				{ "slug": "linea", "name": "Líneas y filetes", "color": "#B8912F" },
-				{ "slug": "fondo", "name": "Fondo de página", "color": "#F7F1E3" },
-				{ "slug": "tarjeta", "name": "Fondo de tarjeta", "color": "#FCF8EF" },
-				{ "slug": "texto", "name": "Texto", "color": "#22303F" },
-				{ "slug": "texto-suave", "name": "Texto suave", "color": "#55606E" },
-				{ "slug": "borde", "name": "Borde", "color": "#E0D4BB" },
+				{ "slug": "primario", "name": "Rojo (cabecera, botones)", "color": "#CF040D" },
+				{ "slug": "primario-oscuro", "name": "Rojo oscuro (pie, acentos)", "color": "#A3020B" },
+				{ "slug": "boton", "name": "Fondo de botón", "color": "#CF040D" },
+				{ "slug": "boton-texto", "name": "Texto de botón", "color": "#FFFFFF" },
+				{ "slug": "acento-texto", "name": "Acento para texto", "color": "#A3020B" },
+				{ "slug": "enlace", "name": "Azul (enlaces)", "color": "#1B4F7A" },
+				{ "slug": "linea", "name": "Azul del escudo (solo líneas)", "color": "#2078C0" },
+				{ "slug": "verde", "name": "Verde (meta cumplida)", "color": "#2F6229" },
+				{ "slug": "amarillo", "name": "Amarillo del halo (solo fondos)", "color": "#F6C526" },
+				{ "slug": "fondo", "name": "Crema (fondo de página)", "color": "#FBF7F0" },
+				{ "slug": "tarjeta", "name": "Fondo de tarjeta", "color": "#FFFDF9" },
+				{ "slug": "texto", "name": "Texto", "color": "#2A1F1D" },
+				{ "slug": "texto-suave", "name": "Texto suave", "color": "#5C4F4B" },
+				{ "slug": "borde", "name": "Borde", "color": "#E9DED0" },
 				{ "slug": "blanco", "name": "Blanco", "color": "#FFFFFF" }
 			]
 		},
@@ -87,11 +90,11 @@
 		},
 		"elements": {
 			"link": {
-				"color": { "text": "var(--wp--preset--color--primario)" },
+				"color": { "text": "var(--wp--preset--color--enlace)" },
 				":hover": { "color": { "text": "var(--wp--preset--color--acento-texto)" } }
 			},
 			"heading": {
-				"color": { "text": "var(--wp--preset--color--primario)" },
+				"color": { "text": "var(--wp--preset--color--texto)" },
 				"typography": { "fontWeight": "600", "lineHeight": "1.25" }
 			},
 			"h1": { "typography": { "fontSize": "var(--wp--preset--font-size--portada)" } },
@@ -105,7 +108,7 @@
 				"typography": { "fontWeight": "600", "fontSize": "1rem" },
 				"border": { "radius": "8px" },
 				"spacing": { "padding": { "top": "0.8rem", "bottom": "0.8rem", "left": "1.5rem", "right": "1.5rem" } },
-				":hover": { "color": { "background": "var(--wp--preset--color--primario)", "text": "var(--wp--preset--color--blanco)" } },
+				":hover": { "color": { "background": "var(--wp--preset--color--primario-oscuro)", "text": "var(--wp--preset--color--blanco)" } },
 				":focus": { "outline": { "color": "var(--wp--preset--color--acento-texto)", "offset": "2px", "style": "solid", "width": "3px" } }
 			}
 		},

@@ -1,8 +1,8 @@
 <?php
 /**
- * Ajustes → Datos de la parroquia.
+ * Ajustes → Datos del sitio.
  *
- * Aquí la secretaría cambia, sin tocar código, los datos que se repiten en
+ * Aquí el equipo del grupo cambia, sin tocar código, los datos que se repiten en
  * varias páginas: WhatsApp, formularios, ubicación, redes y la hoja de
  * donaciones. Cada dato se valida al guardarlo.
  *
@@ -14,8 +14,8 @@ defined( 'ABSPATH' ) || exit;
 const CDS_OPCION = 'cds_ajustes';
 
 /**
- * Valores por defecto. Los datos ya confirmados por la parroquia (ubicación,
- * Facebook) vienen llenos; lo pendiente queda vacío para que su botón no
+ * Valores por defecto. Los datos ya confirmados (ubicación de la
+ * capilla) vienen llenos; lo pendiente queda vacío para que su botón no
  * aparezca o salga como "por configurar".
  *
  * @return array<string,string>
@@ -23,10 +23,10 @@ const CDS_OPCION = 'cds_ajustes';
 function cds_ajustes_por_defecto() {
 	return array(
 		'whatsapp'               => '',
-		'coordenadas'            => '-12.0365691,-76.928581',
-		'etiqueta_mapa'          => 'Parroquia San Francisco Javier',
-		'direccion'              => 'Ate, Lima',
-		'facebook'               => 'https://www.facebook.com/parroquiasfjlima/',
+		'coordenadas'            => '-12.0405377,-76.925658',
+		'etiqueta_mapa'          => 'Capilla Divino Niño',
+		'direccion'              => 'Irlanda, Lima 15494 · Plus Code X35F+QPP',
+		'facebook'               => '',
 		'instagram'              => '',
 		'form_contacto'          => '',
 		'form_ayuda'             => '',
@@ -34,8 +34,8 @@ function cds_ajustes_por_defecto() {
 		'csv_donaciones'         => '',
 		'necesidades'            => "Arroz | 50 | 0 | kg\nAceite | 30 | 0 | litros\nMenestras | 40 | 0 | kg\nRopa de abrigo | 60 | 0 | prendas",
 		'necesidades_confirmadas' => '',
-		'privacidad'             => 'Tus datos solo los ve el equipo de la parroquia, se usan únicamente para responderte y no se comparten con nadie (Ley N.° 29733).',
-		'bot_fallback'           => 'No estoy seguro de cómo responder eso. Si quieres, escríbele directamente a la secretaría parroquial.',
+		'privacidad'             => 'Tus datos solo los ve el equipo del grupo, se usan únicamente para responderte y no se comparten con nadie (Ley N.° 29733).',
+		'bot_fallback'           => 'No estoy seguro de cómo responder eso. Si quieres, escríbenos por WhatsApp o desde la página Contacto.',
 	);
 }
 
@@ -114,7 +114,7 @@ add_action(
 add_action(
 	'admin_menu',
 	static function () {
-		add_options_page( 'Datos de la parroquia', 'Datos de la parroquia', 'manage_options', 'cds-ajustes', 'cds_pagina_ajustes' );
+		add_options_page( 'Datos del sitio', 'Datos del sitio', 'manage_options', 'cds-ajustes', 'cds_pagina_ajustes' );
 	}
 );
 
@@ -144,19 +144,19 @@ function cds_campo( $clave, $titulo, $ayuda = '', $tipo = 'text' ) {
 	echo '</td></tr>';
 }
 
-/** Página Ajustes → Datos de la parroquia. */
+/** Página Ajustes → Datos del sitio. */
 function cds_pagina_ajustes() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
-	echo '<div class="wrap"><h1>Datos de la parroquia</h1>';
+	echo '<div class="wrap"><h1>Datos del sitio</h1>';
 	echo '<p>Estos datos se usan en varias páginas a la vez. Si un campo queda vacío, su botón no aparece o se muestra como "por configurar".</p>';
 	settings_errors( CDS_OPCION );
 	echo '<form method="post" action="options.php">';
 	settings_fields( 'cds_grupo' );
 
 	echo '<h2>Contacto</h2><table class="form-table" role="presentation">';
-	cds_campo( 'whatsapp', 'WhatsApp de la secretaría', 'Código de país + número, sin + ni espacios. Perú: 51987654321.' );
+	cds_campo( 'whatsapp', 'WhatsApp del coordinador', 'Código de país + número, sin + ni espacios. Perú: 51987654321.' );
 	cds_campo( 'form_contacto', 'Formulario de contacto (Google Forms)', 'Enlace de "Enviar" del formulario.', 'url' );
 	cds_campo( 'form_ayuda', 'Formulario de solicitud de ayuda', 'El nombre debe ser opcional y "Recopilar correos" debe estar desactivado: la página promete anonimato.', 'url' );
 	cds_campo( 'privacidad', 'Aviso de privacidad (letra pequeña)' );
@@ -167,7 +167,7 @@ function cds_pagina_ajustes() {
 	cds_campo( 'etiqueta_mapa', 'Nombre en el mapa' );
 	cds_campo( 'direccion', 'Dirección' );
 	cds_campo( 'facebook', 'Facebook', '', 'url' );
-	cds_campo( 'instagram', 'Instagram', 'Déjalo vacío si la parroquia no tiene: el enlace no aparecerá.', 'url' );
+	cds_campo( 'instagram', 'Instagram', 'Déjalo vacío si el grupo no tiene: el enlace no aparecerá.', 'url' );
 	echo '</table>';
 
 	echo '<h2>Campaña de donaciones</h2><table class="form-table" role="presentation">';
