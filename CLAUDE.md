@@ -235,10 +235,13 @@ cuando el repo esté conectado (Add New Project → Import → Framework Preset:
 - [x] Escudo del grupo y fotos del Seminario de Vida en el Espíritu.
 - [x] Ubicación: Capilla Divino Niño (-12.0405377, -76.925658).
 - [ ] Conectar el repo a Vercel.
-- [ ] Crear el Gmail del grupo (dueño de Forms, Sheets e Instagram).
-- [ ] Instagram del grupo + secreto `IG_TOKEN` (`docs/guia-instagram.md`).
+- [x] Gmail del grupo: diocesisdechosica.zona3@gmail.com (dueño de Forms, Sheets e Instagram).
+- [x] Instagram (@diocesischosica_grupo3) y Facebook (diocesis.de.chosica.grupo.3) creados.
+- [ ] Instagram profesional + compartir automático a Facebook + token pegado en WordPress
+      (Ajustes → Datos del sitio → Instagram en la web; `docs/guia-instagram.md`). En WordPress el
+      token vive en la base de datos (`inc/instagram.php`), no en GitHub; se renueva solo cada semana.
 - [ ] Formulario y hoja de donaciones (`docs/guia-donaciones-sheets.md`).
-- [ ] Formularios de contacto y de ayuda (anónimo).
+- [ ] Formularios de contacto, ayuda (anónimo) y donación: preguntas en `docs/guia-formularios.md`.
 - [ ] WhatsApp del coordinador y su horario de atención.
 - [ ] Día y hora de la reunión semanal.
 - [ ] Los 7 temas del seminario (uno se ve en las fotos: "El pecado y sus consecuencias") y fecha del próximo.

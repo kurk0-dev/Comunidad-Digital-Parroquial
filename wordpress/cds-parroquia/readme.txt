@@ -11,6 +11,9 @@ Requiere: WordPress 6.6 o superior, PHP 8.0 o superior. Sin plugins obligatorios
    arma el menú, carga las preguntas del bot y deja "Inicio" como portada.
 3. Ajustes → Datos del sitio: llenar WhatsApp, formularios de
    Google y, si se usa, la hoja de avance de donaciones.
+4. Ajustes → Datos del sitio → Instagram en la web: pegar el token
+   (guía: docs/guia-instagram.md del repositorio). Desde ahí las
+   publicaciones de Instagram aparecen solas en Inicio y Comunidad.
 
 == El día a día (sin saber programar) ==
 
@@ -27,8 +30,10 @@ Requiere: WordPress 6.6 o superior, PHP 8.0 o superior. Sin plugins obligatorios
   derecho → Estilos, elegir "Carrusel" (se desliza) o
   "Viernes (miniaturas)". Al tocar una foto se abre en grande.
 * Menú: Apariencia → Editor → Navegación → "Menú principal".
-* Colores: Apariencia → Editor → Estilos. Hay una variante
-  "Grupo de Oración RCC (rojo)".
+* Colores: Apariencia → Editor → Estilos.
+* Redes: el bloque "Síguenos en redes" usa Instagram, Facebook,
+  WhatsApp y correo de Ajustes → Datos del sitio. Si un dato está
+  vacío, su bloque no aparece.
 
 == Reglas ==
 
@@ -42,3 +47,4 @@ Requiere: WordPress 6.6 o superior, PHP 8.0 o superior. Sin plugins obligatorios
 
 Código: GPL v2 o posterior. Fuente Lexend: SIL Open Font License
 (assets/fonts/OFL.txt). qrcode.js: licencia MIT (assets/js/vendor).
+Íconos de redes: Tabler Icons, licencia MIT (https://tabler.io/icons).

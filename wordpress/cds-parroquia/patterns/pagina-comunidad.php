@@ -3,7 +3,7 @@
  * Title: Página de Comunidad
  * Slug: cds/pagina-comunidad
  * Categories: cds-paginas
- * Description: Próximos eventos, eventos pasados con sus fotos (viernes y carrusel) y testimonios.
+ * Description: Próximos eventos, últimas publicaciones de Instagram, eventos pasados con sus fotos (viernes y carrusel), testimonios y redes.
  * Inserter: yes
  *
  * @package cds
@@ -66,6 +66,12 @@ $cds_fotos = array(
 <!-- wp:paragraph -->
 <p>Aquí aparecerán los retiros, vigilias, seminarios y encuentros del grupo. Para agregar uno, duplica esta tarjeta y cambia el texto.</p>
 <!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"cds-seccion"} -->
+<div class="wp-block-group cds-seccion"><!-- wp:shortcode -->
+[cds_instagram limite="9"]
+<!-- /wp:shortcode --></div>
 <!-- /wp:group -->
 
 <!-- wp:heading {"className":"cds-seccion"} -->
@@ -157,3 +163,17 @@ $cds_fotos = array(
 <!-- /wp:quote --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
+
+<!-- wp:group {"className":"cds-seccion cds-redes-panel"} -->
+<div class="wp-block-group cds-seccion cds-redes-panel"><!-- wp:heading {"className":"is-style-con-filete"} -->
+<h2 class="wp-block-heading is-style-con-filete">Síguenos en redes</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Ahí avisamos primero los cambios de horario, los retiros y las fotos de cada reunión. Toca una red para abrirla.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:shortcode -->
+[cds_siguenos]
+<!-- /wp:shortcode --></div>
+<!-- /wp:group -->

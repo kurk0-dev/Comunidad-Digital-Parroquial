@@ -6,7 +6,8 @@
  *   - Páginas ............ Páginas (editor de bloques)
  *   - Datos repetidos .... Ajustes → Datos del sitio
  *   - Bot ................ Preguntas del bot
- *   - Colores ............ Apariencia → Editor → Estilos (incluye la variante RCC)
+ *   - Colores ............ Apariencia → Editor → Estilos
+ *   - Instagram .......... Ajustes → Datos del sitio → Instagram en la web
  *   - Primer arranque .... Herramientas → Contenido inicial
  *
  * @package cds
@@ -20,6 +21,7 @@ require_once get_theme_file_path( 'inc/seguridad.php' );
 require_once get_theme_file_path( 'inc/ajustes.php' );
 require_once get_theme_file_path( 'inc/shortcodes.php' );
 require_once get_theme_file_path( 'inc/bot.php' );
+require_once get_theme_file_path( 'inc/instagram.php' );
 require_once get_theme_file_path( 'inc/contenido-inicial.php' );
 
 add_action(

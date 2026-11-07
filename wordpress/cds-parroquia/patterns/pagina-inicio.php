@@ -3,7 +3,7 @@
  * Title: Página de Inicio
  * Slug: cds/pagina-inicio
  * Categories: cds-paginas
- * Description: Escudo grande del grupo, cuándo y dónde nos reunimos, ¿primera vez?, accesos a las demás páginas y sobre nosotros con servidores y mapa.
+ * Description: Escudo grande del grupo, cuándo y dónde nos reunimos, ¿primera vez?, accesos, sobre nosotros, últimas publicaciones de Instagram, redes y mapa.
  * Inserter: yes
  *
  * @package cds
@@ -228,6 +228,26 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"cds-seccion"} -->
+<div class="wp-block-group cds-seccion"><!-- wp:shortcode -->
+[cds_instagram limite="3"]
+<!-- /wp:shortcode --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"cds-seccion cds-redes-panel"} -->
+<div class="wp-block-group cds-seccion cds-redes-panel"><!-- wp:heading {"className":"is-style-con-filete"} -->
+<h2 class="wp-block-heading is-style-con-filete">Síguenos en redes</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Ahí avisamos primero los cambios de horario, los retiros y las fotos de cada reunión. Toca una red para abrirla.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:shortcode -->
+[cds_siguenos]
+<!-- /wp:shortcode --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"anchor":"como-llegar","className":"cds-seccion"} -->

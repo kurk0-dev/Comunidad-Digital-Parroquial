@@ -26,8 +26,9 @@ function cds_ajustes_por_defecto() {
 		'coordenadas'            => '-12.0405377,-76.925658',
 		'etiqueta_mapa'          => 'Capilla Divino Niño',
 		'direccion'              => 'Irlanda, Lima 15494 · Plus Code X35F+QPP',
-		'facebook'               => '',
-		'instagram'              => '',
+		'facebook'               => 'https://www.facebook.com/diocesis.de.chosica.grupo.3',
+		'instagram'              => 'https://www.instagram.com/diocesischosica_grupo3/',
+		'correo'                 => 'diocesisdechosica.zona3@gmail.com',
 		'form_contacto'          => '',
 		'form_ayuda'             => '',
 		'form_donacion'          => '',
@@ -70,6 +71,9 @@ function cds_sanear_ajustes( $entrada ) {
 		add_settings_error( CDS_OPCION, 'coords', 'Las coordenadas deben tener la forma -12.0365691,-76.928581. Se conservó el valor anterior.' );
 		$salida['coordenadas'] = cds_ajuste( 'coordenadas' );
 	}
+
+	$correo           = sanitize_email( (string) ( $entrada['correo'] ?? '' ) );
+	$salida['correo'] = is_email( $correo ) ? $correo : '';
 
 	foreach ( array( 'etiqueta_mapa', 'direccion' ) as $clave ) {
 		$salida[ $clave ] = sanitize_text_field( $entrada[ $clave ] ?? '' );
@@ -156,6 +160,7 @@ function cds_pagina_ajustes() {
 	settings_fields( 'cds_grupo' );
 
 	echo '<h2>Contacto</h2><table class="form-table" role="presentation">';
+	cds_campo( 'correo', 'Correo del grupo', 'Aparece en el bloque de redes y en el pie. Déjalo vacío para ocultarlo.', 'email' );
 	cds_campo( 'whatsapp', 'WhatsApp del coordinador', 'Código de país + número, sin + ni espacios. Perú: 51987654321.' );
 	cds_campo( 'form_contacto', 'Formulario de contacto (Google Forms)', 'Enlace de "Enviar" del formulario.', 'url' );
 	cds_campo( 'form_ayuda', 'Formulario de solicitud de ayuda', 'El nombre debe ser opcional y "Recopilar correos" debe estar desactivado: la página promete anonimato.', 'url' );
@@ -167,7 +172,7 @@ function cds_pagina_ajustes() {
 	cds_campo( 'etiqueta_mapa', 'Nombre en el mapa' );
 	cds_campo( 'direccion', 'Dirección' );
 	cds_campo( 'facebook', 'Facebook', '', 'url' );
-	cds_campo( 'instagram', 'Instagram', 'Déjalo vacío si el grupo no tiene: el enlace no aparecerá.', 'url' );
+	cds_campo( 'instagram', 'Instagram', 'Dirección del perfil, por ejemplo https://www.instagram.com/usuario/. Vacío: el enlace no aparece.', 'url' );
 	echo '</table>';
 
 	echo '<h2>Campaña de donaciones</h2><table class="form-table" role="presentation">';
@@ -182,5 +187,9 @@ function cds_pagina_ajustes() {
 	echo '</table><p>Las preguntas y respuestas del bot se editan en el menú <strong>Preguntas del bot</strong>.</p>';
 
 	submit_button( 'Guardar cambios' );
-	echo '</form></div>';
+	echo '</form>';
+	if ( function_exists( 'cds_ig_panel' ) ) {
+		cds_ig_panel(); // Formulario aparte: el token nunca viaja con el resto de ajustes.
+	}
+	echo '</div>';
 }
