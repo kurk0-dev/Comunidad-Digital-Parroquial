@@ -1,5 +1,5 @@
 // Crea los 3 formularios del Grupo de Oración Divino Niño Jesús, cada uno con su hoja de respuestas.
-var ENCABEZADO = 'Grupo de Oración Divino Niño Jesús\nCapilla Divino Niño · Renovación Carismática Católica\n\n';
+// Los títulos y el color se ponen a mano en el editor (Personalizar tema); ver guia-formularios.md.
 
 function crearFormularios() {
   var hechos = [crearDonacion(), crearContacto(), crearAyuda()];
@@ -10,7 +10,7 @@ function crearFormularios() {
 
 function nuevo(titulo, descripcion, gracias, nombreHoja) {
   var f = FormApp.create(titulo);
-  f.setDescription(ENCABEZADO + descripcion);
+  f.setDescription(descripcion); // El nombre del grupo ya va en la imagen de cabecera.
   f.setConfirmationMessage(gracias);
   f.setCollectEmail(false);
   f.setLimitOneResponsePerUser(false);

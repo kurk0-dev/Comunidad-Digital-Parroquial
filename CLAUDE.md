@@ -241,7 +241,7 @@ cuando el repo esté conectado (Add New Project → Import → Framework Preset:
       (Ajustes → Datos del sitio → Instagram en la web; `docs/guia-instagram.md`). En WordPress el
       token vive en la base de datos (`inc/instagram.php`), no en GitHub; se renueva solo cada semana.
 - [ ] Formulario y hoja de donaciones (`docs/guia-donaciones-sheets.md`).
-- [ ] Formularios de contacto, ayuda (anónimo) y donación: preguntas en `docs/guia-formularios.md`.
+- [x] Formularios de contacto, ayuda (anónimo) y donación creados y enlazados (`docs/guia-formularios.md`). Falta: avisos por correo y que pastoral confirme las opciones de ayuda.
 - [ ] WhatsApp del coordinador y su horario de atención.
 - [ ] Día y hora de la reunión semanal.
 - [ ] Los 7 temas del seminario (uno se ve en las fotos: "El pecado y sus consecuencias") y fecha del próximo.

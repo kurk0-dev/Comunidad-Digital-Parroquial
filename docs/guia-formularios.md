@@ -1,5 +1,24 @@
 # Los 3 formularios de Google del grupo
 
+## Ya están creados (07/11/2026)
+
+Los creó el script `docs/formularios/crear-formularios.gs` (Apps Script, cuenta
+diocesisdechosica.zona3@gmail.com). Cada uno tiene su hoja de respuestas en Drive.
+Diseño: cabecera `docs/formularios/cabecera.png` (escudo), títulos en EB Garamond,
+preguntas y texto en Lexend al tamaño más grande, color rojo del escudo.
+
+| Formulario | Enlace para la web | Ya va en WordPress como |
+|---|---|---|
+| Campaña de Navidad: quiero donar | https://forms.gle/EGXjWFJLGKAVc9XB8 | `form_donacion` |
+| Escríbanos (contacto) | https://forms.gle/11zNVewNfNEiNDNy7 | `form_contacto` |
+| Pedir ayuda (anónimo) | https://forms.gle/rh3YaXiLw7xGCpEo9 | `form_ayuda` |
+
+Los textos tratan de "usted" y usan palabras sencillas, pensando en los adultos mayores.
+Las opciones de "Pedir ayuda" siguen siendo de ejemplo hasta que pastoral las confirme.
+Falta, a mano en cada formulario: **Respuestas → ⋮ → Recibir notificaciones por correo**.
+
+Lo que sigue es la especificación con la que se armaron.
+
 Se crean con la cuenta **diocesisdechosica.zona3@gmail.com** en <https://forms.google.com>.
 La web no guarda ningún dato: cada botón abre el formulario de Google y las respuestas
 llegan a una hoja de cálculo de esa cuenta.
