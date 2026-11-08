@@ -43,19 +43,37 @@
     return mejor;
   }
 
-  function icono() {
+  /* La paloma del escudo (Espíritu Santo) dentro de su halo. Se dibuja con
+     createElementNS, sin innerHTML. Las alas se animan desde style.css. */
+  function paloma(clase) {
     var NS = "http://www.w3.org/2000/svg";
-    var svg = document.createElementNS(NS, "svg");
-    svg.setAttribute("viewBox", "0 0 24 24");
-    svg.setAttribute("width", "22");
-    svg.setAttribute("height", "22");
-    svg.setAttribute("fill", "none");
-    svg.setAttribute("stroke", "currentColor");
-    svg.setAttribute("stroke-width", "2");
-    svg.setAttribute("aria-hidden", "true");
-    var path = document.createElementNS(NS, "path");
-    path.setAttribute("d", "M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z");
-    svg.appendChild(path);
+    function n(tag, attrs, padre) {
+      var e = document.createElementNS(NS, tag);
+      Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+      if (padre) padre.appendChild(e);
+      return e;
+    }
+    var svg = n("svg", { viewBox: "0 0 120 120", "aria-hidden": "true", focusable: "false", "class": "cds-paloma " + (clase || "") });
+    n("circle", { cx: 60, cy: 60, r: 55, "class": "cds-paloma__halo" }, svg);
+    for (var i = 0; i < 12; i++) {
+      var a = (i * Math.PI) / 6 + Math.PI / 12;
+      n("line", {
+        x1: (60 + Math.cos(a) * 24).toFixed(1), y1: (60 + Math.sin(a) * 24).toFixed(1),
+        x2: (60 + Math.cos(a) * 50).toFixed(1), y2: (60 + Math.sin(a) * 50).toFixed(1),
+        "class": "cds-paloma__rayo"
+      }, svg);
+    }
+    var ave = n("g", { transform: "translate(-3 3) scale(1.08)" }, svg);
+    n("path", { d: "M52 60 C 44 44, 36 34, 24 30 C 32 44, 38 54, 46 64 Z", "class": "cds-paloma__ala cds-paloma__ala--atras" }, ave);
+    n("path", { d: "M34 68 C 24 62, 16 58, 10 60 C 14 66, 14 72, 10 80 C 18 80, 26 78, 34 75 Z", "class": "cds-paloma__cuerpo" }, ave);
+    n("path", { d: "M30 70 C 40 56, 62 52, 78 58 C 86 61, 90 66, 88 72 C 84 80, 66 84, 50 82 C 40 81, 33 77, 30 70 Z", "class": "cds-paloma__cuerpo" }, ave);
+    n("circle", { cx: 86, cy: 56, r: 11, "class": "cds-paloma__cuerpo" }, ave);
+    n("path", { d: "M96 53.5 L105 57 L96 60.5 Z", "class": "cds-paloma__pico" }, ave);
+    n("circle", { cx: 89, cy: 53.5, r: 2, "class": "cds-paloma__ojo" }, ave);
+    var ala = n("g", { "class": "cds-paloma__ala cds-paloma__ala--frente" }, ave);
+    n("path", { d: "M56 62 C 52 44, 56 28, 70 18 C 70 30, 74 40, 82 50 C 74 56, 64 60, 56 62 Z", "class": "cds-paloma__cuerpo" }, ala);
+    n("path", { d: "M62 52 C 63 42, 66 34, 70 28", "class": "cds-paloma__pluma" }, ala);
+    n("path", { d: "M68 55 C 70 47, 73 42, 77 38", "class": "cds-paloma__pluma" }, ala);
     return svg;
   }
 
@@ -64,9 +82,13 @@
     lanzador.type = "button";
     lanzador.setAttribute("aria-expanded", "false");
     lanzador.setAttribute("aria-controls", "cdsBotPanel");
-    lanzador.appendChild(icono());
-    lanzador.appendChild(el("span", "cds-bot-lanzador__texto", "Preguntas frecuentes"));
-    lanzador.appendChild(el("span", "cds-sr", "Abrir el chat de preguntas frecuentes"));
+    var burbuja = el("span", "cds-bot-burbuja", "¿Te ayudo?");
+    burbuja.setAttribute("aria-hidden", "true");
+    lanzador.appendChild(burbuja);
+    var ave = el("span", "cds-bot-lanzador__ave");
+    ave.appendChild(paloma());
+    lanzador.appendChild(ave);
+    lanzador.appendChild(el("span", "cds-sr", "Abrir el asistente del grupo"));
 
     var panel = el("div", "cds-bot-panel");
     panel.id = "cdsBotPanel";
@@ -75,9 +97,15 @@
     panel.hidden = true;
 
     var cab = el("div", "cds-bot-panel__cabecera");
-    var titulo = el("h2", null, "Preguntas frecuentes");
+    var quien = el("div", "cds-bot-panel__quien");
+    quien.appendChild(paloma("cds-paloma--mini"));
+    var textos = el("div");
+    var titulo = el("h2", null, "Asistente del grupo");
     titulo.id = "cdsBotTitulo";
-    cab.appendChild(titulo);
+    textos.appendChild(titulo);
+    textos.appendChild(el("p", null, "Responde al instante"));
+    quien.appendChild(textos);
+    cab.appendChild(quien);
     var cerrar = el("button", "cds-bot-panel__cerrar");
     cerrar.type = "button";
     var x = el("span", null, "×");
@@ -132,21 +160,57 @@
       mensajes.scrollTop = mensajes.scrollHeight;
     }
 
+    /* Puntitos de "escribiendo" un momento antes de responder */
+    function responder(texto, conWhatsApp) {
+      var t = el("div", "cds-bot-escribiendo");
+      t.setAttribute("aria-hidden", "true");
+      for (var i = 0; i < 3; i++) t.appendChild(el("span"));
+      mensajes.appendChild(t);
+      mensajes.scrollTop = mensajes.scrollHeight;
+      setTimeout(function () {
+        if (t.parentNode) t.parentNode.removeChild(t);
+        mensaje(texto, "bot", conWhatsApp);
+      }, 650);
+    }
+
     datos.preguntas.forEach(function (p) {
       if (!p.sugerida) return;
       var b = el("button", "cds-bot-sugerencia", p.sugerida);
       b.type = "button";
       b.addEventListener("click", function () {
         mensaje(p.sugerida, "usuario");
-        mensaje(p.respuesta, "bot");
+        responder(p.respuesta);
       });
       sugerencias.appendChild(b);
     });
 
     mensaje(datos.saludo, "bot");
 
-    function abrir() { panel.hidden = false; lanzador.setAttribute("aria-expanded", "true"); entrada.focus(); }
-    function cerrarPanel() { panel.hidden = true; lanzador.setAttribute("aria-expanded", "false"); lanzador.focus(); }
+    /* El globito "¿Te ayudo?" sale una vez por visita, a los 2 segundos */
+    function yaSaludo() { try { return sessionStorage.getItem("cdsBotSaludo") === "1"; } catch (e) { return false; } }
+    function marcarSaludo() { try { sessionStorage.setItem("cdsBotSaludo", "1"); } catch (e) { /* sin almacenamiento */ } }
+    if (!yaSaludo()) {
+      setTimeout(function () {
+        if (!panel.hidden) return;
+        lanzador.classList.add("is-saludando");
+        setTimeout(function () { lanzador.classList.remove("is-saludando"); }, 9000);
+      }, 2000);
+    }
+
+    function abrir() {
+      panel.hidden = false;
+      lanzador.hidden = true;
+      lanzador.classList.remove("is-saludando");
+      marcarSaludo();
+      lanzador.setAttribute("aria-expanded", "true");
+      entrada.focus();
+    }
+    function cerrarPanel() {
+      panel.hidden = true;
+      lanzador.hidden = false;
+      lanzador.setAttribute("aria-expanded", "false");
+      lanzador.focus();
+    }
 
     lanzador.addEventListener("click", function () { if (panel.hidden) abrir(); else cerrarPanel(); });
     cerrar.addEventListener("click", cerrarPanel);
@@ -159,8 +223,8 @@
       mensaje(pregunta, "usuario");
       entrada.value = "";
       var r = buscar(pregunta);
-      if (r) mensaje(r.respuesta, "bot");
-      else mensaje(datos.fallback || "No encontré una respuesta para eso.", "bot", true);
+      if (r) responder(r.respuesta);
+      else responder(datos.fallback || "No encontré una respuesta para eso.", true);
     });
   }
 
