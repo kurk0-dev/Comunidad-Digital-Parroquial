@@ -105,9 +105,27 @@ function cds_ig_pedir( $ruta, $params, $token, $api = CDS_IG_API ) {
  * usuario de Instagram. El token personal se usa solo aquí y no se guarda.
  *
  * @param string $token Token personal de Facebook.
+ * @param string $ig_id Id de la cuenta de Instagram (opcional; necesario con
+ *                      tokens de "System User", que no ven páginas).
  * @return array|WP_Error
  */
-function cds_ig_conectar_facebook( $token ) {
+function cds_ig_conectar_facebook( $token, $ig_id = '' ) {
+	// Camino directo: el token lee la cuenta de Instagram indicada.
+	if ( ctype_digit( (string) $ig_id ) ) {
+		$cuenta = cds_ig_pedir( $ig_id, array( 'fields' => 'id,username' ), $token, CDS_IG_API_FB );
+		if ( is_wp_error( $cuenta ) ) {
+			return $cuenta;
+		}
+		if ( (string) ( $cuenta['id'] ?? '' ) === (string) $ig_id ) {
+			return array(
+				'token'   => $token,
+				'ig_id'   => (string) $ig_id,
+				'usuario' => sanitize_user( (string) ( $cuenta['username'] ?? '' ), true ),
+				'vence'   => 0,
+			);
+		}
+	}
+
 	// ¿Es un token que dura una o dos horas? Entonces dejaría de funcionar hoy mismo.
 	$info = cds_ig_pedir( 'debug_token', array( 'input_token' => $token ), $token, CDS_IG_API_FB );
 	if ( ! is_wp_error( $info ) ) {
@@ -396,6 +414,10 @@ function cds_ig_panel() {
 	echo '<table class="form-table" role="presentation"><tr><th scope="row"><label for="cds-ig-token">' . ( $d['token'] ? 'Reemplazar token' : 'Token de Instagram' ) . '</label></th><td>';
 	echo '<input class="regular-text" type="password" id="cds-ig-token" name="cds_ig_token" value="" autocomplete="off" spellcheck="false">';
 	echo '<p class="description">Se genera en developers.facebook.com (guía paso a paso en el repositorio: docs/guia-instagram.md). Pégalo solo aquí: no lo compartas por chat ni correo.</p>';
+	echo '</td></tr>';
+	echo '<tr><th scope="row"><label for="cds-ig-id">ID de la cuenta de Instagram</label></th><td>';
+	echo '<input class="regular-text" type="text" inputmode="numeric" id="cds-ig-id" name="cds_ig_id" value="' . esc_attr( $d['ig_id'] ) . '" autocomplete="off">';
+	echo '<p class="description">Solo con tokens que empiezan con EAA. Es el número que Meta muestra debajo del nombre de la cuenta, en "Generar tokens de acceso" (empieza con 1784). No es secreto.</p>';
 	echo '</td></tr></table>';
 	echo '<p>';
 	submit_button( $d['token'] ? 'Guardar y actualizar' : 'Conectar Instagram', 'primary', 'cds_ig_guardar', false );
@@ -436,7 +458,8 @@ add_action(
 			}
 			$d = cds_ig_datos();
 			if ( 0 === strpos( $token, 'EA' ) ) {
-				$conexion = cds_ig_conectar_facebook( $token );
+				$ig_id    = substr( preg_replace( '/\D/', '', (string) wp_unslash( $_POST['cds_ig_id'] ?? '' ) ), 0, 30 ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				$conexion = cds_ig_conectar_facebook( $token, $ig_id );
 				if ( is_wp_error( $conexion ) ) {
 					$d['error'] = $conexion->get_error_message();
 					cds_ig_guardar( $d );
