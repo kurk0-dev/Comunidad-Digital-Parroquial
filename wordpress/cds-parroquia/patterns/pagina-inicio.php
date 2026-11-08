@@ -83,7 +83,7 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:buttons -->
 
 <!-- wp:shortcode -->
-[cds_redes mapa="no"]
+[cds_redes mapa="no" estilo="cajas"]
 <!-- /wp:shortcode --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
@@ -252,32 +252,36 @@ $cds_url = static function ( $slug ) {
 
 <!-- wp:group {"anchor":"como-llegar","className":"cds-seccion"} -->
 <div id="como-llegar" class="wp-block-group cds-seccion"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
-<p class="cds-sobretitulo">Dónde estamos</p>
+<p class="cds-sobretitulo">Cómo llegar</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"className":"is-style-con-filete"} -->
-<h2 class="wp-block-heading is-style-con-filete">Cómo llegar</h2>
+<h2 class="wp-block-heading is-style-con-filete">Te esperamos en la capilla</h2>
 <!-- /wp:heading -->
 
-<!-- wp:columns {"verticalAlignment":"center"} -->
-<div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"38%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:38%"><!-- wp:paragraph {"fontSize":"mediana"} -->
-<p class="has-mediana-font-size"><strong>Capilla Divino Niño</strong></p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"className":"cds-llegar"} -->
+<div class="wp-block-group cds-llegar"><!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%"><!-- wp:quote {"className":"cds-cita"} -->
+<blockquote class="wp-block-quote cds-cita"><!-- wp:paragraph -->
+<p>Yo soy el camino, la verdad y la vida.</p>
+<!-- /wp:paragraph --><cite>Juan 14, 6</cite></blockquote>
+<!-- /wp:quote -->
 
-<!-- wp:paragraph -->
-<p>Irlanda, Lima 15494 · Plus Code X35F+QPP</p>
+<!-- wp:paragraph {"className":"cds-lugar"} -->
+<p class="cds-lugar"><strong>Capilla Divino Niño</strong><br>Irlanda, Lima 15494 · Plus Code X35F+QPP</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:shortcode -->
-[cds_como_llegar]
+[cds_como_llegar texto="Abrir en Google Maps"]
 <!-- /wp:shortcode --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:shortcode -->
-[cds_mapa]
+[cds_mapa boton="no"]
 <!-- /wp:shortcode --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
+<!-- /wp:group --></div>
 <!-- /wp:group -->

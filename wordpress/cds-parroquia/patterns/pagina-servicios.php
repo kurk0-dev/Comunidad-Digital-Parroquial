@@ -22,8 +22,8 @@
 <p>Requisitos y horarios de los sacramentos y servicios que se ofrecen en la Capilla Divino Niño.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
+<!-- wp:group {"className":"is-style-tarjeta cds-servicio cds-servicio--catequesis"} -->
+<div class="wp-block-group is-style-tarjeta cds-servicio cds-servicio--catequesis"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
 <p class="cds-sobretitulo">¡Iniciamos las inscripciones!</p>
 <!-- /wp:paragraph -->
 
@@ -59,8 +59,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"cds-seccion","layout":{"type":"grid","minimumColumnWidth":"16rem"}} -->
-<div class="wp-block-group cds-seccion"><!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
+<div class="wp-block-group cds-seccion"><!-- wp:group {"className":"is-style-tarjeta cds-servicio cds-servicio--bautizo"} -->
+<div class="wp-block-group is-style-tarjeta cds-servicio cds-servicio--bautizo"><!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
 <h3 class="wp-block-heading is-style-por-confirmar">Bautizo</h3>
 <!-- /wp:heading -->
 
@@ -87,8 +87,8 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
+<!-- wp:group {"className":"is-style-tarjeta cds-servicio cds-servicio--confesion"} -->
+<div class="wp-block-group is-style-tarjeta cds-servicio cds-servicio--confesion"><!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
 <h3 class="wp-block-heading is-style-por-confirmar">Confesiones</h3>
 <!-- /wp:heading -->
 
@@ -97,8 +97,8 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
+<!-- wp:group {"className":"is-style-tarjeta cds-servicio cds-servicio--consejeria"} -->
+<div class="wp-block-group is-style-tarjeta cds-servicio cds-servicio--consejeria"><!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
 <h3 class="wp-block-heading is-style-por-confirmar">Consejería y acompañamiento</h3>
 <!-- /wp:heading -->
 

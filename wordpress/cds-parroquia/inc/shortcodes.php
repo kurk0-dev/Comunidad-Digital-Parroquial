@@ -38,7 +38,10 @@ function cds_boton_apagado( $texto ) {
 
 add_shortcode(
 	'cds_mapa',
-	static function () {
+	static function ( $atts = array() ) {
+		// [cds_mapa boton="no"] quita la etiqueta "Abrir en Google Maps" encima del mapa
+		// (para cuando al lado ya hay un botón con ese texto). El mapa sigue siendo un enlace.
+		$a      = shortcode_atts( array( 'boton' => 'si' ), $atts );
 		$coords = cds_ajuste( 'coordenadas' );
 		if ( ! $coords ) {
 			return '';
@@ -52,7 +55,8 @@ add_shortcode(
 			. '<iframe src="' . esc_url( $embed ) . '" loading="lazy" tabindex="-1" aria-hidden="true" referrerpolicy="no-referrer-when-downgrade"></iframe>'
 			. '<a class="cds-mapa__capa" href="' . esc_url( cds_url_maps() ) . '" target="_blank" rel="noopener">'
 			. '<span class="cds-sr">Abrir la ubicación de la capilla en Google Maps</span>'
-			. '<span class="cds-mapa__boton" aria-hidden="true">Abrir en Google Maps</span></a></div>';
+			. ( 'no' === $a['boton'] ? '' : '<span class="cds-mapa__boton" aria-hidden="true">Abrir en Google Maps</span>' )
+			. '</a></div>';
 	}
 );
 
@@ -120,7 +124,17 @@ add_shortcode(
 	'cds_redes',
 	static function ( $atts = array() ) {
 		// [cds_redes mapa="no"] quita "Cómo llegar" donde ya hay un botón que lleva al mapa.
-		$a       = shortcode_atts( array( 'mapa' => 'si' ), $atts );
+		// [cds_redes estilo="cajas"] los muestra como cuadros con su ícono.
+		$a = shortcode_atts(
+			array(
+				'mapa'   => 'si',
+				'estilo' => 'enlaces',
+			),
+			$atts
+		);
+		if ( 'cajas' === $a['estilo'] ) {
+			return cds_redes_cajas();
+		}
 		$enlaces = array(
 			'Facebook'    => cds_url_segura( cds_ajuste( 'facebook' ) ),
 			'Instagram'   => cds_url_segura( cds_ajuste( 'instagram' ) ),
@@ -417,3 +431,37 @@ add_shortcode(
 		return $html . '</ul>';
 	}
 );
+
+/**
+ * Redes como cuadros con ícono: Facebook, Instagram, WhatsApp (si hay número)
+ * y correo. Se usa en la portada, debajo de los botones.
+ *
+ * @return string
+ */
+function cds_redes_cajas() {
+	$cajas  = array();
+	$correo = sanitize_email( cds_ajuste( 'correo' ) );
+	$numero = cds_solo_digitos( cds_ajuste( 'whatsapp' ) );
+	$lista  = array(
+		array( 'facebook', 'Facebook', cds_url_segura( cds_ajuste( 'facebook' ) ) ),
+		array( 'instagram', 'Instagram', cds_url_segura( cds_ajuste( 'instagram' ) ) ),
+		array( 'whatsapp', 'WhatsApp', $numero ? 'https://wa.me/' . $numero : '' ),
+		array( 'correo', 'Correo', $correo && is_email( $correo ) ? 'mailto:' . $correo : '' ),
+	);
+	foreach ( $lista as list( $clave, $nombre, $url ) ) {
+		if ( ! $url ) {
+			continue;
+		}
+		$externo = 0 === strpos( $url, 'https://' );
+		$cajas[] = '<li><a class="cds-caja-red cds-caja-red--' . esc_attr( $clave ) . '" href="' . esc_url( $url, array( 'https', 'mailto' ) ) . '"'
+			. ( $externo ? ' target="_blank" rel="noopener"' : '' ) . '>'
+			. '<span class="cds-caja-red__icono">' . cds_icono( $clave, 24 ) . '</span>'
+			. '<span class="cds-caja-red__nombre">' . esc_html( $nombre ) . '</span>'
+			. ( $externo ? '<span class="cds-sr"> (se abre en otra pestaña)</span>' : '' )
+			. '</a></li>';
+	}
+	if ( ! $cajas ) {
+		return '';
+	}
+	return '<div class="cds-cajas-redes"><p class="cds-cajas-redes__titulo">Síguenos y escríbenos</p><ul>' . implode( '', $cajas ) . '</ul></div>';
+}

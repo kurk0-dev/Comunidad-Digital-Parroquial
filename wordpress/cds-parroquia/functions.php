@@ -15,7 +15,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CDS_VERSION', '1.3.0' );
+define( 'CDS_VERSION', '1.4.2' );
 
 require_once get_theme_file_path( 'inc/seguridad.php' );
 require_once get_theme_file_path( 'inc/ajustes.php' );
