@@ -236,6 +236,11 @@ function cds_ig_descargar( $id, $url ) {
 		return false;
 	}
 
+	// wp_tempnam() vive en wp-admin: en la tarea programada y en la web pública no
+	// está cargada, y sin esto ninguna foto se guardaba.
+	if ( ! function_exists( 'wp_tempnam' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
 	$temporal = wp_tempnam( 'cds-ig' );
 	file_put_contents( $temporal, $cuerpo ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 	$editor = wp_get_image_editor( $temporal );
