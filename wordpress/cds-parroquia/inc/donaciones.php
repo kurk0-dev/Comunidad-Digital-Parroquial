@@ -3,7 +3,7 @@
  * Contador de la campaña: [cds_donaciones].
  *
  * Lee la pestaña "Avance" publicada como CSV (solo totales, sin datos personales)
- * desde el servidor y la guarda 15 minutos. Si no hay hoja o falla, usa la lista
+ * desde el servidor y la guarda 5 minutos. Si no hay hoja o falla, usa la lista
  * escrita a mano en Ajustes → Datos del sitio.
  *
  * @package cds
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /* -----------------------------------------------------------------------------
    CONTADOR DE DONACIONES
    Lee la pestaña "Avance" publicada como CSV desde el servidor (sin problemas
-   de CORS ni de CSP) y la guarda 15 minutos. Si no hay hoja o falla, usa la
+   de CORS ni de CSP) y la guarda 5 minutos. Si no hay hoja o falla, usa la
    lista de Ajustes → Datos del sitio.
 ----------------------------------------------------------------------------- */
 
@@ -52,6 +52,9 @@ function cds_leer_csv_donaciones() {
 		)
 	);
 	if ( is_wp_error( $respuesta ) || 200 !== (int) wp_remote_retrieve_response_code( $respuesta ) ) {
+		// Si Google no responde, se usa la lista de Ajustes y se reintenta en 2 minutos
+		// (sin esto cada visita esperaría hasta 8 segundos).
+		set_transient( 'cds_csv_donaciones', array(), 2 * MINUTE_IN_SECONDS );
 		return array();
 	}
 
@@ -86,7 +89,7 @@ function cds_leer_csv_donaciones() {
 			'unidad' => isset( $col['unidad'] ) ? sanitize_text_field( $f[ $col['unidad'] ] ?? '' ) : '',
 		);
 	}
-	set_transient( 'cds_csv_donaciones', $items, 15 * MINUTE_IN_SECONDS );
+	set_transient( 'cds_csv_donaciones', $items, 5 * MINUTE_IN_SECONDS );
 	return $items;
 }
 

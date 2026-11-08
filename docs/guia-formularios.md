@@ -19,17 +19,24 @@ Falta, a mano en cada formulario: **Respuestas → ⋮ → Recibir notificacione
 
 ### Barra de la campaña conectada a las donaciones que llegan
 
+- El formulario de donación pregunta **cuánto** de cada producto: "Arroz (kilos)",
+  "Leche (tarros)", "Juguetes nuevos (juguetes)"… Solo acepta números enteros; lo que no
+  se trae se deja en blanco. Google Forms no puede mostrar una pregunta solo cuando se
+  marca una casilla, por eso están todas a la vista.
 - En "Respuestas: Campaña de Navidad" hay una columna **¿Llegó?** con casillas. Cuando
   una donación llega a la capilla, se marca su casilla. **Solo lo marcado cuenta.**
-- La pestaña **Avance** (privada) cuenta, por producto, las donaciones marcadas. Las
-  metas (columna B) son de ejemplo: cámbielas ahí cuando pastoral las confirme.
+- La pestaña **Avance** (privada) suma, por producto, las cantidades de las filas
+  marcadas. Busca cada columna por su título (columna E), así que no se descuadra si
+  Forms agrega filas o columnas. Las metas (columna B) son de ejemplo: cámbielas ahí
+  cuando pastoral las confirme. Si se cambia el nombre de una pregunta en el
+  formulario, hay que cambiarlo igual en la columna E.
 - La hoja **"Avance Campaña de Navidad (público, sin datos personales)"** copia solo
   esa tabla (IMPORTRANGE). Esa es la única que se publica como CSV
   (Archivo → Compartir → Publicar en la Web → hoja "Avance" → CSV) y su enlace va en
   WordPress → Ajustes → Datos del sitio → Hoja de avance publicada como CSV.
 - La hoja de respuestas **nunca** se publica: tiene nombres y teléfonos.
-- La web vuelve a leer el CSV cada 15 minutos; Google lo actualiza cada pocos minutos.
-- Script: `docs/formularios/campana-avance.gs`.
+- La web vuelve a leer el CSV cada 5 minutos; Google lo publica cada pocos minutos. En total, una casilla marcada se ve en la web en unos 5 a 10 minutos.
+- Script: `docs/formularios/campana-cantidades.gs` (la versión anterior por casillas, `campana-avance.gs`, ya no se usa).
 
 Lo que sigue es la especificación con la que se armaron.
 

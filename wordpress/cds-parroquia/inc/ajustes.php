@@ -33,7 +33,7 @@ function cds_ajustes_por_defecto() {
 		'form_ayuda'             => 'https://forms.gle/rh3YaXiLw7xGCpEo9',
 		'form_donacion'          => 'https://forms.gle/EGXjWFJLGKAVc9XB8',
 		'csv_donaciones'         => 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQcMX6-GG_eU9B0hpL6Jt0MCcqVrutV5ol-nOF2dgcVGjj3goSOWM2KpAwqvaJTob5LdBVXtaEz1TcO/pub?gid=0&single=true&output=csv',
-		'necesidades'            => "Arroz | 40 | 0 | donaciones\nAzúcar | 30 | 0 | donaciones\nAceite | 30 | 0 | donaciones\nMenestras | 30 | 0 | donaciones\nFideos | 30 | 0 | donaciones\nLeche | 30 | 0 | donaciones\nConservas | 30 | 0 | donaciones\nPanetón | 40 | 0 | donaciones\nChocolate para taza | 30 | 0 | donaciones\nJuguetes nuevos | 40 | 0 | donaciones\nRopa de abrigo | 30 | 0 | donaciones\nÚtiles de aseo | 30 | 0 | donaciones",
+		'necesidades'            => "Arroz | 100 | 0 | kilos\nAzúcar | 50 | 0 | kilos\nAceite | 50 | 0 | litros\nMenestras | 50 | 0 | kilos\nFideos | 50 | 0 | kilos\nLeche | 60 | 0 | tarros\nConservas | 60 | 0 | latas\nPanetón | 40 | 0 | unidades\nChocolate para taza | 40 | 0 | tabletas\nJuguetes nuevos | 40 | 0 | juguetes\nRopa de abrigo | 40 | 0 | prendas\nÚtiles de aseo | 40 | 0 | unidades",
 		'necesidades_confirmadas' => '',
 		'privacidad'             => 'Tus datos solo los ve el equipo del grupo, se usan únicamente para responderte y no se comparten con nadie (Ley N.° 29733).',
 		'bot_fallback'           => 'No estoy seguro de cómo responder eso. Si quieres, escríbenos por WhatsApp o desde la página Contacto.',
