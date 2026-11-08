@@ -13,29 +13,30 @@ $cds_img = static function ( $f ) {
 	return esc_url( get_theme_file_uri( 'assets/img/' . $f ) );
 };
 
-// Una foto por viernes. Son de EJEMPLO: no se sabe qué foto corresponde a cada viernes.
+// Una foto por viernes. No se sabe qué foto corresponde a cada viernes: son las que eligió el grupo.
+// Fotos con permiso; los rostros de posibles menores van difuminados.
 $cds_viernes = array(
-	array( 'asamblea-mural.webp', 'Asamblea del seminario en el templo, con el mural del Espíritu Santo detrás del altar' ),
-	array( 'compartir-1.webp', 'Grupo pequeño conversando con las hojas del tema en la mano' ),
-	array( 'alabanza.webp', 'Participantes de rodillas en oración mientras un servidor toca la guitarra' ),
-	array( 'compartir-3.webp', 'Participantes comparten en círculo bajo el cartel del tema El pecado y sus consecuencias' ),
-	array( 'asamblea-coronas.webp', 'Asamblea de participantes con coronas de papel amarillo' ),
-	array( 'oracion.webp', 'Personas arrodilladas en oración frente al altar iluminado con velas' ),
-	array( 'servidoras.webp', 'Cuatro servidoras sonríen frente al altar con las bolsas del seminario' ),
+	array( 'fotos/viernes-1.webp', 'Una servidora habla desde el ambón mientras la asamblea escucha sentada en las bancas' ),
+	array( 'fotos/viernes-2.webp', 'Asamblea con coronas de papel amarillo escuchando a la servidora en el ambón' ),
+	array( 'fotos/viernes-3.webp', 'Vista amplia de la capilla durante el seminario, con participantes en las bancas y el altar al fondo' ),
+	array( 'fotos/viernes-4.webp', 'Participantes sentados en las bancas frente al altar decorado del seminario' ),
+	array( 'fotos/viernes-5.webp', 'Músicos con guitarra acompañan el canto mientras los participantes se reúnen en la capilla' ),
+	array( 'seminario/oracion.webp', 'Personas arrodilladas en oración frente al altar iluminado con velas' ),
+	array( 'fotos/viernes-7.webp', 'Un servidor guía la oración desde el ambón ante la asamblea reunida' ),
 );
 
-// Galería completa (fotos con permiso; sin menores de edad).
+// Galería: grupos de compartir del seminario.
 $cds_fotos = array(
-	array( 'asamblea-mural.webp', 'Asamblea del seminario en el templo, con el mural del Espíritu Santo detrás del altar', 'Asamblea' ),
-	array( 'compartir-2.webp', 'Cuatro participantes conversan sentados en círculo durante el compartir', 'Grupos de compartir' ),
-	array( 'alabanza.webp', 'Participantes de rodillas en oración mientras un servidor toca la guitarra', 'Alabanza y oración' ),
-	array( 'compartir-1.webp', 'Grupo pequeño conversando con las hojas del tema en la mano', 'Grupos de compartir' ),
-	array( 'asamblea-coronas.webp', 'Asamblea de participantes con coronas de papel amarillo', 'Asamblea' ),
-	array( 'oracion.webp', 'Personas arrodilladas en oración frente al altar iluminado con velas', 'Oración' ),
-	array( 'compartir-3.webp', 'Participantes comparten en círculo bajo el cartel del tema del día', 'Grupos de compartir' ),
-	array( 'servidoras.webp', 'Cuatro servidoras sonríen frente al altar con las bolsas del seminario', 'Servidores' ),
-	array( 'servidores-2.webp', 'Tres servidores posan frente al altar con las bolsas del seminario', 'Servidores' ),
-	array( 'asamblea.webp', 'Vista amplia del templo lleno durante el seminario', 'Asamblea' ),
+	array( 'fotos/seminario-01.webp', 'Cinco participantes conversan sentados entre las bancas de la capilla', 'Grupos de compartir' ),
+	array( 'fotos/seminario-02.webp', 'Grupo de compartir en sillas en círculo, con las hojas del tema en la mano', 'Grupos de compartir' ),
+	array( 'fotos/seminario-03.webp', 'Cuatro participantes con sus credenciales conversan sobre el tema del día', 'Grupos de compartir' ),
+	array( 'fotos/seminario-04.webp', 'Grupo pequeño sentado en círculo junto a la ventana de vidrio', 'Grupos de compartir' ),
+	array( 'fotos/seminario-05.webp', 'Participantes leen juntos las hojas del tema sentados frente al altar', 'Grupos de compartir' ),
+	array( 'fotos/seminario-06.webp', 'Tres participantes sonríen sentados en las sillas de la capilla', 'Grupos de compartir' ),
+	array( 'fotos/seminario-07.webp', 'Grupo de compartir sentado sobre la alfombra roja del presbiterio', 'Grupos de compartir' ),
+	array( 'fotos/seminario-08.webp', 'Participantes en círculo con sus credenciales al cuello, junto a la pared con cuadros', 'Grupos de compartir' ),
+	array( 'fotos/seminario-09.webp', 'Grupo conversando animado entre las bancas, con las hojas del tema', 'Grupos de compartir' ),
+	array( 'fotos/seminario-10.webp', 'Vista desde arriba de un grupo grande sentado en círculo en la capilla', 'Grupos de compartir' ),
 );
 ?>
 <!-- wp:paragraph {"className":"cds-sobretitulo"} -->
@@ -111,7 +112,7 @@ $cds_fotos = array(
 
 <!-- wp:gallery {"columns":7,"linkTo":"none","sizeSlug":"medium","className":"is-style-viernes"} -->
 <figure class="wp-block-gallery has-nested-images columns-7 is-cropped is-style-viernes"><?php foreach ( $cds_viernes as $cds_i => $cds_v ) : ?><!-- wp:image {"sizeSlug":"medium","linkDestination":"none"} -->
-<figure class="wp-block-image size-medium"><img src="<?php echo $cds_img( 'seminario/' . $cds_v[0] ); ?>" alt="<?php echo esc_attr( $cds_v[1] ); ?>"/><figcaption class="wp-element-caption">Viernes <?php echo (int) $cds_i + 1; ?></figcaption></figure>
+<figure class="wp-block-image size-medium"><img src="<?php echo $cds_img( $cds_v[0] ); ?>" alt="<?php echo esc_attr( $cds_v[1] ); ?>"/><figcaption class="wp-element-caption">Viernes <?php echo (int) $cds_i + 1; ?></figcaption></figure>
 <!-- /wp:image -->
 
 <?php endforeach; ?></figure>
@@ -123,7 +124,7 @@ $cds_fotos = array(
 
 <!-- wp:gallery {"linkTo":"none","sizeSlug":"large","className":"is-style-carrusel"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped is-style-carrusel"><?php foreach ( $cds_fotos as $cds_f ) : ?><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="<?php echo $cds_img( 'seminario/' . $cds_f[0] ); ?>" alt="<?php echo esc_attr( $cds_f[1] ); ?>"/><figcaption class="wp-element-caption"><?php echo esc_html( $cds_f[2] ); ?></figcaption></figure>
+<figure class="wp-block-image size-large"><img src="<?php echo $cds_img( $cds_f[0] ); ?>" alt="<?php echo esc_attr( $cds_f[1] ); ?>"/><figcaption class="wp-element-caption"><?php echo esc_html( $cds_f[2] ); ?></figcaption></figure>
 <!-- /wp:image -->
 
 <?php endforeach; ?></figure>
@@ -164,16 +165,3 @@ $cds_fotos = array(
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:group {"className":"cds-seccion cds-redes-panel"} -->
-<div class="wp-block-group cds-seccion cds-redes-panel"><!-- wp:heading {"className":"is-style-con-filete"} -->
-<h2 class="wp-block-heading is-style-con-filete">Síguenos en redes</h2>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>Ahí avisamos primero los cambios de horario, los retiros y las fotos de cada reunión. Toca una red para abrirla.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:shortcode -->
-[cds_siguenos]
-<!-- /wp:shortcode --></div>
-<!-- /wp:group -->

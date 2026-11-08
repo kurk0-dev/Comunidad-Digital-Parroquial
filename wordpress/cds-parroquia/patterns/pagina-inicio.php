@@ -3,7 +3,7 @@
  * Title: Página de Inicio
  * Slug: cds/pagina-inicio
  * Categories: cds-paginas
- * Description: Escudo grande del grupo, cuándo y dónde nos reunimos, ¿primera vez?, accesos, sobre nosotros, últimas publicaciones de Instagram, redes y mapa.
+ * Description: Escudo grande del grupo, cuándo y dónde nos reunimos, ¿primera vez?, accesos, sobre nosotros, redes y mapa.
  * Inserter: yes
  *
  * @package cds
@@ -80,11 +80,7 @@ $cds_url = static function ( $slug ) {
 <!-- wp:button {"className":"is-style-outline"} -->
 <div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo $cds_url( 'comunidad' ); ?>">Ver eventos</a></div>
 <!-- /wp:button --></div>
-<!-- /wp:buttons -->
-
-<!-- wp:shortcode -->
-[cds_redes mapa="no" estilo="cajas"]
-<!-- /wp:shortcode --></div>
+<!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
@@ -100,7 +96,7 @@ $cds_url = static function ( $slug ) {
 <!-- wp:columns {"verticalAlignment":"center"} -->
 <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"45%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:45%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"cds-foto-redonda","lightbox":{"enabled":false}} -->
-<figure class="wp-block-image size-large cds-foto-redonda"><img src="<?php echo $cds_img( 'seminario/compartir-2.webp' ); ?>" alt="Cuatro participantes conversan sentados en círculo durante el compartir"/></figure>
+<figure class="wp-block-image size-large cds-foto-redonda"><img src="<?php echo $cds_img( 'fotos/inicio-primera-vez.webp' ); ?>" alt="La capilla durante una reunión del grupo: participantes sentados en las bancas frente al altar"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
@@ -220,7 +216,7 @@ $cds_url = static function ( $slug ) {
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"cds-foto-redonda"} -->
-<figure class="wp-block-image size-large cds-foto-redonda"><img src="<?php echo $cds_img( 'seminario/servidores.webp' ); ?>" alt="Equipo de cinco servidores del grupo de pie frente al altar de la capilla"/><figcaption class="wp-element-caption">Nuestros servidores</figcaption></figure>
+<figure class="wp-block-image size-large cds-foto-redonda"><img src="<?php echo $cds_img( 'fotos/servidores-grupo.webp' ); ?>" alt="Servidores del grupo sonríen juntos en una foto selfie frente al mural de la capilla"/><figcaption class="wp-element-caption">Nuestros servidores</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"className":"is-style-por-confirmar"} -->
@@ -228,12 +224,6 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
-<!-- /wp:group -->
-
-<!-- wp:group {"className":"cds-seccion"} -->
-<div class="wp-block-group cds-seccion"><!-- wp:shortcode -->
-[cds_instagram limite="3"]
-<!-- /wp:shortcode --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"cds-seccion cds-redes-panel"} -->

@@ -133,7 +133,9 @@ function cds_crear_contenido_inicial() {
 					'post_title'   => $titulo,
 					'post_name'    => $slug,
 					'menu_order'   => $orden,
-					'post_content' => cds_contenido_de_patron( $patron ),
+					// wp_insert_post quita una capa de barras invertidas: sin wp_slash los
+					// atributos de bloque como "cds-dato--cuando" pierden la "\".
+					'post_content' => wp_slash( cds_contenido_de_patron( $patron ) ),
 				),
 				true
 			);
@@ -197,7 +199,7 @@ function cds_crear_contenido_inicial() {
 					'post_type'    => 'cds_pregunta',
 					'post_status'  => 'publish',
 					'post_title'   => $titulo,
-					'post_content' => '<!-- wp:paragraph --><p>' . esc_html( $respuesta ) . '</p><!-- /wp:paragraph -->',
+					'post_content' => wp_slash( '<!-- wp:paragraph --><p>' . esc_html( $respuesta ) . '</p><!-- /wp:paragraph -->' ),
 					'menu_order'   => $orden,
 				),
 				true
@@ -227,6 +229,44 @@ function cds_crear_contenido_inicial() {
 	return $hechos ? $hechos : array( 'Todo ya existía: no se cambió nada.' );
 }
 
+/**
+ * Pone en las 6 páginas el contenido actual de los patrones del tema.
+ *
+ * Sirve para llevar al sitio publicado los cambios hechos en el tema (fotos,
+ * secciones). WordPress guarda lo anterior como revisión de cada página, así
+ * que se puede volver atrás desde el editor (Revisiones).
+ *
+ * @return string[] Resumen legible.
+ */
+function cds_actualizar_paginas() {
+	$hechos = array();
+	foreach ( cds_paginas_iniciales() as $slug => list( $titulo, $patron ) ) {
+		$pagina    = get_page_by_path( $slug );
+		$contenido = cds_contenido_de_patron( $patron );
+		if ( ! $pagina ) {
+			$hechos[] = 'No existe la página ' . $titulo . ': usa primero "Crear contenido inicial".';
+			continue;
+		}
+		if ( '' === $contenido || $contenido === $pagina->post_content ) {
+			continue;
+		}
+		$r = wp_update_post(
+			array(
+				'ID'           => $pagina->ID,
+				'post_content' => wp_slash( $contenido ),
+			),
+			true
+		);
+		$hechos[] = is_wp_error( $r ) ? 'No se pudo actualizar ' . $titulo : 'Página actualizada: ' . $titulo;
+	}
+	$lema = 'Renovación Carismática Católica · Capilla Divino Niño';
+	if ( get_option( 'blogdescription' ) !== $lema ) {
+		update_option( 'blogdescription', $lema );
+		$hechos[] = 'Descripción del sitio: ' . $lema;
+	}
+	return $hechos ? $hechos : array( 'Las páginas ya estaban al día: no se cambió nada.' );
+}
+
 add_action(
 	'admin_menu',
 	static function () {
@@ -254,6 +294,14 @@ function cds_pagina_contenido() {
 	echo '<input type="hidden" name="action" value="cds_contenido">';
 	wp_nonce_field( 'cds_contenido' );
 	submit_button( 'Crear contenido inicial' );
+	echo '</form>';
+
+	echo '<h2>Actualizar páginas con la versión del tema</h2>';
+	echo '<p>Pone en las 6 páginas las fotos y secciones de la última versión del tema. Úsalo después de subir un tema nuevo. Lo que hayas cambiado a mano en esas páginas no se pierde: queda en <strong>Revisiones</strong> al editar cada página.</p>';
+	echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" onsubmit="return confirm(&quot;¿Reemplazar el contenido de las 6 páginas por la versión del tema?&quot;);">';
+	echo '<input type="hidden" name="action" value="cds_actualizar_paginas">';
+	wp_nonce_field( 'cds_actualizar_paginas' );
+	submit_button( 'Actualizar páginas', 'secondary' );
 	echo '</form></div>';
 }
 
@@ -265,6 +313,19 @@ add_action(
 		}
 		check_admin_referer( 'cds_contenido' );
 		set_transient( 'cds_resumen_contenido', cds_crear_contenido_inicial(), MINUTE_IN_SECONDS );
+		wp_safe_redirect( admin_url( 'tools.php?page=cds-contenido' ) );
+		exit;
+	}
+);
+
+add_action(
+	'admin_post_cds_actualizar_paginas',
+	static function () {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'No tienes permiso para hacer esto.', '', array( 'response' => 403 ) );
+		}
+		check_admin_referer( 'cds_actualizar_paginas' );
+		set_transient( 'cds_resumen_contenido', cds_actualizar_paginas(), MINUTE_IN_SECONDS );
 		wp_safe_redirect( admin_url( 'tools.php?page=cds-contenido' ) );
 		exit;
 	}
