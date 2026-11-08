@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 220 220">
+  <!-- Fondo de la web: símbolos católicos muy suaves que se repiten.
+       Cruz latina, llama de Pentecostés, pez (ichthys) y estrellitas.
+       Para hacerlo más o menos visible, cambia los colores de abajo. -->
+  <defs>
+    <path id="cruz" d="M-3.2 -15 h6.4 v8.6 h7.6 v6.2 h-7.6 v15.2 h-6.4 v-15.2 h-7.6 v-6.2 h7.6 z"/>
+    <path id="llama" d="M0 -15 C 5 -9, 11 -4, 10 4 C 9.4 10.5, 4.6 14, 0 14 C -4.6 14, -9.4 10.5, -10 4 C -10.6 -2, -6.5 -4.5, -4.5 -9 C -3 -5, -1.5 -3, 0 -2.5 C 1.2 -6.5, 0.8 -10.5, 0 -15 Z"/>
+    <path id="pez" d="M-16 8 C -5 -12, 9 -10, 16 0 M-16 -8 C -5 12, 9 10, 16 0"/>
+    <path id="estrella" d="M0 -4.5 L1.2 -1.2 L4.5 0 L1.2 1.2 L0 4.5 L-1.2 1.2 L-4.5 0 L-1.2 -1.2 Z"/>
+  </defs>
+
+  <g fill="#EDE2D3">
+    <use href="#cruz" transform="translate(42 46)"/>
+    <use href="#cruz" transform="translate(172 160) scale(.8)"/>
+  </g>
+  <g fill="#F4DFDA">
+    <use href="#llama" transform="translate(160 44) rotate(8)"/>
+    <use href="#llama" transform="translate(52 168) rotate(-6) scale(.85)"/>
+  </g>
+  <g fill="none" stroke="#EADFCF" stroke-width="2.6" stroke-linecap="round">
+    <use href="#pez" transform="translate(108 108) rotate(-6)"/>
+  </g>
+  <g fill="#F2E6C9">
+    <use href="#estrella" transform="translate(100 30)"/>
+    <use href="#estrella" transform="translate(196 98) scale(.8)"/>
+    <use href="#estrella" transform="translate(20 108) scale(.9)"/>
+    <use href="#estrella" transform="translate(118 190) scale(.75)"/>
+  </g>
+</svg>

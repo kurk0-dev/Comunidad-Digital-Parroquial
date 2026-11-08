@@ -91,6 +91,7 @@ add_action(
 			'preguntas' => cds_preguntas_bot(),
 			'fallback'  => cds_ajuste( 'bot_fallback' ),
 			'whatsapp'  => $numero ? 'https://wa.me/' . $numero . '?text=' . rawurlencode( 'Hola, tengo una consulta sobre el grupo de oración.' ) : '',
+			'imagen'    => get_theme_file_uri( 'assets/img/paloma-fuego.webp' ),
 			'saludo'    => '¡Hola! Soy el asistente del grupo. Te ayudo con horarios, sacramentos, donaciones y pedidos de ayuda. Escribe tu pregunta o toca una opción.',
 		);
 		wp_enqueue_script( 'cds-bot', get_theme_file_uri( 'assets/js/bot.js' ), array(), CDS_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );

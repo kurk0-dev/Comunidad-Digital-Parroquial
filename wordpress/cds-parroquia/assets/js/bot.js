@@ -43,38 +43,16 @@
     return mejor;
   }
 
-  /* La paloma del escudo (Espíritu Santo) dentro de su halo. Se dibuja con
-     createElementNS, sin innerHTML. Las alas se animan desde style.css. */
+  /* La paloma con el fuego de Pentecostés (imagen del tema). Es decorativa:
+     el botón ya tiene su texto para lectores de pantalla. */
   function paloma(clase) {
-    var NS = "http://www.w3.org/2000/svg";
-    function n(tag, attrs, padre) {
-      var e = document.createElementNS(NS, tag);
-      Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
-      if (padre) padre.appendChild(e);
-      return e;
-    }
-    var svg = n("svg", { viewBox: "0 0 120 120", "aria-hidden": "true", focusable: "false", "class": "cds-paloma " + (clase || "") });
-    n("circle", { cx: 60, cy: 60, r: 55, "class": "cds-paloma__halo" }, svg);
-    for (var i = 0; i < 12; i++) {
-      var a = (i * Math.PI) / 6 + Math.PI / 12;
-      n("line", {
-        x1: (60 + Math.cos(a) * 24).toFixed(1), y1: (60 + Math.sin(a) * 24).toFixed(1),
-        x2: (60 + Math.cos(a) * 50).toFixed(1), y2: (60 + Math.sin(a) * 50).toFixed(1),
-        "class": "cds-paloma__rayo"
-      }, svg);
-    }
-    var ave = n("g", { transform: "translate(-3 3) scale(1.08)" }, svg);
-    n("path", { d: "M52 60 C 44 44, 36 34, 24 30 C 32 44, 38 54, 46 64 Z", "class": "cds-paloma__ala cds-paloma__ala--atras" }, ave);
-    n("path", { d: "M34 68 C 24 62, 16 58, 10 60 C 14 66, 14 72, 10 80 C 18 80, 26 78, 34 75 Z", "class": "cds-paloma__cuerpo" }, ave);
-    n("path", { d: "M30 70 C 40 56, 62 52, 78 58 C 86 61, 90 66, 88 72 C 84 80, 66 84, 50 82 C 40 81, 33 77, 30 70 Z", "class": "cds-paloma__cuerpo" }, ave);
-    n("circle", { cx: 86, cy: 56, r: 11, "class": "cds-paloma__cuerpo" }, ave);
-    n("path", { d: "M96 53.5 L105 57 L96 60.5 Z", "class": "cds-paloma__pico" }, ave);
-    n("circle", { cx: 89, cy: 53.5, r: 2, "class": "cds-paloma__ojo" }, ave);
-    var ala = n("g", { "class": "cds-paloma__ala cds-paloma__ala--frente" }, ave);
-    n("path", { d: "M56 62 C 52 44, 56 28, 70 18 C 70 30, 74 40, 82 50 C 74 56, 64 60, 56 62 Z", "class": "cds-paloma__cuerpo" }, ala);
-    n("path", { d: "M62 52 C 63 42, 66 34, 70 28", "class": "cds-paloma__pluma" }, ala);
-    n("path", { d: "M68 55 C 70 47, 73 42, 77 38", "class": "cds-paloma__pluma" }, ala);
-    return svg;
+    var img = el("img", "cds-paloma " + (clase || ""));
+    img.alt = "";
+    img.decoding = "async";
+    img.width = 171;
+    img.height = 240;
+    if (/^https?:\/\/[^"'<>\s]+\.webp(\?[^"'<>\s]*)?$/.test(datos.imagen || "")) img.src = datos.imagen;
+    return img;
   }
 
   function iniciar() {
