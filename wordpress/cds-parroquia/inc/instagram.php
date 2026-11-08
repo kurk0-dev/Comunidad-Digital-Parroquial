@@ -11,6 +11,13 @@
  *   3. Una vez por semana renueva el token solo (dura 60 días), así nadie tiene
  *      que acordarse de renovarlo.
  *
+ * Dos clases de token
+ *   - "IGAA…" (API con inicio de sesión de Instagram): se lee graph.instagram.com.
+ *   - "EAA…" (inicio de sesión con Facebook o el unificado): se busca la página de
+ *     Facebook conectada a la cuenta profesional de Instagram, se guarda el token
+ *     de esa página (no vence si viene de un token de 60 días) y se lee
+ *     graph.facebook.com/{id de Instagram}/media. El token personal no se guarda.
+ *
  * Seguridad
  *   - El token vive en la base de datos de WordPress, nunca en el código ni en
  *     el repositorio (que es público). Nunca se imprime: ni en la página de
@@ -29,6 +36,8 @@ defined( 'ABSPATH' ) || exit;
 const CDS_IG_OPCION   = 'cds_instagram';
 const CDS_IG_CARPETA  = 'cds-instagram';
 const CDS_IG_CANTIDAD = 12;
+const CDS_IG_API      = 'https://graph.instagram.com/';
+const CDS_IG_API_FB   = 'https://graph.facebook.com/';
 
 /** Estado guardado, con valores por defecto. */
 function cds_ig_datos() {
@@ -37,6 +46,8 @@ function cds_ig_datos() {
 		is_array( $d ) ? $d : array(),
 		array(
 			'token'         => '',
+			'modo'          => 'instagram',
+			'ig_id'         => '',
 			'vence'         => 0,
 			'renovado'      => 0,
 			'usuario'       => '',
@@ -64,13 +75,14 @@ function cds_ig_carpeta() {
 /**
  * Llama a la API de Instagram. Los errores nunca incluyen la URL (lleva el token).
  *
- * @param string $ruta   Ruta después de graph.instagram.com/.
+ * @param string $ruta   Ruta después del dominio de la API.
  * @param array  $params Parámetros de la consulta.
  * @param string $token  Token de acceso.
+ * @param string $api    CDS_IG_API (Instagram) o CDS_IG_API_FB (Facebook).
  * @return array|WP_Error
  */
-function cds_ig_pedir( $ruta, $params, $token ) {
-	$url       = add_query_arg( array_merge( $params, array( 'access_token' => $token ) ), 'https://graph.instagram.com/' . $ruta );
+function cds_ig_pedir( $ruta, $params, $token, $api = CDS_IG_API ) {
+	$url       = add_query_arg( array_merge( $params, array( 'access_token' => $token ) ), $api . $ruta );
 	$respuesta = wp_safe_remote_get( $url, array( 'timeout' => 15 ) );
 	if ( is_wp_error( $respuesta ) ) {
 		return new WP_Error( 'cds_ig_red', 'No se pudo conectar con Instagram. Se intentará de nuevo más tarde.' );
@@ -85,6 +97,73 @@ function cds_ig_pedir( $ruta, $params, $token ) {
 		return new WP_Error( 'cds_ig_api', 'Instagram respondió con un error (' . $codigo . '). Se intentará de nuevo más tarde.' );
 	}
 	return $json;
+}
+
+/**
+ * Con un token de Facebook ("EAA…"): busca la página conectada a la cuenta
+ * profesional de Instagram y devuelve el token de esa página, el id y el
+ * usuario de Instagram. El token personal se usa solo aquí y no se guarda.
+ *
+ * @param string $token Token personal de Facebook.
+ * @return array|WP_Error
+ */
+function cds_ig_conectar_facebook( $token ) {
+	// ¿Es un token que dura una o dos horas? Entonces dejaría de funcionar hoy mismo.
+	$info = cds_ig_pedir( 'debug_token', array( 'input_token' => $token ), $token, CDS_IG_API_FB );
+	if ( ! is_wp_error( $info ) ) {
+		$vence = (int) ( $info['data']['expires_at'] ?? 0 );
+		if ( $vence && $vence - time() < 2 * DAY_IN_SECONDS ) {
+			return new WP_Error( 'cds_ig_corto', 'Ese token dura solo unas horas. Extiéndelo primero en el Depurador de tokens de Meta (botón "Extender token de acceso") y pega el nuevo.' );
+		}
+	}
+
+	$paginas = cds_ig_pedir(
+		'me/accounts',
+		array(
+			'fields' => 'name,access_token,instagram_business_account{id,username}',
+			'limit'  => 50,
+		),
+		$token,
+		CDS_IG_API_FB
+	);
+	if ( is_wp_error( $paginas ) ) {
+		return $paginas;
+	}
+	$lista = (array) ( $paginas['data'] ?? array() );
+
+	// Páginas que pertenecen a un portafolio comercial (Meta Business Suite):
+	// a veces no salen en me/accounts, pero sí dentro del negocio.
+	$negocios = cds_ig_pedir(
+		'me/businesses',
+		array( 'fields' => 'owned_pages{name,access_token,instagram_business_account{id,username}}' ),
+		$token,
+		CDS_IG_API_FB
+	);
+	if ( ! is_wp_error( $negocios ) ) {
+		foreach ( (array) ( $negocios['data'] ?? array() ) as $negocio ) {
+			$lista = array_merge( $lista, (array) ( $negocio['owned_pages']['data'] ?? array() ) );
+		}
+	}
+
+	foreach ( $lista as $pagina ) {
+		$ig = $pagina['instagram_business_account'] ?? array();
+		if ( empty( $pagina['access_token'] ) || ! ctype_digit( (string) ( $ig['id'] ?? '' ) ) ) {
+			continue;
+		}
+		$token_pagina = (string) $pagina['access_token'];
+		$vence        = 0;
+		$info         = cds_ig_pedir( 'debug_token', array( 'input_token' => $token_pagina ), $token, CDS_IG_API_FB );
+		if ( ! is_wp_error( $info ) ) {
+			$vence = (int) ( $info['data']['expires_at'] ?? 0 );
+		}
+		return array(
+			'token'   => $token_pagina,
+			'ig_id'   => (string) $ig['id'],
+			'usuario' => sanitize_user( (string) ( $ig['username'] ?? '' ), true ),
+			'vence'   => $vence,
+		);
+	}
+	return new WP_Error( 'cds_ig_sin_pagina', 'No encontré una página de Facebook conectada a la cuenta profesional de Instagram. Revisa que el Facebook del grupo sea una página (no un perfil), que esté conectada al Instagram y que al generar el token hayas marcado esa página.' );
 }
 
 /** ¿La dirección de la imagen viene del CDN de Instagram/Meta? */
@@ -157,8 +236,11 @@ function cds_ig_sincronizar() {
 		return new WP_Error( 'cds_ig_sin_token', 'Todavía no se ha pegado el token de Instagram.' );
 	}
 
-	// Renovación semanal. Instagram exige que el token tenga al menos 24 horas.
-	if ( time() - (int) $d['renovado'] > WEEK_IN_SECONDS ) {
+	$es_fb = 'facebook' === $d['modo'];
+
+	// Renovación semanal (solo tokens de Instagram; el de página de Facebook no
+	// se renueva así). Instagram exige que el token tenga al menos 24 horas.
+	if ( ! $es_fb && time() - (int) $d['renovado'] > WEEK_IN_SECONDS ) {
 		$nuevo = cds_ig_pedir( 'refresh_access_token', array( 'grant_type' => 'ig_refresh_token' ), $d['token'] );
 		if ( ! is_wp_error( $nuevo ) && ! empty( $nuevo['access_token'] ) ) {
 			$d['token']    = (string) $nuevo['access_token'];
@@ -167,15 +249,19 @@ function cds_ig_sincronizar() {
 		}
 	}
 
-	$perfil = cds_ig_pedir( 'me', array( 'fields' => 'username' ), $d['token'] );
-	$medios = is_wp_error( $perfil ) ? $perfil : cds_ig_pedir(
-		'me/media',
-		array(
-			'fields' => 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp',
-			'limit'  => CDS_IG_CANTIDAD,
-		),
-		$d['token']
+	$campos = array(
+		'fields' => 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp',
+		'limit'  => CDS_IG_CANTIDAD,
 	);
+	if ( $es_fb ) {
+		$perfil = array( 'username' => $d['usuario'] );
+		$medios = ctype_digit( (string) $d['ig_id'] )
+			? cds_ig_pedir( $d['ig_id'] . '/media', $campos, $d['token'], CDS_IG_API_FB )
+			: new WP_Error( 'cds_ig_sin_id', 'Falta el id de la cuenta de Instagram. Pega el token de nuevo.' );
+	} else {
+		$perfil = cds_ig_pedir( 'me', array( 'fields' => 'username' ), $d['token'] );
+		$medios = is_wp_error( $perfil ) ? $perfil : cds_ig_pedir( 'me/media', $campos, $d['token'] );
+	}
 	if ( is_wp_error( $medios ) ) {
 		$d['error'] = $medios->get_error_message();
 		cds_ig_guardar( $d );
@@ -255,7 +341,7 @@ add_action(
 function cds_ig_panel() {
 	$d = cds_ig_datos();
 	echo '<hr><h2 id="instagram">Instagram en la web</h2>';
-	echo '<p>Las publicaciones de Instagram aparecen solas en la web, en "Lo último que publicamos". Se revisa cada 3 horas y el token se renueva solo cada semana.</p>';
+	echo '<p>Las publicaciones de Instagram aparecen solas en la web, en "Lo último que publicamos". Se revisa cada 3 horas. Sirve un token de Instagram (empieza con IGAA) o uno de Facebook (empieza con EAA).</p>';
 
 	if ( isset( $_GET['cds_ig'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 		$estado = sanitize_key( wp_unslash( $_GET['cds_ig'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
@@ -280,7 +366,9 @@ function cds_ig_panel() {
 		if ( $d['actualizado'] ) {
 			echo '<br>Última actualización: ' . esc_html( wp_date( 'j \d\e F, g:i a', (int) $d['actualizado'] ) );
 		}
-		if ( $d['vence'] ) {
+		if ( 'facebook' === $d['modo'] ) {
+			echo '<br>Conectado a través de la página de Facebook. ' . ( $d['vence'] ? 'El token vence el ' . esc_html( wp_date( 'j \d\e F \d\e Y', (int) $d['vence'] ) ) . '.' : 'El token no vence.' );
+		} elseif ( $d['vence'] ) {
 			echo '<br>El token vence el ' . esc_html( wp_date( 'j \d\e F \d\e Y', (int) $d['vence'] ) ) . ' (se renueva solo antes).';
 		}
 		if ( $d['error'] ) {
@@ -334,10 +422,23 @@ add_action(
 				wp_safe_redirect( add_query_arg( 'cds_ig', 'vacio', $volver ) . '#instagram' );
 				exit;
 			}
-			$d             = cds_ig_datos();
-			$d['token']    = $token;
-			$d['renovado'] = time();
-			$d['vence']    = time() + 60 * DAY_IN_SECONDS;
+			$d = cds_ig_datos();
+			if ( 0 === strpos( $token, 'EA' ) ) {
+				$conexion = cds_ig_conectar_facebook( $token );
+				if ( is_wp_error( $conexion ) ) {
+					$d['error'] = $conexion->get_error_message();
+					cds_ig_guardar( $d );
+					wp_safe_redirect( add_query_arg( 'cds_ig', 'error', $volver ) . '#instagram' );
+					exit;
+				}
+				$d = array_merge( $d, $conexion, array( 'modo' => 'facebook', 'renovado' => time() ) );
+			} else {
+				$d['token']    = $token;
+				$d['modo']     = 'instagram';
+				$d['ig_id']    = '';
+				$d['renovado'] = time();
+				$d['vence']    = time() + 60 * DAY_IN_SECONDS;
+			}
 			cds_ig_guardar( $d );
 		}
 

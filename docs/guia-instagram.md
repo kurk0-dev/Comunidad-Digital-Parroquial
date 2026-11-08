@@ -78,6 +78,22 @@ da permiso de **solo lectura** sobre la cuenta.
 6. Pulsa **Generar token** y cópialo. Dura 60 días, **pero el tema lo renueva solo
    cada semana**: no hay que volver a generarlo mientras la web esté funcionando.
 
+#### Si Meta solo te da un token que empieza con `EAA` (inicio de sesión con Facebook o "Unified login")
+
+También sirve: el tema busca la página de Facebook conectada al Instagram y usa el
+token de esa página. Para que funcione:
+
+1. El Facebook del grupo tiene que ser una **página** (parte B.1) y estar conectado al
+   Instagram profesional.
+2. Al generar el token, en la ventana "Elige las páginas", **marca la página del grupo**
+   (y el negocio, si lo pregunta).
+3. Permisos que deben estar aceptados: `instagram_basic`, `pages_show_list`,
+   `pages_read_engagement` y `business_management`.
+4. Si el token dura solo 1 o 2 horas, el panel lo rechaza. Ve a
+   <https://developers.facebook.com/tools/debug/accesstoken/>, pégalo, pulsa
+   **Depurar** y abajo **Extender token de acceso**. Pega ese nuevo token en WordPress.
+   Así el token de la página que guarda el tema **no vence**.
+
 La app puede quedarse en "modo desarrollo": como solo lee la cuenta propia del grupo,
 no necesita la revisión de Meta.
 
