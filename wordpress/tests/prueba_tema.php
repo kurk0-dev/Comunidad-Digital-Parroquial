@@ -66,7 +66,8 @@ function trailingslashit( $s ) { return rtrim( $s, "/" ) . "/"; }
 function wp_next_scheduled() { return true; }
 function remove_accents( $s ) { return iconv( 'UTF-8', 'ASCII//TRANSLIT', $s ); }
 
-foreach ( array( 'seguridad', 'endurecimiento', 'ajustes', 'enlaces', 'redes', 'donaciones', 'instagram/almacen', 'instagram/api', 'instagram/panel', 'instagram/vista' ) as $modulo ) {
+define( 'CDS_VERSION', 'prueba' );
+foreach ( array( 'seguridad', 'endurecimiento', 'ajustes', 'enlaces', 'redes', 'donaciones', 'donar', 'instagram/almacen', 'instagram/api', 'instagram/panel', 'instagram/vista' ) as $modulo ) {
 	require $TEMA . '/inc/' . $modulo . '.php';
 }
 
@@ -173,5 +174,13 @@ $cal = html_entity_decode( $A['cds_calendario']( array( 'dia' => 'Sábado', 'hor
 preg_match( '/dates=(\d{8})T/', $cal, $fecha_cal );
 comprobar( 'Calendario: "Sábado" con mayúscula y tilde cae en sábado', isset( $fecha_cal[1] ) && '6' === DateTimeImmutable::createFromFormat( 'Ymd', $fecha_cal[1] )->format( 'N' ) );
 
+$donar = $A['cds_donar']();
+preg_match_all( '/<input id="cds-donar-p[0-9]+" name="([^"]+)" type="number"[^>]*min="1"/', $donar, $cantidades );
+comprobar( 'Donar: envía al formulario de Google por https (formResponse)', 0 === strpos( CDS_DONAR_ACCION, 'https://docs.google.com/forms/d/e/' ) && false !== strpos( $donar, 'action="' . CDS_DONAR_ACCION . '"' ) );
+comprobar( 'Donar: una cantidad numérica (mínimo 1) por producto, con su código entry', 12 === count( $cantidades[1] ) && 12 === count( array_filter( $cantidades[1], static function ( $n ) { return (bool) preg_match( '/^entry\.[0-9]+$/', $n ); } ) ) );
+$nombres_avance = array_map( static function ( $l ) { return trim( explode( '|', $l )[0] ); }, explode( "\n", cds_ajustes_por_defecto()['necesidades'] ) );
+comprobar( 'Donar: los productos se llaman igual que en la hoja de avance', array_column( cds_donar_config()['productos'], 0 ) === $nombres_avance );
+comprobar( 'Donar: sin código en línea ni innerHTML en el script', false === strpos( file_get_contents( $TEMA . '/assets/js/donar.js' ), '.innerHTML' ) && false === strpos( $donar, '<script' ) );
+comprobar( 'CSP: Google Forms solo para enviar (connect-src y form-action)', false !== strpos( $csp, "connect-src 'self' https://docs.google.com" ) && false !== strpos( $csp, "form-action 'self' https://docs.google.com" ) && false === strpos( $csp, 'frame-src https://docs.google.com' ) );
 echo "\nRESULTADO: " . ( $ok ? "TODO PASA" : "HAY FALLOS" ) . "\n";
 exit( $ok ? 0 : 1 );

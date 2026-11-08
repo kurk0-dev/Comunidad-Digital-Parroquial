@@ -19,7 +19,7 @@
 >    `wordpress/cds-parroquia/` (tema de bloques, sin plugins obligatorios): páginas desde
 >    patrones (`patterns/`), datos repetidos en Ajustes → Datos del sitio (`inc/ajustes.php`),
 >    bot como tipo de entrada "Preguntas del bot" (`inc/bot.php`), atajos `[cds_*]`
->    (`inc/enlaces.php`, `inc/redes.php`, `inc/donaciones.php`, `inc/instagram/`) y botón
+>    (`inc/enlaces.php`, `inc/redes.php`, `inc/donaciones.php`, `inc/donar.php` — formulario de donación que envía a Google Forms —, `inc/instagram/`) y botón
 >    Herramientas → Contenido inicial (`inc/contenido-inicial.php`). Seguridad: `docs/seguridad.md`;
 >    pruebas: `wordpress/tests/prueba_tema.php` (corre en GitHub Actions, `calidad.yml`).
 >    El sitio estático de la raíz queda como versión anterior; `wordpress/` está en `.vercelignore`.

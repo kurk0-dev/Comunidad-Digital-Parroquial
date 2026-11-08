@@ -24,7 +24,8 @@ defined( 'ABSPATH' ) || exit;
  * script-src lleva 'unsafe-inline' porque WordPress imprime scripts en línea
  * (mapa de módulos de los bloques, datos del bot); el resto sí queda cerrado:
  * nada se carga desde otros dominios salvo el mapa de Google (iframe) y los
- * avatares de Gravatar en la barra de administración.
+ * avatares de Gravatar en la barra de administración. docs.google.com solo para
+ * connect-src y form-action: el formulario [cds_donar] envía al formulario de Google.
  *
  * @return string
  */
@@ -35,11 +36,11 @@ function cds_politica_csp() {
 		"style-src 'self' 'unsafe-inline'",
 		"img-src 'self' data: https://secure.gravatar.com",
 		"font-src 'self' data:",
-		"connect-src 'self'",
+		"connect-src 'self' https://docs.google.com",
 		'frame-src https://www.google.com https://maps.google.com',
 		"object-src 'none'",
 		"base-uri 'self'",
-		"form-action 'self'",
+		"form-action 'self' https://docs.google.com",
 		"frame-ancestors 'self'",
 	);
 	if ( is_ssl() ) {

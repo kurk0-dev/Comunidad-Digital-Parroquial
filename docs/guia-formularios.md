@@ -36,6 +36,15 @@ Falta, a mano en cada formulario: **Respuestas → ⋮ → Recibir notificacione
   WordPress → Ajustes → Datos del sitio → Hoja de avance publicada como CSV.
 - La hoja de respuestas **nunca** se publica: tiene nombres y teléfonos.
 - La web vuelve a leer el CSV cada 5 minutos; Google lo publica cada pocos minutos. En total, una casilla marcada se ve en la web en unos 5 a 10 minutos.
+- **En la web** (Donaciones → Formulario de donación, atajo `[cds_donar]`) se marca lo que
+  se trae y recién ahí aparece "¿Cuántos kilos de arroz?", "¿Cuántos juguetes?"…; al
+  desmarcar, la pregunta se oculta y su número se borra. Envía al **mismo** formulario de
+  Google, así que la hoja, "¿Llegó?" y la barra no cambian. Google Forms por sí solo no
+  puede mostrar preguntas según casillas: el enlace directo al formulario sigue mostrando
+  todas las cantidades.
+- Si se agregan, borran o renombran preguntas del formulario de donación, hay que
+  actualizar los códigos `entry.N` en `wordpress/cds-parroquia/inc/donar.php` (se ven en
+  la página pública del formulario, en `FB_PUBLIC_LOAD_DATA_`) y el nombre en la pestaña Avance.
 - Script: `docs/formularios/campana-cantidades.gs` (la versión anterior por casillas, `campana-avance.gs`, ya no se usa).
 
 Lo que sigue es la especificación con la que se armaron.

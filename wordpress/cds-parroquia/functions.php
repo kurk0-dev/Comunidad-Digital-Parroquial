@@ -15,7 +15,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CDS_VERSION', '1.7.1' );
+define( 'CDS_VERSION', '1.8.0' );
 
 /*
  * Módulos del tema, cada uno con una sola responsabilidad. El orden importa:
@@ -28,6 +28,7 @@ foreach ( array(
 	'inc/enlaces.php',            // Mapa, botones, formularios, QR, calendario.
 	'inc/redes.php',              // Íconos y bloques de redes sociales.
 	'inc/donaciones.php',         // Contador de la campaña.
+	'inc/donar.php',              // [cds_donar]: formulario de donación con cantidades.
 	'inc/instagram/almacen.php',  // Estado de Instagram y token cifrado.
 	'inc/instagram/api.php',      // Conexión con Meta y tarea programada.
 	'inc/instagram/panel.php',    // Sección del panel.

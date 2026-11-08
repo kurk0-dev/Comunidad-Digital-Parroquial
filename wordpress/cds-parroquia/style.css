@@ -3,7 +3,7 @@ Theme Name: Comunidad Digital y Solidaria
 Theme URI: https://github.com/kurk0-dev/Comunidad-Digital-Parroquial
 Author: Grupo 3 — Universidad de Lima
 Description: Tema de bloques del Grupo de Oración Divino Niño Jesús (Renovación Carismática Católica, Diócesis de Chosica, Zona 3), que se reúne en la Capilla Divino Niño. Pensado para que el grupo actualice la web solo: todo se edita desde el editor de WordPress. Incluye bot de preguntas frecuentes, contador de donaciones conectado a Google Sheets, mapa, códigos QR y galerías en carrusel. Sin plugins obligatorios.
-Version: 1.7.1
+Version: 1.8.0
 Requires at least: 6.6
 Tested up to: 6.9
 Requires PHP: 8.0
@@ -841,3 +841,48 @@ body {
 .cds-red--correo { --cds-red-marca: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EFCBCC' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z'/%3E%3Cpath d='M3 7l9 6l9 -6'/%3E%3C/svg%3E"); }
 .cds-red__enlace > :not(.cds-red__flecha) { position: relative; z-index: 1; }
 .cds-red__flecha { z-index: 2; }
+
+/* --- Formulario de donación [cds_donar] -------------------------------------------- */
+.cds-donar-tarjeta { scroll-margin-top: 6rem; }
+.cds-donar { display: grid; gap: 1.25rem; max-width: 640px; font-size: 1.05rem; }
+.cds-donar[hidden] { display: none; }
+.cds-donar__nota, .cds-donar__ayuda { margin: 0; font-size: .95rem; color: var(--wp--preset--color--texto-suave); }
+.cds-donar__campo { display: grid; gap: .4rem; }
+.cds-donar label, .cds-donar legend { font-weight: 600; color: var(--wp--preset--color--texto); }
+.cds-donar input[type="text"], .cds-donar input[type="tel"], .cds-donar input[type="number"], .cds-donar textarea {
+	width: 100%; box-sizing: border-box; min-height: 48px; padding: .6rem .8rem; font: inherit;
+	color: var(--wp--preset--color--texto); background: #fff;
+	border: 2px solid var(--wp--preset--color--borde); border-radius: 10px;
+}
+.cds-donar input:focus-visible, .cds-donar textarea:focus-visible, .cds-donar button:focus-visible {
+	outline: 3px solid var(--wp--preset--color--enlace); outline-offset: 2px;
+}
+.cds-donar fieldset { margin: 0; padding: 0; border: 0; display: grid; gap: .6rem; min-width: 0; }
+.cds-donar legend { padding: 0; margin-bottom: .4rem; font-size: 1.1rem; }
+.cds-donar__opcion {
+	display: flex; align-items: center; gap: .75rem; min-height: 48px; padding: .5rem .9rem;
+	background: var(--wp--preset--color--tarjeta); border: 2px solid var(--wp--preset--color--borde);
+	border-radius: 10px; cursor: pointer; font-weight: 500 !important;
+}
+.cds-donar__opcion input { width: 24px; height: 24px; flex: none; margin: 0; accent-color: var(--wp--preset--color--primario); }
+.cds-donar__opcion:has(input:checked) { border-color: var(--wp--preset--color--primario); background: #FDF1F1; }
+.cds-donar__producto { display: grid; gap: .5rem; }
+.cds-donar__cantidad {
+	display: grid; gap: .4rem; margin-left: 1.1rem; padding: .7rem .9rem;
+	border-left: 4px solid var(--wp--preset--color--primario); background: #FDF1F1; border-radius: 0 10px 10px 0;
+}
+.cds-donar__cantidad[hidden] { display: none; }
+.cds-donar__numero { display: flex; align-items: center; gap: .6rem; }
+.cds-donar__numero input { max-width: 8rem; }
+.cds-donar__permiso { align-items: flex-start; font-size: .95rem; }
+.cds-donar__permiso input { margin-top: .15rem; }
+.cds-donar__estado { margin: 0; min-height: 1.5em; font-weight: 600; }
+.cds-donar__estado.es-error { color: var(--wp--preset--color--primario-oscuro); }
+.cds-donar__enviar { justify-self: start; min-height: 52px; font-size: 1.1rem; }
+.cds-donar__enviar:disabled { opacity: .6; cursor: wait; }
+.cds-donar__gracias {
+	padding: 1.4rem; border-radius: 12px; border: 2px solid var(--wp--preset--color--verde);
+	background: #F1F7EF; display: grid; gap: .6rem; justify-items: start;
+}
+.cds-donar__gracias p { margin: 0; }
+.cds-donar__gracias-titulo { font-size: 1.25rem; font-weight: 700; color: var(--wp--preset--color--verde); }

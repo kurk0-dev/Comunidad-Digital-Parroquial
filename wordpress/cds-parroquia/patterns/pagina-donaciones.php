@@ -51,18 +51,34 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Cuéntanos qué vas a traer para coordinar la entrega. Te pedimos nombre y teléfono solo para eso.</p>
+<p>Cuéntenos qué va a traer y cuánto, para coordinar la entrega. Le pedimos nombre y celular solo para eso.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#donar">Llenar el formulario</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:group {"className":"is-style-tarjeta cds-seccion cds-donar-tarjeta"} -->
+<div class="wp-block-group is-style-tarjeta cds-seccion cds-donar-tarjeta"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Formulario de donación</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Marque lo que va a traer y escriba cuánto. Si se equivoca, desmarque y vuelva a marcar.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:shortcode -->
-[cds_formulario tipo="donacion" texto="Registrar mi donación"]
+[cds_donar]
 <!-- /wp:shortcode -->
 
 <!-- wp:shortcode -->
 [cds_privacidad]
 <!-- /wp:shortcode --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->
+<!-- /wp:group -->
 
 <!-- wp:columns {"verticalAlignment":"center","className":"is-style-tarjeta cds-seccion"} -->
 <div class="wp-block-columns are-vertically-aligned-center is-style-tarjeta cds-seccion"><!-- wp:column {"verticalAlignment":"center"} -->

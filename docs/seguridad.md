@@ -54,6 +54,13 @@ inc/contenido-inicial.php  Herramientas → Contenido inicial
 
 ## Riesgos aceptados
 
+- **Formulario de donación en la web ([cds_donar], 08/11/2026)**: envía a
+  `docs.google.com/forms/.../formResponse`, por eso la CSP permite ese dominio solo en
+  `connect-src` y `form-action` (no en scripts ni marcos). WordPress no guarda nada; los
+  datos van a la misma hoja privada de siempre. El envío usa `no-cors`: Google no deja
+  leer su respuesta, así que la web no puede confirmar el guardado. Se mitiga validando
+  en el navegador con las mismas reglas que el formulario de Google.
+
 - **CSP con `'unsafe-inline'` en scripts y estilos**: WordPress imprime scripts en línea
   (mapa de módulos de los bloques, datos del bot). Quitarlo rompería el sitio. Lo mitiga que
   no hay ningún dato de usuario sin escapar.
