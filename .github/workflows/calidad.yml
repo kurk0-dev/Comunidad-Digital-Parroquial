@@ -1,0 +1,41 @@
+# Calidad y seguridad del tema de WordPress en cada cambio.
+#   - Sintaxis de todos los PHP y JS.
+#   - Banco de pruebas del tema (salida escapada, validación de URLs, token
+#     cifrado, CSP, Instagram, donaciones…).
+#   - Búsqueda de secretos en los archivos versionados (el repositorio es público).
+name: Calidad y seguridad
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Solo lectura: esta tarea nunca escribe en el repositorio.
+permissions:
+  contents: read
+
+jobs:
+  tema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Sintaxis PHP
+        run: find wordpress/cds-parroquia wordpress/tests -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Sintaxis JavaScript
+        run: |
+          for f in wordpress/cds-parroquia/assets/js/*.js js/*.js; do
+            node --check "$f"
+          done
+
+      - name: Pruebas del tema
+        run: |
+          mkdir -p "$RUNNER_TEMP/salida"
+          php wordpress/tests/prueba_tema.php wordpress/cds-parroquia "$RUNNER_TEMP/salida"
+
+      - name: Secretos
+        run: bash scripts/revisar-secretos.sh

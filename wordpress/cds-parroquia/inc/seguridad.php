@@ -1,6 +1,9 @@
 <?php
 /**
- * Seguridad: validación de direcciones y cabeceras HTTP.
+ * Seguridad: funciones puras de validación que usa el resto del tema.
+ *
+ * Las protecciones que se enganchan a WordPress (cabeceras, XML-RPC, etc.)
+ * están en inc/endurecimiento.php.
  *
  * @package cds
  */
@@ -34,26 +37,3 @@ function cds_url_segura( $url ) {
 function cds_solo_digitos( $numero ) {
 	return preg_replace( '/\D+/', '', (string) $numero );
 }
-
-/**
- * Cabeceras de seguridad para las páginas públicas.
- *
- * No se envía una CSP estricta porque el propio WordPress usa scripts en línea
- * en el editor y en algunos bloques; sí se protege contra el "clickjacking"
- * y la detección errónea de tipos de archivo.
- */
-add_action(
-	'send_headers',
-	static function () {
-		if ( is_admin() ) {
-			return;
-		}
-		header( 'X-Content-Type-Options: nosniff' );
-		header( 'X-Frame-Options: SAMEORIGIN' );
-		header( 'Referrer-Policy: strict-origin-when-cross-origin' );
-		header( 'Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()' );
-	}
-);
-
-/* No anunciar la versión exacta de WordPress en el HTML público. */
-remove_action( 'wp_head', 'wp_generator' );

@@ -15,14 +15,29 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CDS_VERSION', '1.5.0' );
+define( 'CDS_VERSION', '1.6.0' );
 
-require_once get_theme_file_path( 'inc/seguridad.php' );
-require_once get_theme_file_path( 'inc/ajustes.php' );
-require_once get_theme_file_path( 'inc/shortcodes.php' );
-require_once get_theme_file_path( 'inc/bot.php' );
-require_once get_theme_file_path( 'inc/instagram.php' );
-require_once get_theme_file_path( 'inc/contenido-inicial.php' );
+/*
+ * Módulos del tema, cada uno con una sola responsabilidad. El orden importa:
+ * primero lo que otros usan (validación y ajustes), después lo que se apoya en ello.
+ */
+foreach ( array(
+	'inc/seguridad.php',          // Validación pura: URLs, dígitos.
+	'inc/endurecimiento.php',     // Cabeceras HTTP y protecciones de WordPress.
+	'inc/ajustes.php',            // Ajustes → Datos del sitio.
+	'inc/enlaces.php',            // Mapa, botones, formularios, QR, calendario.
+	'inc/redes.php',              // Íconos y bloques de redes sociales.
+	'inc/donaciones.php',         // Contador de la campaña.
+	'inc/instagram/almacen.php',  // Estado de Instagram y token cifrado.
+	'inc/instagram/api.php',      // Conexión con Meta y tarea programada.
+	'inc/instagram/panel.php',    // Sección del panel.
+	'inc/instagram/vista.php',    // [cds_instagram].
+	'inc/bot.php',                // Preguntas del bot.
+	'inc/contenido-inicial.php',  // Herramientas → Contenido inicial.
+) as $cds_modulo ) {
+	require_once get_theme_file_path( $cds_modulo );
+}
+unset( $cds_modulo );
 
 add_action(
 	'after_setup_theme',
