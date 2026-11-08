@@ -32,7 +32,7 @@ function cds_ajustes_por_defecto() {
 		'form_contacto'          => 'https://forms.gle/11zNVewNfNEiNDNy7',
 		'form_ayuda'             => 'https://forms.gle/rh3YaXiLw7xGCpEo9',
 		'form_donacion'          => 'https://forms.gle/EGXjWFJLGKAVc9XB8',
-		'csv_donaciones'         => '',
+		'csv_donaciones'         => 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQcMX6-GG_eU9B0hpL6Jt0MCcqVrutV5ol-nOF2dgcVGjj3goSOWM2KpAwqvaJTob5LdBVXtaEz1TcO/pub?gid=0&single=true&output=csv',
 		'necesidades'            => "Arroz | 40 | 0 | donaciones\nAzúcar | 30 | 0 | donaciones\nAceite | 30 | 0 | donaciones\nMenestras | 30 | 0 | donaciones\nFideos | 30 | 0 | donaciones\nLeche | 30 | 0 | donaciones\nConservas | 30 | 0 | donaciones\nPanetón | 40 | 0 | donaciones\nChocolate para taza | 30 | 0 | donaciones\nJuguetes nuevos | 40 | 0 | donaciones\nRopa de abrigo | 30 | 0 | donaciones\nÚtiles de aseo | 30 | 0 | donaciones",
 		'necesidades_confirmadas' => '',
 		'privacidad'             => 'Tus datos solo los ve el equipo del grupo, se usan únicamente para responderte y no se comparten con nadie (Ley N.° 29733).',

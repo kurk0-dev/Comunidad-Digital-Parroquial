@@ -394,11 +394,7 @@ add_shortcode(
 			$ruta    = trim( (string) wp_parse_url( $fb, PHP_URL_PATH ), '/' );
 			$redes[] = array( 'facebook', $fb, 'Facebook', $ruta ? $ruta : 'Nuestra página', 'Avisos y fechas de los próximos encuentros.', true );
 		}
-		$numero = cds_solo_digitos( cds_ajuste( 'whatsapp' ) );
-		if ( $numero ) {
-			$url     = 'https://wa.me/' . $numero . '?text=' . rawurlencode( 'Hola, escribo desde la página del Grupo de Oración Divino Niño Jesús.' );
-			$redes[] = array( 'whatsapp', $url, 'WhatsApp', 'Escríbele al coordinador', 'Para preguntar algo rápido o pedir oración.', true );
-		}
+		// Sin WhatsApp aquí: el grupo prefiere que le escriban al correo.
 		$correo = sanitize_email( cds_ajuste( 'correo' ) );
 		if ( $correo && is_email( $correo ) ) {
 			$redes[] = array( 'correo', 'mailto:' . $correo, 'Correo', $correo, 'Para consultas con más calma.', false );
@@ -433,19 +429,17 @@ add_shortcode(
 );
 
 /**
- * Redes como cuadros con ícono: Facebook, Instagram, WhatsApp (si hay número)
- * y correo. Se usa en la portada, debajo de los botones.
+ * Redes como cuadros con ícono: Facebook, Instagram y correo (sin WhatsApp:
+ * el grupo prefiere el correo). Se usa en la portada, debajo de los botones.
  *
  * @return string
  */
 function cds_redes_cajas() {
 	$cajas  = array();
 	$correo = sanitize_email( cds_ajuste( 'correo' ) );
-	$numero = cds_solo_digitos( cds_ajuste( 'whatsapp' ) );
 	$lista  = array(
 		array( 'facebook', 'Facebook', cds_url_segura( cds_ajuste( 'facebook' ) ) ),
 		array( 'instagram', 'Instagram', cds_url_segura( cds_ajuste( 'instagram' ) ) ),
-		array( 'whatsapp', 'WhatsApp', $numero ? 'https://wa.me/' . $numero : '' ),
 		array( 'correo', 'Correo', $correo && is_email( $correo ) ? 'mailto:' . $correo : '' ),
 	);
 	foreach ( $lista as list( $clave, $nombre, $url ) ) {
