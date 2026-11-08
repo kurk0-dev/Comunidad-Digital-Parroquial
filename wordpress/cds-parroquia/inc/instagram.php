@@ -163,6 +163,18 @@ function cds_ig_conectar_facebook( $token ) {
 			'vence'   => $vence,
 		);
 	}
+	// Inicio de sesión unificado: el token puede ser directamente de la cuenta de
+	// Instagram (graph.facebook.com/me devuelve su id 1784… y su usuario).
+	$yo = cds_ig_pedir( 'me', array( 'fields' => 'id,username' ), $token, CDS_IG_API_FB );
+	if ( ! is_wp_error( $yo ) && ctype_digit( (string) ( $yo['id'] ?? '' ) ) && ! empty( $yo['username'] ) ) {
+		return array(
+			'token'   => $token,
+			'ig_id'   => (string) $yo['id'],
+			'usuario' => sanitize_user( (string) $yo['username'], true ),
+			'vence'   => 0,
+		);
+	}
+
 	return new WP_Error( 'cds_ig_sin_pagina', 'No encontré una página de Facebook conectada a la cuenta profesional de Instagram. Revisa que el Facebook del grupo sea una página (no un perfil), que esté conectada al Instagram y que al generar el token hayas marcado esa página.' );
 }
 
