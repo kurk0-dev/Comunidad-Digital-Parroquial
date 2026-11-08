@@ -3,7 +3,7 @@
  * Title: Página de Contacto
  * Slug: cds/pagina-contacto
  * Categories: cds-paginas
- * Description: WhatsApp, formulario de contacto y solicitud de ayuda anónima (Google Forms).
+ * Description: Formulario de contacto, solicitud de ayuda anónima (Google Forms) y correo del grupo.
  * Inserter: yes
  *
  * @package cds
@@ -23,8 +23,8 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column {"className":"is-style-tarjeta"} -->
-<div class="wp-block-column is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<div class="wp-block-columns"><!-- wp:column {"className":"is-style-tarjeta cds-servicio cds-servicio--formulario"} -->
+<div class="wp-block-column is-style-tarjeta cds-servicio cds-servicio--formulario"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Contacto general</h3>
 <!-- /wp:heading -->
 
@@ -37,8 +37,8 @@
 <!-- /wp:shortcode --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"className":"is-style-tarjeta"} -->
-<div class="wp-block-column is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<!-- wp:column {"className":"is-style-tarjeta cds-servicio cds-servicio--ayuda"} -->
+<div class="wp-block-column is-style-tarjeta cds-servicio cds-servicio--ayuda"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Solicitud de ayuda</h3>
 <!-- /wp:heading -->
 
@@ -51,17 +51,17 @@
 <!-- /wp:shortcode --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"className":"is-style-tarjeta"} -->
-<div class="wp-block-column is-style-tarjeta"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">WhatsApp</h3>
+<!-- wp:column {"className":"is-style-tarjeta cds-servicio cds-servicio--correo"} -->
+<div class="wp-block-column is-style-tarjeta cds-servicio cds-servicio--correo"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Correo</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>¿Prefieres hablar con una persona? Escríbenos directamente.</p>
+<p>¿Prefieres escribirnos con calma? Te respondemos por correo.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:shortcode -->
-[cds_whatsapp]
+[cds_correo]
 <!-- /wp:shortcode --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->

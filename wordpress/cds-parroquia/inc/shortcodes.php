@@ -459,3 +459,20 @@ function cds_redes_cajas() {
 	}
 	return '<div class="cds-cajas-redes"><p class="cds-cajas-redes__titulo">Síguenos y escríbenos</p><ul>' . implode( '', $cajas ) . '</ul></div>';
 }
+
+/**
+ * [cds_correo texto="Escribir un correo"]: botón que abre el correo del grupo.
+ * Sin correo configurado, el botón sale apagado con una explicación.
+ */
+add_shortcode(
+	'cds_correo',
+	static function ( $atts = array() ) {
+		$a      = shortcode_atts( array( 'texto' => 'Escribir un correo' ), $atts );
+		$correo = sanitize_email( cds_ajuste( 'correo' ) );
+		if ( ! $correo || ! is_email( $correo ) ) {
+			return cds_boton_apagado( 'Correo por confirmar' );
+		}
+		return '<a class="cds-boton" href="' . esc_url( 'mailto:' . $correo, array( 'mailto' ) ) . '">' . esc_html( $a['texto'] ) . '</a>'
+			. '<p class="cds-correo-texto">' . esc_html( $correo ) . '</p>';
+	}
+);

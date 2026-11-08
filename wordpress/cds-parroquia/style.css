@@ -3,7 +3,7 @@ Theme Name: Comunidad Digital y Solidaria
 Theme URI: https://github.com/kurk0-dev/Comunidad-Digital-Parroquial
 Author: Grupo 3 — Universidad de Lima
 Description: Tema de bloques del Grupo de Oración Divino Niño Jesús (Renovación Carismática Católica, Diócesis de Chosica, Zona 3), que se reúne en la Capilla Divino Niño. Pensado para que el grupo actualice la web solo: todo se edita desde el editor de WordPress. Incluye bot de preguntas frecuentes, contador de donaciones conectado a Google Sheets, mapa, códigos QR y galerías en carrusel. Sin plugins obligatorios.
-Version: 1.4.3
+Version: 1.5.0
 Requires at least: 6.6
 Tested up to: 6.9
 Requires PHP: 8.0
@@ -425,7 +425,7 @@ body {
 }
 
 /* --- Pie --------------------------------------------------------------------- */
-.cds-pie { border-top: 3px solid var(--wp--preset--color--linea); padding-bottom: 104px !important; } /* espacio para la paloma del asistente */
+.cds-pie { border-top: 3px solid var(--wp--preset--color--linea); padding-bottom: 150px !important; } /* espacio para la paloma del asistente */
 .cds-pie a { color: var(--wp--preset--color--blanco); }
 .cds-pie a:hover { color: var(--wp--preset--color--boton); }
 .cds-redes { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; list-style: none; padding: 0; margin: 0; }
@@ -448,6 +448,9 @@ body {
 	animation: cds-resplandor 2.6s ease-in-out infinite;
 }
 .cds-paloma { position: relative; display: block; width: 70px; height: auto; }
+/* La paloma del asistente, grande para que no se pierda */
+.cds-bot-lanzador .cds-paloma { width: 92px; }
+@media (min-width: 768px) { .cds-bot-lanzador .cds-paloma { width: 112px; } }
 .cds-bot-lanzador .cds-paloma {
 	filter: drop-shadow(0 6px 8px rgba(42, 31, 29, .3));
 	transform-origin: 50% 90%; animation: cds-mecer 4.2s ease-in-out infinite;
@@ -796,3 +799,45 @@ body {
 @media (max-width: 700px) {
 	.cds-servicio--catequesis::after { width: 55%; height: 70%; top: auto; bottom: -10px; transform: none; opacity: .1; }
 }
+
+/* --- Más tarjetas con franja e ícono: Conoce más y Contacto ------------------ */
+.cds-servicio--comunidad { --cds-icono: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3020B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0'/%3E%3Cpath d='M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1'/%3E%3Cpath d='M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0'/%3E%3Cpath d='M17 10h2a2 2 0 0 1 2 2v1'/%3E%3Cpath d='M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0'/%3E%3Cpath d='M3 13v-1a2 2 0 0 1 2 -2h2'/%3E%3C/svg%3E"); --cds-icono-suave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E9C9C4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0'/%3E%3Cpath d='M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1'/%3E%3Cpath d='M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0'/%3E%3Cpath d='M17 10h2a2 2 0 0 1 2 2v1'/%3E%3Cpath d='M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0'/%3E%3Cpath d='M3 13v-1a2 2 0 0 1 2 -2h2'/%3E%3C/svg%3E"); }
+.cds-servicio--donaciones { --cds-icono: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3020B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8h16a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z'/%3E%3Cpath d='M12 8l0 13'/%3E%3Cpath d='M19 12v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-7'/%3E%3Cpath d='M7.5 8a2.5 2.5 0 0 1 0 -5a4.8 8 0 0 1 4.5 5a4.8 8 0 0 1 4.5 -5a2.5 2.5 0 0 1 0 5'/%3E%3C/svg%3E"); --cds-icono-suave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E9C9C4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8h16a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z'/%3E%3Cpath d='M12 8l0 13'/%3E%3Cpath d='M19 12v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-7'/%3E%3Cpath d='M7.5 8a2.5 2.5 0 0 1 0 -5a4.8 8 0 0 1 4.5 5a4.8 8 0 0 1 4.5 -5a2.5 2.5 0 0 1 0 5'/%3E%3C/svg%3E"); }
+.cds-servicio--misas { --cds-icono: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3020B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 21l18 0'/%3E%3Cpath d='M10 21v-4a2 2 0 0 1 4 0v4'/%3E%3Cpath d='M10 5l4 0'/%3E%3Cpath d='M12 3l0 5'/%3E%3Cpath d='M6 21v-7m-2 2l8 -8l8 8m-2 -2v7'/%3E%3C/svg%3E"); --cds-icono-suave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E9C9C4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 21l18 0'/%3E%3Cpath d='M10 21v-4a2 2 0 0 1 4 0v4'/%3E%3Cpath d='M10 5l4 0'/%3E%3Cpath d='M12 3l0 5'/%3E%3Cpath d='M6 21v-7m-2 2l8 -8l8 8m-2 -2v7'/%3E%3C/svg%3E"); }
+.cds-servicio--formulario { --cds-icono: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3020B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 9h8'/%3E%3Cpath d='M8 13h6'/%3E%3Cpath d='M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z'/%3E%3C/svg%3E"); --cds-icono-suave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E9C9C4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 9h8'/%3E%3Cpath d='M8 13h6'/%3E%3Cpath d='M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z'/%3E%3C/svg%3E"); }
+.cds-servicio--ayuda { --cds-icono: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3020B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572'/%3E%3Cpath d='M12 6l-3.293 3.293a1 1 0 0 0 0 1.414l.543 .543c.69 .69 1.81 .69 2.5 0l1 -1a3.182 3.182 0 0 1 4.5 0l2.25 2.25'/%3E%3C/svg%3E"); --cds-icono-suave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E9C9C4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572'/%3E%3Cpath d='M12 6l-3.293 3.293a1 1 0 0 0 0 1.414l.543 .543c.69 .69 1.81 .69 2.5 0l1 -1a3.182 3.182 0 0 1 4.5 0l2.25 2.25'/%3E%3C/svg%3E"); }
+.cds-servicio--correo { --cds-icono: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3020B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z'/%3E%3Cpath d='M3 7l9 6l9 -6'/%3E%3C/svg%3E"); --cds-icono-suave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E9C9C4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z'/%3E%3Cpath d='M3 7l9 6l9 -6'/%3E%3C/svg%3E"); }
+
+/* En la portada, "Servicios y catequesis" lleva el libro de marca de agua, no la paloma */
+.cds-accesos .cds-servicio--catequesis { background: var(--wp--preset--color--tarjeta); --cds-icono-suave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E9C9C4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0'/%3E%3Cpath d='M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0'/%3E%3Cpath d='M3 6l0 13'/%3E%3Cpath d='M12 6l0 13'/%3E%3Cpath d='M21 6l0 13'/%3E%3C/svg%3E"); }
+.cds-accesos .cds-servicio--catequesis::after {
+	top: auto; right: -22px; bottom: -22px; width: 130px; height: 130px; transform: none; opacity: 1;
+	background: var(--cds-icono-suave) center / contain no-repeat;
+}
+/* En "Conoce más" toda la tarjeta es tocable (más fácil para adultos mayores) */
+.cds-accesos .cds-servicio > h3:first-child { position: static; }
+.cds-accesos .cds-servicio h3 a { color: var(--wp--preset--color--texto); text-decoration: none; }
+.cds-accesos .cds-servicio h3 a::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: 12px; }
+.cds-accesos .cds-servicio:hover h3 a,
+.cds-accesos .cds-servicio h3 a:focus-visible { color: var(--wp--preset--color--primario-oscuro); text-decoration: underline; }
+.cds-accesos .cds-servicio h3 a:focus-visible { outline: none; }
+.cds-accesos .cds-servicio h3 a:focus-visible::after { outline: 3px solid var(--wp--preset--color--enlace); outline-offset: 3px; }
+.cds-correo-texto { margin: .5rem 0 0; font-size: .85rem; color: var(--wp--preset--color--texto-suave); overflow-wrap: anywhere; }
+
+/* --- Síguenos: Facebook y Correo con color, para equilibrar con Instagram ----- */
+.cds-red__enlace { overflow: hidden; }
+.cds-red--facebook .cds-red__enlace { background: linear-gradient(140deg, #E3EEF8 0%, #F4F8FD 100%); border-color: #C9DCEE; }
+.cds-red--correo .cds-red__enlace { background: linear-gradient(140deg, #FBE3E4 0%, #FDF4EF 100%); border-color: #EFCBCC; }
+.cds-red--facebook .cds-red__icono,
+.cds-red--correo .cds-red__icono { background: #fff; box-shadow: 0 2px 6px rgba(42, 31, 29, .12); }
+.cds-red--facebook .cds-red__nombre { color: #1B4F7A; }
+.cds-red--correo .cds-red__nombre { color: var(--wp--preset--color--primario-oscuro); }
+.cds-red--facebook .cds-red__enlace::after,
+.cds-red--correo .cds-red__enlace::after {
+	content: ""; position: absolute; right: -16px; bottom: -16px; width: 100px; height: 100px; pointer-events: none;
+	background: var(--cds-red-marca) center / contain no-repeat;
+}
+.cds-red--facebook { --cds-red-marca: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9DCEE' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3'/%3E%3C/svg%3E"); }
+.cds-red--correo { --cds-red-marca: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EFCBCC' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z'/%3E%3Cpath d='M3 7l9 6l9 -6'/%3E%3C/svg%3E"); }
+.cds-red__enlace > :not(.cds-red__flecha) { position: relative; z-index: 1; }
+.cds-red__flecha { z-index: 2; }

@@ -136,8 +136,8 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"grid","minimumColumnWidth":"12.5rem"}} -->
-<div class="wp-block-group"><!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<div class="wp-block-group"><!-- wp:group {"className":"is-style-tarjeta cds-servicio cds-servicio--comunidad"} -->
+<div class="wp-block-group is-style-tarjeta cds-servicio cds-servicio--comunidad"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'comunidad' ); ?>">Comunidad</a></h3>
 <!-- /wp:heading -->
 
@@ -146,8 +146,8 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<!-- wp:group {"className":"is-style-tarjeta cds-servicio cds-servicio--donaciones"} -->
+<div class="wp-block-group is-style-tarjeta cds-servicio cds-servicio--donaciones"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'donaciones' ); ?>">Donaciones</a></h3>
 <!-- /wp:heading -->
 
@@ -156,8 +156,8 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<!-- wp:group {"className":"is-style-tarjeta cds-servicio cds-servicio--misas"} -->
+<div class="wp-block-group is-style-tarjeta cds-servicio cds-servicio--misas"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'misas' ); ?>">Misas en la capilla</a></h3>
 <!-- /wp:heading -->
 
@@ -166,8 +166,8 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<!-- wp:group {"className":"is-style-tarjeta cds-servicio cds-servicio--catequesis"} -->
+<div class="wp-block-group is-style-tarjeta cds-servicio cds-servicio--catequesis"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'servicios' ); ?>">Servicios y catequesis</a></h3>
 <!-- /wp:heading -->
 
@@ -176,8 +176,8 @@ $cds_url = static function ( $slug ) {
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"is-style-tarjeta"} -->
-<div class="wp-block-group is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<!-- wp:group {"className":"is-style-tarjeta cds-servicio cds-servicio--formulario"} -->
+<div class="wp-block-group is-style-tarjeta cds-servicio cds-servicio--formulario"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading"><a href="<?php echo $cds_url( 'contacto' ); ?>">Contacto y ayuda</a></h3>
 <!-- /wp:heading -->
 
