@@ -17,6 +17,20 @@ Los textos tratan de "usted" y usan palabras sencillas, pensando en los adultos 
 Las opciones de "Pedir ayuda" siguen siendo de ejemplo hasta que pastoral las confirme.
 Falta, a mano en cada formulario: **Respuestas → ⋮ → Recibir notificaciones por correo**.
 
+### Barra de la campaña conectada a las donaciones que llegan
+
+- En "Respuestas: Campaña de Navidad" hay una columna **¿Llegó?** con casillas. Cuando
+  una donación llega a la capilla, se marca su casilla. **Solo lo marcado cuenta.**
+- La pestaña **Avance** (privada) cuenta, por producto, las donaciones marcadas. Las
+  metas (columna B) son de ejemplo: cámbielas ahí cuando pastoral las confirme.
+- La hoja **"Avance Campaña de Navidad (público, sin datos personales)"** copia solo
+  esa tabla (IMPORTRANGE). Esa es la única que se publica como CSV
+  (Archivo → Compartir → Publicar en la Web → hoja "Avance" → CSV) y su enlace va en
+  WordPress → Ajustes → Datos del sitio → Hoja de avance publicada como CSV.
+- La hoja de respuestas **nunca** se publica: tiene nombres y teléfonos.
+- La web vuelve a leer el CSV cada 15 minutos; Google lo actualiza cada pocos minutos.
+- Script: `docs/formularios/campana-avance.gs`.
+
 Lo que sigue es la especificación con la que se armaron.
 
 Se crean con la cuenta **diocesisdechosica.zona3@gmail.com** en <https://forms.google.com>.

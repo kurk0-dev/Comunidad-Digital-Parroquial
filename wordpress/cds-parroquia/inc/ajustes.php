@@ -33,7 +33,7 @@ function cds_ajustes_por_defecto() {
 		'form_ayuda'             => 'https://forms.gle/rh3YaXiLw7xGCpEo9',
 		'form_donacion'          => 'https://forms.gle/EGXjWFJLGKAVc9XB8',
 		'csv_donaciones'         => '',
-		'necesidades'            => "Arroz | 50 | 0 | kg\nAceite | 30 | 0 | litros\nMenestras | 40 | 0 | kg\nRopa de abrigo | 60 | 0 | prendas",
+		'necesidades'            => "Arroz | 40 | 0 | donaciones\nAzúcar | 30 | 0 | donaciones\nAceite | 30 | 0 | donaciones\nMenestras | 30 | 0 | donaciones\nFideos | 30 | 0 | donaciones\nLeche | 30 | 0 | donaciones\nConservas | 30 | 0 | donaciones\nPanetón | 40 | 0 | donaciones\nChocolate para taza | 30 | 0 | donaciones\nJuguetes nuevos | 40 | 0 | donaciones\nRopa de abrigo | 30 | 0 | donaciones\nÚtiles de aseo | 30 | 0 | donaciones",
 		'necesidades_confirmadas' => '',
 		'privacidad'             => 'Tus datos solo los ve el equipo del grupo, se usan únicamente para responderte y no se comparten con nadie (Ley N.° 29733).',
 		'bot_fallback'           => 'No estoy seguro de cómo responder eso. Si quieres, escríbenos por WhatsApp o desde la página Contacto.',
