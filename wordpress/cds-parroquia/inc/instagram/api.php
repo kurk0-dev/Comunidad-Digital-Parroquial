@@ -336,6 +336,33 @@ add_action(
 		}
 	}
 );
+/*
+ * El usuario de la cuenta conectada manda en los enlaces (ver cds_ig_perfil()), así
+ * que se vuelve a leer de Meta en cuanto puede haber cambiado, sin esperar 3 horas:
+ *   - al guardar una dirección de Instagram distinta en Ajustes → Datos del sitio;
+ *   - una vez, al subir una versión nueva del tema.
+ */
+add_action(
+	'update_option_' . CDS_OPCION,
+	static function ( $antes, $despues ) {
+		$antes   = is_array( $antes ) ? (string) ( $antes['instagram'] ?? '' ) : '';
+		$despues = is_array( $despues ) ? (string) ( $despues['instagram'] ?? '' ) : '';
+		if ( $antes !== $despues && '' !== cds_ig_datos()['token'] ) {
+			cds_ig_sincronizar();
+		}
+	},
+	10,
+	2
+);
+add_action(
+	'admin_init',
+	static function () {
+		if ( CDS_VERSION !== get_option( 'cds_ig_version' ) ) {
+			update_option( 'cds_ig_version', CDS_VERSION, false );
+			wp_schedule_single_event( time(), 'cds_ig_tarea' );
+		}
+	}
+);
 add_action(
 	'switch_theme',
 	static function () {

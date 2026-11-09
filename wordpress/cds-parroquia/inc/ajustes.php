@@ -26,7 +26,7 @@ function cds_ajustes_por_defecto() {
 		'coordenadas'            => '-12.0405377,-76.925658',
 		'etiqueta_mapa'          => 'Capilla Divino Niño',
 		'direccion'              => 'Irlanda, Lima 15494 · Plus Code X35F+QPP',
-		'facebook'               => 'https://www.facebook.com/diocesis.de.chosica.grupo.3',
+		'facebook'               => 'https://www.facebook.com/grupo.divino.ninio.jesus/',
 		'instagram'              => 'https://www.instagram.com/grupo.divinonino/',
 		'correo'                 => 'diocesisdechosica.zona3@gmail.com',
 		'form_contacto'          => 'https://forms.gle/11zNVewNfNEiNDNy7',

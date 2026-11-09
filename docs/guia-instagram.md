@@ -13,7 +13,7 @@ Cuentas del grupo:
 
 - Gmail: diocesisdechosica.zona3@gmail.com (dueño de todo)
 - Instagram: https://www.instagram.com/grupo.divinonino/
-- Facebook: https://www.facebook.com/diocesis.de.chosica.grupo.3
+- Facebook: https://www.facebook.com/grupo.divino.ninio.jesus/
 
 > Las pantallas de Meta cambian seguido. Si un botón tiene otro nombre, busca la opción
 > equivalente: el camino es el mismo.
@@ -33,7 +33,7 @@ Sin esto no funciona ni lo de Facebook ni lo de la web. Es gratis.
 
 ### B.1 Revisa que el Facebook sea una **página**, no un perfil personal
 
-Abre facebook.com/diocesis.de.chosica.grupo.3 desde otra cuenta:
+Abre facebook.com/grupo.divino.ninio.jesus desde otra cuenta:
 
 - Si ves **"Seguir" o "Me gusta"** → es una página. Sigue con B.2.
 - Si ves **"Agregar a amigos"** → es un perfil personal. Facebook no permite perfiles
