@@ -93,6 +93,28 @@ function cds_ig_datos() {
 	return $d;
 }
 
+/**
+ * Dirección del perfil de Instagram que se muestra en la web.
+ *
+ * Si hay una cuenta conectada, se arma con su usuario actual (cada sincronización
+ * con Meta lo vuelve a leer): así, si el grupo cambia el nombre de la cuenta, los
+ * enlaces se corrigen solos. Si no hay cuenta conectada, se usa la dirección de
+ * Ajustes → Datos del sitio. Si ese campo está vacío, no hay enlace.
+ *
+ * Lee la opción sin descifrar el token: no hace falta para esto.
+ *
+ * @return string
+ */
+function cds_ig_perfil() {
+	$ajuste = cds_url_segura( cds_ajuste( 'instagram' ) );
+	if ( ! $ajuste ) {
+		return '';
+	}
+	$g = get_option( CDS_IG_OPCION, array() );
+	$u = is_array( $g ) && ! empty( $g['token'] ) ? (string) ( $g['usuario'] ?? '' ) : '';
+	return preg_match( '/^[A-Za-z0-9._]{1,30}$/', $u ) ? 'https://www.instagram.com/' . $u . '/' : $ajuste;
+}
+
 /** Guarda el estado cifrando el token, sin cargarlo en cada página (autoload desactivado). */
 function cds_ig_guardar( $d ) {
 	$d['token'] = cds_ig_cifrar( (string) ( $d['token'] ?? '' ) );

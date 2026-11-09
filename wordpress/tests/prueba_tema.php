@@ -133,10 +133,10 @@ comprobar( 'Ubicación por defecto: Capilla Divino Niño', 'Capilla Divino Niño
 
 
 /* ---- 4. Redes e Instagram ---- */
-comprobar( 'Datos por defecto: redes y correo del grupo', 'https://www.instagram.com/diocesischosica_grupo3/' === cds_ajustes_por_defecto()['instagram'] && 'diocesisdechosica.zona3@gmail.com' === cds_ajustes_por_defecto()['correo'] );
-$GLOBALS['opciones'] = array( CDS_OPCION => array( 'instagram' => 'https://www.instagram.com/diocesischosica_grupo3/', 'facebook' => 'javascript:alert(1)', 'correo' => 'diocesisdechosica.zona3@gmail.com', 'whatsapp' => '' ) );
+comprobar( 'Datos por defecto: redes y correo del grupo', 'https://www.instagram.com/grupo.divinonino/' === cds_ajustes_por_defecto()['instagram'] && 'diocesisdechosica.zona3@gmail.com' === cds_ajustes_por_defecto()['correo'] );
+$GLOBALS['opciones'] = array( CDS_OPCION => array( 'instagram' => 'https://www.instagram.com/grupo.divinonino/', 'facebook' => 'javascript:alert(1)', 'correo' => 'diocesisdechosica.zona3@gmail.com', 'whatsapp' => '' ) );
 $sig = $A['cds_siguenos']();
-comprobar( 'Síguenos: Instagram con @usuario sacado de la URL', false !== strpos( $sig, '@diocesischosica_grupo3' ) );
+comprobar( 'Síguenos: Instagram con @usuario sacado de la URL', false !== strpos( $sig, '@grupo.divinonino' ) );
 comprobar( 'Síguenos: Facebook "javascript:" no aparece', false === strpos( $sig, 'javascript' ) && false === strpos( $sig, 'cds-red--facebook' ) );
 comprobar( 'Síguenos: correo como mailto y sin WhatsApp vacío', false !== strpos( $sig, 'mailto:diocesisdechosica.zona3@gmail.com' ) && false === strpos( $sig, 'cds-red--whatsapp' ) );
 comprobar( 'Instagram sin publicaciones: la sección no aparece', '' === $A['cds_instagram']( array() ) );
@@ -150,6 +150,14 @@ $GLOBALS['opciones'][ CDS_IG_OPCION ] = array(
 $feed = $A['cds_instagram']( array( 'limite' => 6 ) );
 comprobar( 'Instagram: solo publicaciones válidas (descarta rutas raras y enlaces ajenos)', 1 === substr_count( $feed, '<li>' ) && false === strpos( $feed, 'wp-config' ) && false === strpos( $feed, 'evil' ) );
 comprobar( 'Instagram: el texto se escapa', false === strpos( $feed, '<b>' ) );
+$GLOBALS['opciones'][ CDS_OPCION ]['instagram'] = 'https://www.instagram.com/nombre_viejo/';
+$GLOBALS['opciones'][ CDS_IG_OPCION ]            = array( 'token' => 'x', 'usuario' => 'grupo.divinonino' );
+comprobar( 'Instagram: si la cuenta cambió de nombre, el enlace usa el usuario conectado', 'https://www.instagram.com/grupo.divinonino/' === cds_ig_perfil() );
+$GLOBALS['opciones'][ CDS_IG_OPCION ] = array( 'token' => 'x', 'usuario' => 'malo"><script>' );
+comprobar( 'Instagram: un usuario raro no se usa (queda el de los ajustes)', 'https://www.instagram.com/nombre_viejo/' === cds_ig_perfil() );
+$GLOBALS['opciones'][ CDS_OPCION ]['instagram'] = '';
+$GLOBALS['opciones'][ CDS_IG_OPCION ]            = array( 'token' => 'x', 'usuario' => 'grupo.divinonino' );
+comprobar( 'Instagram: con el campo vacío no hay enlace aunque esté conectado', '' === cds_ig_perfil() );
 comprobar( 'Instagram: imágenes solo del CDN de Meta y por https', cds_ig_origen_valido( 'https://scontent.cdninstagram.com/a.jpg' ) && ! cds_ig_origen_valido( 'https://cdninstagram.com.evil.net/a.jpg' ) && ! cds_ig_origen_valido( 'http://x.fbcdn.net/a.jpg' ) );
 /* ---- 5. Seguridad del token y de las cabeceras ---- */
 $cifrado = cds_ig_cifrar( 'EAApruebaSecreta123' );

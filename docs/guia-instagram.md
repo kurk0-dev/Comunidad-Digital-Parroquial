@@ -12,7 +12,7 @@ Instagram ──┤
 Cuentas del grupo:
 
 - Gmail: diocesisdechosica.zona3@gmail.com (dueño de todo)
-- Instagram: https://www.instagram.com/diocesischosica_grupo3/
+- Instagram: https://www.instagram.com/grupo.divinonino/
 - Facebook: https://www.facebook.com/diocesis.de.chosica.grupo.3
 
 > Las pantallas de Meta cambian seguido. Si un botón tiene otro nombre, busca la opción
@@ -69,7 +69,7 @@ da permiso de **solo lectura** sobre la cuenta.
 2. Caso de uso: **Administrar mensajes y contenido en Instagram** (*Instagram API
    with Instagram Login*). Tipo: **Empresa**. Nombre: "Web Divino Niño".
 3. Dentro de la app: **Roles de la app → Roles → Evaluadores de Instagram → Agregar**
-   y escribe `diocesischosica_grupo3`.
+   y escribe `grupo.divinonino`.
 4. Acepta la invitación **desde Instagram**: Configuración → **Permisos de sitios
    web → Apps y sitios web → Invitaciones de evaluador → Aceptar**.
 5. Vuelve a la app: **Configuración de la API con inicio de sesión de Instagram →
@@ -101,7 +101,7 @@ no necesita la revisión de Meta.
 
 1. WordPress → **Ajustes → Datos del sitio** → baja hasta **Instagram en la web**.
 2. Pega el token → **Conectar Instagram**.
-3. Debe decir **"Conectado como @diocesischosica_grupo3"** y cuántas publicaciones
+3. Debe decir **"Conectado como @grupo.divinonino"** y cuántas publicaciones
    guardó. Abre Inicio: aparece "Lo último que publicamos" y las fotos dentro del
    bloque rojo de Instagram en "Síguenos en redes".
 

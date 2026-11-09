@@ -15,7 +15,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CDS_VERSION', '1.8.0' );
+define( 'CDS_VERSION', '1.8.1' );
 
 /*
  * Módulos del tema, cada uno con una sola responsabilidad. El orden importa:

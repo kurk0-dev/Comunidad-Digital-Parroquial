@@ -238,7 +238,7 @@ cuando el repo esté conectado (Add New Project → Import → Framework Preset:
 - [x] Ubicación: Capilla Divino Niño (-12.0405377, -76.925658).
 - [ ] Conectar el repo a Vercel.
 - [x] Gmail del grupo: diocesisdechosica.zona3@gmail.com (dueño de Forms, Sheets e Instagram).
-- [x] Instagram (@diocesischosica_grupo3) y Facebook (diocesis.de.chosica.grupo.3) creados.
+- [x] Instagram (@grupo.divinonino) y Facebook (diocesis.de.chosica.grupo.3) creados.
 - [ ] Instagram profesional + compartir automático a Facebook + token pegado en WordPress
       (Ajustes → Datos del sitio → Instagram en la web; `docs/guia-instagram.md`). En WordPress el
       token vive en la base de datos (`inc/instagram.php`), no en GitHub; se renueva solo cada semana.

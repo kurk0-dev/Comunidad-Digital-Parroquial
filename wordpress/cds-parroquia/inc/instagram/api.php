@@ -257,7 +257,11 @@ function cds_ig_sincronizar() {
 		'limit'  => CDS_IG_CANTIDAD,
 	);
 	if ( $es_fb ) {
-		$perfil = array( 'username' => $d['usuario'] );
+		// Se vuelve a leer el usuario: si la cuenta cambió de nombre, la web lo toma.
+		$perfil = ctype_digit( (string) $d['ig_id'] ) ? cds_ig_pedir( $d['ig_id'], array( 'fields' => 'username' ), $d['token'], CDS_IG_API_FB ) : null;
+		if ( ! is_array( $perfil ) || empty( $perfil['username'] ) ) {
+			$perfil = array( 'username' => $d['usuario'] );
+		}
 		$medios = ctype_digit( (string) $d['ig_id'] )
 			? cds_ig_pedir( $d['ig_id'] . '/media', $campos, $d['token'], CDS_IG_API_FB )
 			: new WP_Error( 'cds_ig_sin_id', 'Falta el id de la cuenta de Instagram. Pega el token de nuevo.' );

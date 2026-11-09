@@ -48,7 +48,7 @@ add_shortcode(
 			return ''; // Sin publicaciones la sección no aparece: nunca un recuadro vacío.
 		}
 		$carpeta = cds_ig_carpeta();
-		$perfil  = cds_url_segura( cds_ajuste( 'instagram' ) );
+		$perfil  = cds_ig_perfil();
 		$usuario = cds_ig_usuario_de_url( $perfil );
 
 		$html  = '<div class="cds-ig">';

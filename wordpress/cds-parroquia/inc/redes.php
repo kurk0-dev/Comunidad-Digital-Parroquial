@@ -27,7 +27,7 @@ add_shortcode(
 		}
 		$enlaces = array(
 			'Facebook'    => cds_url_segura( cds_ajuste( 'facebook' ) ),
-			'Instagram'   => cds_url_segura( cds_ajuste( 'instagram' ) ),
+			'Instagram'   => cds_ig_perfil(),
 			'Cómo llegar' => 'no' === $a['mapa'] ? '' : cds_url_maps(),
 		);
 		$correo = sanitize_email( cds_ajuste( 'correo' ) );
@@ -75,7 +75,7 @@ add_shortcode(
 	static function () {
 		$redes = array();
 
-		$ig = cds_url_segura( cds_ajuste( 'instagram' ) );
+		$ig = cds_ig_perfil();
 		if ( $ig ) {
 			$usuario = function_exists( 'cds_ig_usuario_de_url' ) ? cds_ig_usuario_de_url( $ig ) : '';
 			$redes[] = array( 'instagram', $ig, 'Instagram', $usuario ? '@' . $usuario : 'Nuestro perfil', 'Fotos y videos de cada reunión y evento.', true );
@@ -130,7 +130,7 @@ function cds_redes_cajas() {
 	$correo = sanitize_email( cds_ajuste( 'correo' ) );
 	$lista  = array(
 		array( 'facebook', 'Facebook', cds_url_segura( cds_ajuste( 'facebook' ) ) ),
-		array( 'instagram', 'Instagram', cds_url_segura( cds_ajuste( 'instagram' ) ) ),
+		array( 'instagram', 'Instagram', cds_ig_perfil() ),
 		array( 'correo', 'Correo', $correo && is_email( $correo ) ? 'mailto:' . $correo : '' ),
 	);
 	foreach ( $lista as list( $clave, $nombre, $url ) ) {
