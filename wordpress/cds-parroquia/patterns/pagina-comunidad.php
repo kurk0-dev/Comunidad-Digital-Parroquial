@@ -3,7 +3,7 @@
  * Title: Página de Comunidad
  * Slug: cds/pagina-comunidad
  * Categories: cds-paginas
- * Description: Próximos eventos, últimas publicaciones de Instagram, eventos pasados con sus fotos (viernes y carrusel), testimonios y redes.
+ * Description: Próximos eventos (fiesta del Divino Niño y Santo Rosario), últimas publicaciones de Instagram, eventos pasados con sus fotos (viernes y carrusel), testimonios y redes.
  * Inserter: yes
  *
  * @package cds
@@ -57,15 +57,43 @@ $cds_fotos = array(
 
 <!-- wp:group {"className":"is-style-tarjeta"} -->
 <div class="wp-block-group is-style-tarjeta"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
-<p class="cds-sobretitulo">Fecha por confirmar</p>
+<p class="cds-sobretitulo">Del viernes 6 al domingo 15 de noviembre · Capilla Divino Niño</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
-<h3 class="wp-block-heading is-style-por-confirmar">Próximo evento del grupo</h3>
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Fiesta del Divino Niño Jesús 2026</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Aquí aparecerán los retiros, vigilias, seminarios y encuentros del grupo. Para agregar uno, duplica esta tarjeta y cambia el texto.</p>
+<p>Celebramos 36 años de la llegada de la imagen del Divino Niño Jesús a la urbanización Los Portales de Javier Prado. Cada día hay misa en su honor a las 6:00 p. m. y novena a las 7:00 p. m.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"cds-puntos"} -->
+<ul class="wp-block-list cds-puntos"><!-- wp:list-item -->
+<li><strong>Viernes 13:</strong> misa a las 6:00 p. m. y novena a las 7:00 p. m. La novena la anima nuestro Grupo de Oración.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Sábado 14:</strong> misa a las 6:30 p. m. y novena a las 7:30 p. m.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Domingo 15:</strong> misa solemne a las 10:00 a. m. y, a las 11:30 a. m., procesión del Divino Niño por las calles de la urbanización.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"is-style-tarjeta"} -->
+<div class="wp-block-group is-style-tarjeta"><!-- wp:paragraph {"className":"cds-sobretitulo"} -->
+<p class="cds-sobretitulo">Todos los viernes · 5:00 p. m.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Santo Rosario al Divino Niño</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>La Cuadrilla del Divino Niño Jesús invita a todos los devotos a rezar juntos el Santo Rosario. ¡Te esperamos con mucha fe y alegría!</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -102,8 +130,8 @@ $cds_fotos = array(
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:heading {"level":4,"className":"is-style-por-confirmar"} -->
-<h4 class="wp-block-heading is-style-por-confirmar">Revive cada viernes</h4>
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Revive cada viernes</h4>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"pequena"} -->
@@ -141,26 +169,34 @@ $cds_fotos = array(
 
 <!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:quote {"className":"is-style-por-confirmar"} -->
-<blockquote class="wp-block-quote is-style-por-confirmar"><!-- wp:paragraph -->
+<div class="wp-block-column"><!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
 <p>Cuando mi esposo se quedó sin trabajo, el grupo nos acompañó. No fue solo la ayuda: fue saber que no estábamos solos.</p>
 <!-- /wp:paragraph --><cite>Miembro de la comunidad</cite></blockquote>
 <!-- /wp:quote --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:quote {"className":"is-style-por-confirmar"} -->
-<blockquote class="wp-block-quote is-style-por-confirmar"><!-- wp:paragraph -->
+<div class="wp-block-column"><!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
 <p>Llegué al seminario sin conocer a nadie y salí con una comunidad que ora por mí cada semana.</p>
 <!-- /wp:paragraph --><cite>Participante del seminario</cite></blockquote>
 <!-- /wp:quote --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:quote {"className":"is-style-por-confirmar"} -->
-<blockquote class="wp-block-quote is-style-por-confirmar"><!-- wp:paragraph -->
+<div class="wp-block-column"><!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
 <p>Empecé como voluntaria por tres meses y llevo cuatro años. Aquí uno recibe más de lo que da.</p>
 <!-- /wp:paragraph --><cite>Servidora del grupo</cite></blockquote>
+<!-- /wp:quote --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p>Los miércoles llego cansada y salgo con el corazón en paz.</p>
+<!-- /wp:paragraph --><cite>Miembro de la asamblea</cite></blockquote>
 <!-- /wp:quote --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->

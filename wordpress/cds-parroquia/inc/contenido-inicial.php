@@ -32,12 +32,12 @@ function cds_paginas_iniciales() {
 /** Preguntas del bot alineadas al Backlog (HU-15, HU-16, HU-17, HU-19). */
 function cds_preguntas_iniciales() {
 	return array(
-		array( '¿A qué hora son las misas?', 'Puedes ver todos los horarios de misa, incluidas las fechas especiales, en la página Misas. Desde ahí también puedes agregar la misa dominical a tu Google Calendar.', array( 'horario', 'horarios', 'misa', 'misas', 'a que hora', 'cuando hay misa' ) ),
+		array( '¿A qué hora son las misas?', 'En la Capilla Divino Niño hay misa los domingos a las 10:00 a. m. En la Parroquia San Francisco Javier, los domingos a las 8:00 a. m. y 7:00 p. m., y entre semana a las 7:00 p. m. En la página Misas puedes guardar la misa en tu Google Calendar.', array( 'horario', 'horarios', 'misa', 'misas', 'a que hora', 'cuando hay misa' ) ),
 		array( '¿Qué necesito para un bautizo?', 'Para el bautizo se pide: 1) partida de nacimiento del niño, 2) copia del DNI de los padres, 3) padrinos confirmados y 4) la charla prebautismal. Esta lista aún está por confirmar con la capilla: antes de reunir documentos, confirma requisitos y fechas. Más detalles en la página Servicios.', array( 'bautizo', 'bautismo', 'bautizar', 'bautice', 'bautizen', 'requisitos', 'requisitos de bautizo', 'requisitos para bautizar', 'para bautizar' ) ),
-		array( '¿Cómo puedo donar?', 'En la página Donaciones verás qué se necesita y cuánto falta para cada meta. Solo recibimos donaciones en especie (víveres y ropa), nunca dinero.', array( 'donar', 'donacion', 'donaciones', 'campana', 'ayudar', 'colaborar', 'viveres', 'ropa' ) ),
+		array( '¿Cómo puedo donar?', 'En la página Donaciones verás qué se necesita y cuánto falta para cada meta. Solo recibimos donaciones en especie (víveres y ropa), nunca dinero. Para entregarla, comunícate con el coordinador del grupo de oración al 940 580 505: él te espera en la iglesia.', array( 'donar', 'donacion', 'donaciones', 'campana', 'ayudar', 'colaborar', 'viveres', 'ropa' ) ),
 		array( '¿Cuándo es la catequesis?', 'Inscripciones abiertas para la catequesis de iniciación cristiana. Informes de martes a viernes, de 7:00 p.m. a 9:00 p.m. Niños de 8 a 13 años (Bautismo y Eucaristía) y jóvenes de 15 a 19 años (Bautismo, Eucaristía y Confirmación).', array( 'catequesis', 'primera comunion', 'comunion', 'confirmacion', 'inscripcion' ) ),
 		array( 'Necesito pedir ayuda', 'En la página Contacto hay un formulario de solicitud de ayuda que puedes enviar de forma anónima. Alguien del equipo lo revisará.', array( 'ayuda', 'necesito ayuda', 'apoyo', 'pedir ayuda' ) ),
-		array( '¿Cuándo se reúne el grupo?', 'El Grupo de Oración Divino Niño Jesús se reúne los viernes a las 7:30 p.m. en la Capilla Divino Niño (horario por confirmar). No se paga nada y no hace falta inscribirse: solo ven.', array( 'reunion', 'reunen', 'reune', 'se reunen', 'a que hora se reunen', 'a que hora es la reunion', 'cuando se reunen', 'hora de la reunion', 'grupo de oracion', 'oracion', 'viernes', 'participar', 'primera vez' ) ),
+		array( '¿Cuándo se reúne el grupo?', 'El Grupo de Oración Divino Niño Jesús se reúne los miércoles de 7:30 a 10:00 p. m. en la Capilla Divino Niño. No se paga nada y no hace falta inscribirse: solo ven.', array( 'reunion', 'reunen', 'reune', 'se reunen', 'a que hora se reunen', 'a que hora es la reunion', 'cuando se reunen', 'hora de la reunion', 'grupo de oracion', 'oracion', 'miercoles', 'participar', 'primera vez' ) ),
 		array( '¿Dónde quedan?', 'Nos reunimos en la Capilla Divino Niño (Irlanda, Lima). En la página Inicio hay un mapa: tócalo para abrir la ruta en Google Maps.', array( 'donde', 'direccion', 'ubicacion', 'como llego', 'mapa', 'capilla' ) ),
 	);
 }
@@ -230,7 +230,8 @@ function cds_crear_contenido_inicial() {
 }
 
 /**
- * Pone en las 6 páginas el contenido actual de los patrones del tema.
+ * Pone en las 6 páginas el contenido actual de los patrones del tema, y en las
+ * respuestas del bot el texto actual de cds_preguntas_iniciales().
  *
  * Sirve para llevar al sitio publicado los cambios hechos en el tema (fotos,
  * secciones). WordPress guarda lo anterior como revisión de cada página, así
@@ -258,6 +259,26 @@ function cds_actualizar_paginas() {
 			true
 		);
 		$hechos[] = is_wp_error( $r ) ? 'No se pudo actualizar ' . $titulo : 'Página actualizada: ' . $titulo;
+	}
+
+	// Respuestas del bot: las que tienen el mismo título que una pregunta del tema
+	// toman su texto y sus palabras clave (horarios, números…). Las demás no se tocan.
+	foreach ( cds_preguntas_iniciales() as list( $titulo, $respuesta, $claves ) ) {
+		$pregunta = get_posts(
+			array(
+				'post_type'   => 'cds_pregunta',
+				'post_status' => 'any',
+				'title'       => $titulo,
+				'numberposts' => 1,
+			)
+		);
+		$contenido = '<!-- wp:paragraph --><p>' . esc_html( $respuesta ) . '</p><!-- /wp:paragraph -->';
+		if ( ! $pregunta || $contenido === $pregunta[0]->post_content ) {
+			continue;
+		}
+		wp_update_post( array( 'ID' => $pregunta[0]->ID, 'post_content' => wp_slash( $contenido ) ) );
+		wp_set_object_terms( $pregunta[0]->ID, $claves, 'cds_clave' );
+		$hechos[] = 'Respuesta del bot actualizada: ' . $titulo;
 	}
 	$lema = 'Renovación Carismática Católica · Capilla Divino Niño';
 	if ( get_option( 'blogdescription' ) !== $lema ) {
@@ -297,7 +318,7 @@ function cds_pagina_contenido() {
 	echo '</form>';
 
 	echo '<h2>Actualizar páginas con la versión del tema</h2>';
-	echo '<p>Pone en las 6 páginas las fotos y secciones de la última versión del tema. Úsalo después de subir un tema nuevo. Lo que hayas cambiado a mano en esas páginas no se pierde: queda en <strong>Revisiones</strong> al editar cada página.</p>';
+	echo '<p>Pone en las 6 páginas (y en las respuestas del bot) los textos, fotos y secciones de la última versión del tema. Úsalo después de subir un tema nuevo. Lo que hayas cambiado a mano en esas páginas no se pierde: queda en <strong>Revisiones</strong> al editar cada página.</p>';
 	echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" onsubmit="return confirm(&quot;¿Reemplazar el contenido de las 6 páginas por la versión del tema?&quot;);">';
 	echo '<input type="hidden" name="action" value="cds_actualizar_paginas">';
 	wp_nonce_field( 'cds_actualizar_paginas' );

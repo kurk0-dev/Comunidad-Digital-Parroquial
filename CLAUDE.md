@@ -244,11 +244,13 @@ cuando el repo esté conectado (Add New Project → Import → Framework Preset:
       token vive en la base de datos (`inc/instagram.php`), no en GitHub; se renueva solo cada semana.
 - [ ] Formulario y hoja de donaciones (`docs/guia-donaciones-sheets.md`).
 - [x] Formularios de contacto, ayuda (anónimo) y donación creados y enlazados (`docs/guia-formularios.md`). Falta: avisos por correo y que pastoral confirme las opciones de ayuda.
-- [ ] WhatsApp del coordinador y su horario de atención.
-- [ ] Día y hora de la reunión semanal.
+- [x] Coordinador del grupo (donaciones): 940 580 505, en la página Donaciones. Falta su horario de atención.
+- [x] Reunión semanal: miércoles de 7:30 a 10:00 p. m. (Inicio y bot).
 - [ ] Los 7 temas del seminario (uno se ve en las fotos: "El pecado y sus consecuencias") y fecha del próximo.
 - [ ] Relación Capilla Divino Niño ↔ Parroquia San Francisco Javier; ¿la catequesis aplica?
-- [ ] Horarios de misa, confesiones y servicios de la capilla.
+- [x] Horarios de misa: capilla domingo 10:00 a. m.; Parroquia San Francisco Javier domingo 8:00 a. m. y 7:00 p. m., entre semana 7:00 p. m. (página Misas).
+- [ ] Confesiones y servicios de la capilla (la página Servicios sigue con "Por confirmar").
+- [ ] Testimonios reales con permiso: los 4 de Comunidad son inventados y ya no llevan la etiqueta.
 - [ ] Lista real de la campaña de Navidad (productos, metas, lo que no se recibe, horarios de entrega).
 - [ ] Historia del grupo, misión oficial (la actual es provisional) y servidores con permiso.
 - [ ] Criterio sobre fotos de niños.

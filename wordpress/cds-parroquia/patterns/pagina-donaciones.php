@@ -32,13 +32,23 @@
 
 <!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column {"className":"is-style-tarjeta"} -->
-<div class="wp-block-column is-style-tarjeta"><!-- wp:heading {"level":3,"className":"is-style-por-confirmar"} -->
-<h3 class="wp-block-heading is-style-por-confirmar">Punto y jornada de acopio</h3>
+<div class="wp-block-column is-style-tarjeta"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Dónde y cómo entregar</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Capilla Divino Niño. Días y horario de entrega por confirmar. La jornada principal se realizará a más tardar el 15 de noviembre.</p>
+<p>Antes de venir, comunícate con el coordinador del grupo de oración al <strong><a href="tel:+51940580505">940 580 505</a></strong>. Él te espera en la iglesia para recibir tu donación. La jornada principal se realizará a más tardar el 15 de noviembre.</p>
 <!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"linkTarget":"_blank","rel":"noreferrer noopener"} -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://wa.me/51940580505?text=Hola%2C%20quiero%20coordinar%20la%20entrega%20de%20una%20donaci%C3%B3n%20para%20la%20campa%C3%B1a." target="_blank" rel="noreferrer noopener">Escribir por WhatsApp</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="tel:+51940580505">Llamar</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
 
 <!-- wp:shortcode -->
 [cds_como_llegar]

@@ -9,7 +9,7 @@
  * [cds_formulario tipo="contacto|ayuda|donacion"]
  * [cds_privacidad]                              Aviso de datos en letra pequeña
  * [cds_qr]                                      QR que abre la página actual
- * [cds_calendario titulo dia hora duracion]     Evento en Google Calendar
+ * [cds_calendario titulo dia hora duracion lugar] Evento semanal en Google Calendar
  *
  * Toda URL pasa por cds_url_segura() o se construye aquí con datos validados.
  *
@@ -137,6 +137,7 @@ add_shortcode(
 				'dia'      => 'domingo',
 				'hora'     => '10:00',
 				'duracion' => '60',
+				'lugar'    => '', // Vacío: la dirección de Ajustes → Datos del sitio.
 				'texto'    => 'Agregar a Google Calendar',
 			),
 			$atts
@@ -146,7 +147,8 @@ add_shortcode(
 		if ( ! preg_match( '/^(\d{1,2}):(\d{2})$/', $a['hora'], $m ) ) {
 			return '';
 		}
-		$zona   = wp_timezone();
+		// Las misas son en Lima: no depende de la zona horaria configurada en WordPress.
+		$zona   = new DateTimeZone( 'America/Lima' );
 		$inicio = new DateTimeImmutable( 'now', $zona );
 		$faltan = ( $dia - (int) $inicio->format( 'N' ) + 7 ) % 7;
 		$inicio = $inicio->modify( '+' . ( $faltan ? $faltan : 7 ) . ' days' )->setTime( (int) $m[1], (int) $m[2] );
@@ -154,11 +156,12 @@ add_shortcode(
 
 		$parametros = array(
 			'action'   => 'TEMPLATE',
-			'text'     => $a['titulo'] . ' — ' . get_bloginfo( 'name' ),
+			'text'     => $a['titulo'],
 			'dates'    => $inicio->format( 'Ymd\THis' ) . '/' . $fin->format( 'Ymd\THis' ),
-			'ctz'      => wp_timezone_string(),
-			'details'  => $a['titulo'] . ' en ' . get_bloginfo( 'name' ) . '.',
-			'location' => cds_ajuste( 'direccion' ),
+			'ctz'      => 'America/Lima',
+			'details'  => 'Agregado desde la web del ' . get_bloginfo( 'name' ) . '.',
+			'location' => '' !== trim( $a['lugar'] ) ? sanitize_text_field( $a['lugar'] ) : cds_ajuste( 'direccion' ),
+			'recur'    => 'RRULE:FREQ=WEEKLY', // La misa se repite cada semana en el calendario.
 		);
 		$url = 'https://calendar.google.com/calendar/render?' . http_build_query( $parametros, '', '&', PHP_QUERY_RFC3986 );
 		return '<a class="cds-boton" href="' . esc_url( $url ) . '" target="_blank" rel="noopener">' . esc_html( $a['texto'] ) . '</a>';
